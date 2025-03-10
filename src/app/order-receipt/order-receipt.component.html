@@ -1,0 +1,45 @@
+<div class="container-fluid" style="padding-top: 50px;">
+    <div class="d-flex flex-column align-items-left justify-content-center" style="min-height: 50px; margin-top: -48px;">
+      <div class="d-inline-flex" style="font-size: 1rem; font-weight: 500; color: black; margin-left: 50px;">
+        <p class="m-0"><a routerLink="/" routerLinkActive="active" class="nav-link" style="cursor: pointer; padding-right: 5px; padding-left: 5px;" title="Return Home">Home</a></p>
+        <p class="m-0 px-2 pt-2 " style="padding-left: -10px;">/</p>
+        <p class="m-0 pt-2 text-primary">Receipt</p>
+      </div>
+    </div>
+  </div>
+  
+  <div class="container px-2" style="padding-left: 15px; padding-right: 15px; ">
+        <div class="order-receipt card p-4 mt-1 pt-1" style="box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);">
+            <h2 class="text-center mb-4" style="color: rgb(251, 82, 82);">Order Successful</h2>
+        
+            <div class="order-details mb-4" style="font-size: 1rem;">
+            <p><strong>Order Code:</strong> {{ orderData.orderId }}</p>
+            <p><strong>Order Date:</strong> {{ orderData.orderDate || 'Chưa có thông tin' }}</p>
+            <p><strong>SubTotal:</strong> {{ orderData.subtotal | number:'1.0-0' }}<u style="font-size: 1rem; margin-right: 10px;">đ</u></p>
+            <p><strong>Discount:</strong> {{ orderData.discountValue | number:'1.0-0' }}<u style="font-size: 1rem; margin-right: 10px;">đ</u></p>
+            <p><strong>Shipping:</strong> {{ orderData.shipping | number:'1.0-0' }}<u style="font-size: 1rem; margin-right: 10px;">đ</u></p>
+            <p><strong>Total Amount:</strong> {{ orderData.totalAmount | number:'1.0-0' }}<u style="font-size: 1rem; margin-right: 10px;">đ</u></p>
+            </div>
+        
+            <h3 class="" style="font-size: 1.2rem;">Product Details:</h3>
+            <div class="order-items">
+            <ul>
+                <li *ngFor="let item of orderData.orderItems">
+                <div class="product-item">
+                    <p><strong>{{ item.name }}</strong></p>
+                    <p>Quantity: {{ item.quantity }}</p>
+                    <p>Price: {{ item.price | number:'1.0-0' }}<u style="font-size: 1rem; margin-right: 10px;">đ</u></p>
+                    <p>Total: {{ item.total | number:'1.0-0' }}<u style="font-size: 1rem; margin-right: 10px;">đ</u></p>
+                </div>
+                <hr />
+                </li>
+            </ul>
+            </div>
+        
+            <div class="text-center">
+            <button class="btn btn-primary" style="border-radius: 20px;">
+                <a routerLink="/" routerLinkActive="active" class="nav-link text-dark" style="cursor: pointer; font-size: 1.2rem;" title="Return Home">Success</a>
+            </button>
+            </div>
+        </div>
+</div>

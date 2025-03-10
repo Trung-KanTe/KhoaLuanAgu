@@ -1,0 +1,12 @@
+{
+  "/command": {
+    "target": "https://localhost:5000",
+    "secure": false,
+    "changeOrigin": true
+  },
+  "/query": {
+    "target": "https://localhost:5000",
+    "secure": false,
+    "changeOrigin": true
+  }
+}

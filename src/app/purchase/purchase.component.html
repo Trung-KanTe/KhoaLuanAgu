@@ -1,0 +1,205 @@
+<!-- Page Header Start -->
+<div class="container-fluid" style="padding-top: 50px;">
+    <div class="d-flex flex-column align-items-left justify-content-center" style="min-height: 50px; margin-top: -48px;">
+        <div class="d-inline-flex" style="font-size: 1rem; font-weight: 500; color: black; margin-left: 50px;">
+            <p class="m-0"><a routerLink="/" routerLinkActive="active" class="nav-link" style="cursor: pointer; padding-right: 5px; padding-left: 5px;" title="Return Home">Home</a></p>
+            <p class="m-0 px-2 pt-2 " style="padding-left: -10px;">/</p>
+            <p class="m-0 pt-2 text-primary">Purchase</p>
+        </div>
+    </div>
+</div>
+<!-- Page Header End -->
+
+<div class="container-fluid">
+    <div class="row justify-content-center">
+        <div class="col-8" style="background-color: white; border-radius: 10px; box-shadow: 0 6px 8px rgba(0, 0, 0, 0.7);">
+            <div class="row justify-content-center py-0 px-xl-5 border-left" style="border-bottom: 2px solid #dad3d3;">
+                <div class="col-8">
+                    <nav>
+                        <ul class="d-flex list-unstyled mb-0 justify-content-center align-items-center text-center">
+                            <li class="mx-3">
+                                <a (click)="filterByStatus('all')" [class.active]="selectedStatus === 'all'" class="nav-link" class="nav-link" style="cursor: pointer; font-weight: 500;" title="Return Home">All</a>
+                            </li>
+                            <li style="color: #b4adad;">|</li>
+                            <li class="mx-3">
+                                <a (click)="filterByStatus('pending')" [class.active]="selectedStatus === 'pending'" class="nav-link" style="cursor: pointer; font-weight: 500;" title="Go to Shop">Pending</a>
+                            </li>
+                            <li style="color: #b4adad;">|</li>
+                            <li class="mx-3">
+                                <a (click)="filterByStatus('confirmed')" [class.active]="selectedStatus === 'confirmed'" class="nav-link" style="cursor: pointer; font-weight: 500;" title="Go to Cart">Confirmed</a>
+                            </li>
+                            <li style="color: #b4adad;">|</li>
+                            <li class="mx-3">
+                                <a (click)="filterByStatus('completed')" [class.active]="selectedStatus === 'completed'" class="nav-link" style="cursor: pointer; font-weight: 500;" title="Go to Shop Detail">Completed</a>
+                            </li>
+                            <li style="color: #b4adad;">|</li>
+                            <li class="mx-3">
+                                <a (click)="filterByStatus('canceled')" [class.active]="selectedStatus === 'canceled'" class="nav-link" style="cursor: pointer; font-weight: 500;" title="Go to Shop Detail">Canceled</a>
+                            </li>                       
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+
+            <!-- Danh sách đơn hàng -->
+            <div class="row mt-4">
+                <div class="col-12">
+                    <div class="row" *ngIf="filteredOrders.length > 0; else emptyOrder">
+                        <div class="col-md-12 mb-4" *ngFor="let order of filteredOrders">
+                            <div class="d-flex justify-content-between align-items-center w-100">
+                                <div class="d-flex align-items-center">         
+                                    <span class="text-white"
+                                          style="font-size: 0.6rem; background-color: rgb(233, 57, 57); font-weight: 500;
+                                                 padding: 1px 2px; border-radius: 3px; margin-right: 5px; margin-left: 35px; margin-bottom: 5px;">
+                                        TOP DEALs
+                                    </span>
+                                    <i class="fas fa-store" style="color: #737879; padding-right: 8px; margin-bottom: 5px; padding-left: 8px;"></i>
+                                    <p class="mb-0" style="font-size: 0.85rem; font-weight: 600; margin-bottom: 8px;">{{ order.shopName }}
+                                        - <i style="color: black; font-weight: normal; font-family: Arial, sans-serif;">{{ order.insertedAt | date: 'dd MMM yyyy, hh:mm a' }}</i>
+                                    </p>
+                                </div>
+                                <div class="text-center" style="font-size: 0.9rem;">
+                                    <i class="fas fa-truck" style="color: #17a2b8; padding-right: 8px;"></i>
+                                    <span style="color: #17a2b8; margin-right: 10px;">{{ order.status }}</span>
+                                </div>
+                            </div>
+                    
+                            <div class="p-1" style="border-bottom: 2px solid #aea8a8;">
+                                <div *ngFor="let item of order.orderItems" class="d-flex align-items-start position-relative" style="border-bottom: 1px solid #ece2e2; padding-bottom: 10px;">
+                                    <img [src]="'/assets/img/' + item.productImage" alt="Sản phẩm" 
+                                         style="width: 100px;" class="card-img-top me-4">
+                                    
+                                    <div class="d-flex flex-column w-100">
+                                        <div class="position-relative">
+                                            <h5 class="card-title mb-1" style="font-size: 1.1rem; padding-left: 5px; padding-top: 10px;">
+                                                {{ item.productName }} <span style="margin-left: 6px;">- {{ item.productDescription }}</span>
+                                            </h5>
+                                            <div class="d-flex align-items-center position-absolute" style="color: #fb6969; right: 0; top: 1;">
+                                                <h6 style="font-size: 1.1rem; color: rgb(251, 79, 79); margin-bottom: 0;">
+                                                    {{ item.price | number:'1.0-0' }}<u style="font-size: 1rem;">đ</u>
+                                                </h6>
+                                                <h6 class="text-muted ml-1" style="font-size: 0.85rem; margin-bottom: 0; margin-left: 8px;">
+                                                    <del>730.000<u style="font-size: 0.8rem; margin-right: 10px;">đ</u></del>
+                                                </h6>
+                                            </div>
+                                        </div>
+                                        <p class="mb-0" style="font-size: 0.95rem; color: gray; padding-left: 5px;">
+                                            {{ item.productDetails.size }} - {{ item.productDetails.color }} <span style="margin-left: 6px;">x{{ item.quantity }}</span>
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="d-flex justify-content-between align-items-center" style="padding: 10px;">
+                                    <p class="card-text mb-0" style="color: black; font-size: 1rem; margin-left: 550px;">
+                                        Total: 
+                                        <span style="margin-left: 6px; color: rgb(251, 79, 79); font-size: 1.2rem; font-weight: 500;">
+                                            {{ order.totalAmount | number }}đ
+                                        </span>
+                                    </p>
+                                    
+                                    <div class="d-flex">
+                                        <button class="btn-buy" style="margin-right: 10px;"
+                                            [ngClass]="{
+                                                'btn-cancel': order.status === 'pending',
+                                                'btn-received': order.status === 'confirmed',
+                                                'btn-buy': order.status === 'completed' || order.status === 'canceled'
+                                            }"
+                                            (click)="onActionClick(order)">
+                                            {{ order.status === 'pending' ? 'Cancel' : order.status === 'confirmed' ? 'Received' : 'Buy back' }}
+                                        </button>
+                                
+                                        <!-- Hiển thị nút "Đánh giá" khi đơn hàng đã hoàn thành -->
+                                        <button class="btn-buy" *ngIf="order.status === 'completed'" (click)="onReviewClick(order)">
+                                            Review
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>                          
+                        </div>                                          
+                    </div>
+                    
+                    <!-- Khi không có orderItems, hiển thị nội dung thay thế -->
+                    <ng-template #emptyOrder>
+                        <div class="text-center mt-4">
+                            <i class="fa-solid fa-book fa-3x text-gray-400 position-relative"></i>
+                            <i class="fa-solid fa-pen fa-lg text-gray-500 position-absolute" style="padding-top: 20px;"></i>
+                            <p style="margin-top: 15px;">No orders found.</p>
+                        </div>
+                    </ng-template>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal Order Cancel -->
+<div class="modal-overlay d-flex align-items-center justify-content-center" *ngIf="showModal" 
+  style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.6); z-index: 999;">
+  
+  <div class="col-md-6 bg-white p-4 rounded shadow position-relative" style="max-width: 600px;">
+    <div class="d-flex align-items-center justify-content-between mb-4" style="border-bottom: 1px solid black;">
+      <h4 class="mb-0" style="font-size: 1.3rem;">Reason for order cancellation</h4>
+      <button class="close-btn position-absolute" (click)="closeModal()" 
+        style="top: 5px; right: 5px; background: none; border: none; cursor: pointer;">
+        <i class="fas fa-times" style="color: #f85757; font-size: 1.2rem;"></i>
+      </button>
+    </div>
+
+    <div class="form-group mb-3">
+      <label class="lbl-brand">Reason</label>
+      <input class="form-control" type="text" [(ngModel)]="orderCancel.reason" 
+        placeholder="Enter reason..." 
+        style="font-size: 0.9rem; border: 1px solid rgb(34, 34, 35); border-radius: 10px;">
+    </div>                 
+
+    <div class="d-flex justify-content-end mt-3">     
+      <button class="btn btn-primary" (click)="saveChanges()" style="border-radius: 10px;">Submit</button>
+    </div>
+  </div>
+</div>
+
+<!-- Modal Review Product -->
+<div class="modal-overlay d-flex align-items-center justify-content-center" *ngIf="showModalReview" 
+  style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.6); z-index: 999;">
+  
+  <div class="col-md-6 bg-white p-4 rounded shadow position-relative" style="max-width: 600px;">
+    <div class="d-flex align-items-center justify-content-between mb-4" style="border-bottom: 1px solid black;">
+      <h4 class="mb-0" style="font-size: 1.3rem;">Product reviews</h4>
+      <button class="close-btn position-absolute" (click)="closeModalReview()" 
+        style="top: 5px; right: 5px; background: none; border: none; cursor: pointer;">
+        <i class="fas fa-times" style="color: #f85757; font-size: 1.2rem;"></i>
+      </button>
+    </div>
+
+    <!-- Comment -->
+    <div class="form-group mb-3">
+      <label class="lbl-brand">Comment</label>
+      <input class="form-control" type="text" [(ngModel)]="productReview.comment" 
+        placeholder="Enter comment..." 
+        style="font-size: 0.9rem; border: 1px solid rgb(34, 34, 35); border-radius: 10px;">
+    </div>    
+
+     <!-- Upload image -->
+     <div class="form-group mb-4">
+        <label class="lbl-brand">Image</label>
+        <input 
+          type="file" 
+          accept="image/*" 
+          (change)="onFileSelected($event)" 
+          class="form-control file-input"
+          style="font-size: 1rem; border: 1px solid rgb(24, 25, 26); border-radius: 10px; padding-top: 4px;"> 
+      </div>   
+
+    <!-- Đánh giá 5 sao -->
+    <div class="star-rating d-flex justify-content-center mb-3">
+      <i *ngFor="let star of [1,2,3,4,5]" 
+        class="fas fa-star"
+        [ngClass]="{'selected-star': star <= productReview.rating}"
+        (click)="setRating(star)">
+      </i>
+    </div>
+
+    <div class="d-flex justify-content-end mt-3">     
+      <button class="btn btn-primary" (click)="saveChangesReview()" style="border-radius: 10px;">Submit</button>
+    </div>
+  </div>
+</div>

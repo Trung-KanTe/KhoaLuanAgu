@@ -1,0 +1,248 @@
+.extra-sale-img {
+    position: absolute;
+    bottom: 0px;  /* Đặt sát mép dưới */
+    left: 0px;    /* Đặt sát mép trái */
+    width: 115px !important;  /* Đảm bảo không bị co giãn */
+    height: 35px !important;
+    object-fit: contain; /* Giữ nguyên tỷ lệ ảnh */
+    z-index: 10;  /* Hiển thị trên ảnh chính */
+}
+
+.product-img {
+    position: relative; /* Để các phần tử con có thể dùng absolute */
+}
+
+.shop-container {
+    position: relative;
+    width: 100%;
+    height: 160px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: url('/assets/img/outdoor-clothes.jpg') no-repeat center center;
+    background-size: cover;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.mask {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.3); /* Mask nền mờ */
+    backdrop-filter: blur(5px);
+}
+
+.shop-info {
+    display: flex;
+    align-items: center;
+    position: relative;
+    z-index: 2;
+    width: 100%;
+}
+
+.shop-logo-container {
+    flex-shrink: 0; /* Giữ cố định không co lại */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+}
+
+.shop-logo {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 3px solid rgb(250, 245, 245);
+}
+
+.shop-favorite {
+    position: absolute;
+    bottom: 16px;
+    left: 50%;
+    transform: translateX(-40%);
+    background-color: #ee4d2d;
+    color: white;
+    font-size: 0.8rem;
+    font-weight: 500;
+    padding: 0px 8px;
+    letter-spacing: 1px;
+    border-radius: 4px;
+    white-space: nowrap;
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.shop-details {
+    flex: 1; /* Mở rộng ra bên phải */
+    display: flex;
+    flex-direction: column;
+    padding-left: 15px; /* Tạo khoảng cách với logo */
+}
+
+.shop-name {
+    font-size: 1.25rem;
+    font-weight: 500;
+    margin-top: 4px;
+    color: white;
+    white-space: nowrap; /* Không xuống dòng */
+    overflow: hidden;
+    text-overflow: ellipsis; /* Hiển thị ... nếu quá dài */
+}
+
+.shop-contact {
+    display: flex;
+    align-items: center;
+    font-size: 0.9rem;
+    color: white;
+    margin-top: 5px;
+}
+
+.shop-contact i {
+    margin-right: 5px;
+    color: #eeeee9;
+}
+
+.sale-img {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* Hiệu ứng khi hover vào ảnh */
+.sale-img:hover {
+    transform: scale(1.1);
+    box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.4);
+}
+
+.sale-image {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* Hiệu ứng khi hover vào ảnh */
+.sale-image:hover {
+    transform: scale(1.1);
+    box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.4);
+}
+
+/* Hiệu ứng ảnh rung nhẹ (floating) */
+@keyframes floating {
+    0% { transform: translateY(0px); }
+    50% { transform: translateY(-5px); }
+    100% { transform: translateY(0px); }
+}
+
+.sale-img {
+    animation: floating 3s infinite ease-in-out;
+}
+
+@keyframes shake {
+    0% { transform: translateX(0); }
+    10% { transform: translateX(-3px) rotate(-1deg); }
+    20% { transform: translateX(3px) rotate(1deg); }
+    30% { transform: translateX(-3px) rotate(-1deg); }
+    40% { transform: translateX(0); }
+    100% { transform: translateX(0); } /* Giữ nguyên trạng thái 3s */
+}
+
+/* Rung 0.3s, nghỉ 3s, rồi mới lặp lại */
+.sale-image {
+    animation: shake 3.2s steps(1, end) infinite;
+}
+
+.sale-imagee {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.sale-imagee {
+    animation: shake 3.2s steps(1, end) infinite;
+}
+
+@media (min-width: 992px) { /* Chỉ áp dụng cho màn hình lớn */
+    .col-lg-1-5 {
+        flex: 0 0 12.5%; /* 12.5% = 1/8 của 100% */
+        max-width: 12.5%;
+    }
+}
+
+.imghover:hover{
+    color: rgb(32, 31, 31) !important;
+}
+
+.imgbrd:hover {
+    border: 1px solid black !important;
+}
+
+.view-all:hover{
+    font-weight: 500;
+    color: red;
+    font-size: 1.1rem;
+}
+
+.extra-sale-img{
+    width: 85px !important;
+    height: 25px !important;
+}
+
+.spanhover:hover {
+    position: relative !important;
+    z-index: 100 !important;
+  }
+
+  .card-header {
+    position: relative;
+    overflow: hidden; /* Vẫn giữ để ảnh không tràn ra */
+  }
+  
+  .card-header .spanhover {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    background-color: rgb(254, 238, 234);
+    color: rgb(254, 28, 43);
+    font-size: 0.8rem;
+    font-weight: 500;
+    padding: 1px 4px;
+    border-radius: 3px;
+    z-index: 10; /* Đảm bảo luôn hiển thị trên ảnh */
+    pointer-events: none; /* Không bị ảnh hưởng khi hover */
+  }
+
+  .top-badge {
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-color: red;
+    color: white;
+    font-size: 0.7rem;
+    font-weight: bold;
+    text-transform: uppercase;
+    padding: 1px 5px;
+    padding-top: 9px;
+    clip-path: polygon(0 0, 100% 0, 100% 75%, 50% 100%, 0 75%);
+    z-index: 10;
+    width: 34px;
+    height: 40px;
+  }
+
+  .custom-btnn {
+    font-size: 1rem;
+    border-radius: 3px;
+    margin-right: 30px;
+    margin-left: 10px;
+    border: 1px solid #ddd;
+    color: black;
+    background-color: white;
+    padding: 5px 15px;
+    transition: all 0.3s ease-in-out;
+}
+
+.custom-btnn:hover {
+    background-color: #f5f5f5;
+    color: #ee4d2d;
+    border-color: #ee4d2d;
+}
+
+.custom-btnn.active {
+    background-color: #ee4d2d;
+    color: white;
+    border-color: #ee4d2d;
+}

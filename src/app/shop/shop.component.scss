@@ -1,0 +1,13 @@
+.extra-sale-img {
+    position: absolute;
+    bottom: 0px;  /* Đặt sát mép dưới */
+    left: 0px;    /* Đặt sát mép trái */
+    width: 115px !important;  /* Đảm bảo không bị co giãn */
+    height: 35px !important;
+    object-fit: contain; /* Giữ nguyên tỷ lệ ảnh */
+    z-index: 10;  /* Hiển thị trên ảnh chính */
+}
+
+.product-img {
+    position: relative; /* Để các phần tử con có thể dùng absolute */
+}

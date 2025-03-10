@@ -1,0 +1,269 @@
+<div class="container-fluid" style="padding-top: 50px; padding-left: 20px;">
+    <div class="d-flex flex-column align-items-left justify-content-center" style="min-height: 50px; margin-top: -48px;">
+        <div class="d-inline-flex" style="font-size: 1rem; font-weight: 500; color: black; margin-left: 50px;">
+            <p class="m-0"><a routerLink="/" routerLinkActive="active" class="nav-link" style="cursor: pointer; padding-right: 5px; padding-left: 5px;" title="Return Home">Home</a></p>
+            <p class="m-0 px-2 pt-2 " style="padding-left: -10px;">/</p>
+            <p class="m-0 pt-2 text-primary">Shop details</p>
+        </div>
+    </div>
+</div>
+<!-- Page Header End -->
+
+<!-- Shop Start -->
+<div class="container-fluid pt-2 pb-4" style="max-width: 1400px">
+    <div class="row">
+        <!-- Cột 1 -->
+        <div class="col-md-4">
+            <div class="shop-container">
+                <div class="mask"></div>
+                <div class="shop-info">
+                    <!-- Giữ logo trong một div riêng biệt -->
+                    <div class="shop-logo-container pl-3 pb-4">
+                        <img [src]="'/assets/img/shops/OWEN_20250209133429.png'" class="shop-logo">
+                        <div class="shop-favorite">Favorite</div> <!-- Nút yêu thích -->
+                    </div>
+                    <!-- Phần chi tiết shop -->
+                    <div class="shop-details mb-4">
+                        <span class="shop-name" style="font-weight: 500;">L'Oreal Paris Official Store</span>
+                        <div class="shop-contact mb-1 mt-0">
+                             <span style="font-size: 0.85rem; font-weight: 300;">Online 8 minutes ago</span>
+                        </div>
+                        <div class="shop-contact mb-1 mt-0">
+                            <i class="fas fa-phone-alt" style="font-size: 0.75rem;"></i> <span style="font-size: 0.95rem; font-weight: 300;">0123 456 789</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Cột 2 -->
+        <div class="col-md-4">
+            <div class="shop-stats ml-2">
+                <div class="stat-item mb-4 mt-1">
+                    <i class="fas fa-gift" style="font-size: 1rem; margin-right: 15px; color: #fe775d;"></i> 
+                    <span style="font-size: 1rem; color: rgb(37, 36, 36);">Product quantity: </span> 
+                    <span style="font-size: 1rem; color: #ee4d2d;">50</span>
+                </div>
+                <div class="stat-item mb-4">
+                    <i class="fas fa-binoculars" style="font-size: 1rem; margin-right: 15px; color: #fe775d;"></i> 
+                    <span style="font-size: 1rem; color: rgb(37, 36, 36);">Views: </span> 
+                    <span style="font-size: 1rem; color: #ee4d2d;">50</span>
+                </div>
+                <div class="stat-item">
+                    <i class="fas fa-comment-dots" style="font-size: 1rem; margin-right: 15px; color: #fe775d;"></i> 
+                    <span style="font-size: 1rem; color: rgb(37, 36, 36);">Order response rate: </span> 
+                    <span style="font-size: 1rem; color: #ee4d2d;">100% (in a few hours)</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Cột 3 -->
+        <div class="col-md-4">
+            <div class="shop-stats ml-2">
+                <div class="stat-item mb-4 mt-1">
+                    <i class="fas fa-coins" style="font-size: 1rem; margin-right: 15px; color: #fe775d;"></i> 
+                    <span style="font-size: 1rem; color: rgb(37, 36, 36);">Number of orders sold: </span> 
+                    <span style="font-size: 1rem; color: #ee4d2d;">50</span>
+                </div>
+                <div class="stat-item mb-4">
+                    <i class="fas fa-star" style="font-size: 1rem; margin-right: 15px; color: #fe775d; "></i> 
+                    <span style="font-size: 1rem; color: rgb(37, 36, 36);">Evaluate: </span> 
+                    <span style="font-size: 1rem; color: #f43914;"><u>4.9</u> (327 reviews)</span>
+                </div>
+                <div class="stat-item">
+                    <i class="fas fa-user-check" style="font-size: 1rem; margin-right: 15px; color: #fe775d;"></i> 
+                    <span style="font-size: 1rem; color: rgb(37, 36, 36);">Participation time: </span> 
+                    <span style="font-size: 1rem; color: #f23a15;">100% (in a few hours)</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Shop End -->
+
+<!-- Products Start -->
+<div class="container-fluid pt-4">
+    <div class="text-center mb-2 d-flex justify-content-between align-items-center">
+        <h4 class="section-title px-5 text-center" style="margin-left: 620px;"><span class="px-2 text-center" >Best Seller</span></h4>
+        <!-- <a routerLink="/shop" class="view-all" style="margin-right: 55px; color: #ee4d2d;"><u>View all &gt;</u></a> -->
+    </div>
+    <div class="row px-xl-5 pb-3">
+        <div *ngFor="let product of productDetails" class="col-2 mb-0" style="padding-left: 5px; padding-right: 5px;">
+            <a [routerLink]="['/product', product.id]" class="text-decoration-none">
+                <div class="card product-item mb-2" style="border-radius: 5px; font-size: 0.9rem;">
+                    <div class="card-header product-img position-relative overflow-hidden bg-transparent border p-0">
+                        <span class="top-badge">TOP</span>
+                        <img class="img-fluid w-100" [src]="'/assets/img/' + product.image" alt="{{product.name}}">
+                        <img class="extra-sale-img" src="/assets/img/ve_1.png" alt="Extra Sale">
+                    </div>
+                    <div class="card-body p-0 pt-1 m-0" style="margin-left: 10px; position: relative;">
+                        <div class="d-flex align-items-center mb-2 position-relative">
+                            <span class="text-white px-1 rounded position-absolute" 
+                                  style="font-size: 0.7rem; background-color: red; left: 5; font-weight: 500; margin-left: 2px;">
+                                <i class="fas fa-heart" style="padding-right: 3px; font-size: 0.65rem;"></i>Favorite 
+                            </span>
+                            <h6 class="text-truncate text-dark m-0 text-left flex-grow-1" 
+                                style="font-size: 0.9rem; padding-left: 76px;">
+                                {{ product.name }}
+                            </h6>
+                        </div>
+                        <div class="d-flex justify-content-left align-items-center" style="color: #fb6969;">
+                            <h6 style="font-size: 0.9rem; color: red; margin-bottom: 0; padding-left: 3px;">
+                                {{ product.price | number:'1.0-0'}}<u style="font-size: 0.8rem;">đ</u>
+                            </h6>
+                            <h6 class="ml-2 text-muted" style="font-size: 0.7rem; margin-bottom: 0;">
+                                <del>730.000<u style="font-size: 0.6rem;">đ</u></del>
+                            </h6>
+                        </div>
+                    </div>
+                    <div class="card-footer d-flex justify-content-between align-items-center p-1" 
+                         style="font-size: 0.75rem; background: none; border: none; margin-bottom: 2px;">
+                        <div class="d-flex align-items-center">
+                            <i class="fas fa-star" style="color: #FFD700; font-size: 0.65rem;"></i>
+                            <i class="fas fa-star" style="color: #FFD700; font-size: 0.65rem;"></i>
+                            <i class="fas fa-star" style="color: #FFD700; font-size: 0.65rem;"></i>
+                            <i class="fas fa-star" style="color: #FFD700; font-size: 0.65rem;"></i>
+                            <i class="fas fa-star" style="color: #FFD700; font-size: 0.65rem;"></i>
+                            <span class="ml-1 text-muted">(150)</span>
+                        </div>
+                        <div class="text-muted" style="font-size: 0.75rem; padding-right: 10px;">
+                            Sold <span>11k</span>
+                        </div>
+                    </div>
+                </div>
+            </a>
+        </div>         
+    </div>
+</div>
+<!-- Products End -->
+
+<!-- Featured Start -->
+<div class="container-fluid pt-1" style="margin-top: 30px;">
+    <div class="row px-xl-5 justify-content-center" style="font-size: 1rem;">
+        <div class="col-lg-3 col-md-6 col-sm-12">
+            <a [routerLink]="['/voucher']" class="text-decoration-none">
+            <div class="d-flex align-items-center mb-4 justify-content-center" style="border-radius: 5px;">
+                <img class="sale-image" src="assets/img/sale_7.png" alt="Sale" style="width: 310px; height: 120px; margin-right: 10px; border-radius: 10px;">
+            </div>
+            </a>
+        </div>
+        <div class="col-lg-3 col-md-6 col-sm-12">
+            <a [routerLink]="['/voucher']" class="text-decoration-none">
+            <div class="d-flex align-items-center mb-4 justify-content-center" style="border-radius: 5px;">
+                <img class="sale-img" src="assets/img/sale_3.png" alt="Sale" style="width: 310px; height: 120px; margin-right: 10px; border-radius: 10px;">
+            </div>
+            </a>
+        </div>
+        <div class="col-lg-3 col-md-6 col-sm-12">
+            <a [routerLink]="['/voucher']" class="text-decoration-none">
+            <div class="d-flex align-items-center mb-4 justify-content-center" style="border-radius: 5px;">
+                <img class="sale-image" src="assets/img/sale_6.png" alt="Sale" style="width: 310px; height: 120px; margin-right: 10px; border-radius: 10px;">
+            </div>
+        </a>
+        </div>
+        <div class="col-lg-3 col-md-6 col-sm-12">
+            <a [routerLink]="['/voucher']" class="text-decoration-none">
+            <div class="d-flex align-items-center mb-4 justify-content-center" style="border-radius: 5px;">
+                <img class="sale-img" src="assets/img/sale_4.png" alt="Sale" style="width: 310px; height: 120px; margin-right: 10px; border-radius: 10px;">
+            </div>
+        </a>
+        </div>
+    </div>
+</div>
+<!-- Featured End -->
+
+<!-- Products Start -->
+<div class="container-fluid pt-4">
+    <div class="text-center mb-2 d-flex justify-content-between align-items-center">
+        <h4 class="section-title px-5 text-center" style="margin-left: 560px;"><span class="px-2 text-center" >Recommended today</span></h4>
+        <a routerLink="/shop" class="view-all" style="margin-right: 55px; color: #ee4d2d;"><u></u></a>
+    </div>
+    <!-- Sort bar -->
+    <div class="px-xl-4 pb-3" style="margin-left: 16px; margin-right: 16px;">
+        <div class="d-flex align-items-center" style="height: 60px; background-color: #f5f5f5; border-radius: 5px;">
+            <span style="font-size: 1rem; font-weight: 500; margin-right: 15px; margin-left: 10px; color: rgb(71, 69, 69);">Sort by:</span>
+        
+            <button class="custom-btnn btn mx-1 active" onclick="setActive(this)">Popular</button>
+            <button class="custom-btnn btn mx-1" onclick="setActive(this)">Newest</button>
+            <button class="custom-btnn btn mx-1" onclick="setActive(this)">Selling well</button>
+        
+            <select class="form-select mx-2" style="width: 180px; font-size: 1rem; padding-top: 6px; padding-bottom: 6px; border: 1px solid #ddd;">
+                <option disabled selected>Price</option>
+                <option value="asc">Asc</option>
+                <option value="desc">Desc</option>
+            </select>
+        </div>
+    </div>
+    <div class="row px-xl-5 pb-3">
+        <div *ngFor="let product of products" class="col-2 mb-0" style="padding-left: 5px; padding-right: 5px;">
+            <a [routerLink]="['/product', product.id]" class="text-decoration-none">
+                <div class="card product-item mb-2" style="border-radius: 5px; font-size: 0.9rem;">
+                    <div class="card-header product-img position-relative overflow-hidden bg-transparent border p-0">
+                        <span class="position-absolute spanhover" 
+                                  style="top: 5px; right: 5px; background-color: rgb(254, 238, 234); 
+                                         color: rgb(254, 28, 43); font-size: 0.8rem; font-weight: 500; 
+                                         padding: 1px 4px; border-radius: 3px;">
+                                -15%
+                            </span>
+                        <img class="img-fluid w-100" [src]="'/assets/img/' + product.image" alt="{{product.name}}">
+                        <img class="extra-sale-img" src="/assets/img/ve_1.png" alt="Extra Sale">
+                    </div>
+                    <div class="card-body p-0 pt-1 m-0" style="margin-left: 10px; position: relative;">
+                        <div class="d-flex align-items-center mb-2 position-relative">
+                            <span class="text-white px-1 rounded position-absolute" 
+                                  style="font-size: 0.7rem; background-color: red; left: 5; font-weight: 500; margin-left: 2px;">
+                                <i class="fas fa-heart" style="padding-right: 3px; font-size: 0.65rem;"></i>Favorite 
+                            </span>
+                            <h6 class="text-truncate text-dark m-0 text-left flex-grow-1" 
+                                style="font-size: 0.9rem; padding-left: 76px;">
+                                {{ product.name }}
+                            </h6>
+                        </div>
+                        <div class="d-flex justify-content-left align-items-center" style="color: #fb6969;">
+                            <h6 style="font-size: 0.9rem; color: red; margin-bottom: 0; padding-left: 3px;">
+                                {{ product.price | number:'1.0-0'}}<u style="font-size: 0.8rem;">đ</u>
+                            </h6>
+                            <h6 class="ml-2 text-muted" style="font-size: 0.7rem; margin-bottom: 0;">
+                                <del>730.000<u style="font-size: 0.6rem;">đ</u></del>
+                            </h6>
+                        </div>
+                    </div>
+                    <div class="card-footer d-flex justify-content-between align-items-center p-1" 
+                         style="font-size: 0.75rem; background: none; border: none; margin-bottom: 2px;">
+                        <div class="d-flex align-items-center">
+                            <i class="fas fa-star" style="color: #FFD700; font-size: 0.65rem;"></i>
+                            <i class="fas fa-star" style="color: #FFD700; font-size: 0.65rem;"></i>
+                            <i class="fas fa-star" style="color: #FFD700; font-size: 0.65rem;"></i>
+                            <i class="fas fa-star" style="color: #FFD700; font-size: 0.65rem;"></i>
+                            <i class="fas fa-star" style="color: #FFD700; font-size: 0.65rem;"></i>
+                            <span class="ml-1 text-muted">(150)</span>
+                        </div>
+                        <div class="text-muted" style="font-size: 0.75rem; padding-right: 10px;">
+                            Sold <span>11k</span>
+                        </div>
+                    </div>
+                </div>
+            </a>
+        </div>         
+    </div>
+    <div class="col-12 pb-1">
+        <nav aria-label="Page navigation" style="font-size: 0.9rem;">
+          <ul class="pagination justify-content-center mb-3">
+            <li class="page-item" [class.disabled]="pageNumber === 1">
+              <a class="page-link" (click)="changePage(pageNumber - 1)" aria-label="Previous" style="cursor: pointer;">
+                <span aria-hidden="true">&laquo;</span>
+              </a>
+            </li>
+            <li *ngFor="let page of getDisplayedPages()" class="page-item" [class.active]="pageNumber === page">
+              <a class="page-link" (click)="changePage(page)" style="cursor: pointer;">{{ page }}</a>
+            </li>
+            <li class="page-item" [class.disabled]="pageNumber === totalPages">
+              <a class="page-link" (click)="changePage(pageNumber + 1)" aria-label="Next" style="cursor: pointer;">
+                <span aria-hidden="true">&raquo;</span>
+              </a>
+            </li>
+          </ul>
+        </nav>
+      </div>
+</div>
+<!-- Products End -->

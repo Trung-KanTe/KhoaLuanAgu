@@ -1,0 +1,99 @@
+<!-- Login start -->
+<div class="container d-flex justify-content-center align-items-center" style="margin-top: -50px; margin-bottom: -50px;">
+    <div class="card p-4" style="width: 450px; border-radius: 15px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);">
+        <div class="text-center mb-4">
+            <h3 class="fw-bold mb-3" >Login</h3>
+            <p class="text-muted" style="font-size: 1.1rem;">Welcome back! Please login to your account.</p>
+        </div>
+        <form (ngSubmit)="onSubmit()" #loginForm="ngForm">
+            <!-- Email Input -->
+            <div class="form-group mb-3">
+                <label for="email" class="form-label text-dark">Email <span style="color: red;">*</span></label>
+                <input [(ngModel)]="email" name="email" type="email" id="email" class="form-control" placeholder="Enter your email" required style="border-radius: 5px; border: 1px solid rgb(98, 90, 207); font-size: 1rem;">
+            </div>
+        
+            <!-- Password Input -->
+            <div class="form-group mb-3 position-relative">
+                <label for="password" class="form-label text-dark">Password <span style="color: red;">*</span></label>
+                <input [(ngModel)]="password" name="password" [type]="isPasswordVisible ? 'text' : 'password'" id="password" class="form-control" placeholder="Enter your password" required style="border-radius: 5px; border: 1px solid rgb(98, 90, 207);">
+                <span class="position-absolute" style="top: 43px; right: 10px; cursor: pointer;" (click)="togglePasswordVisibility()">
+                    <i [ngClass]="isPasswordVisible ? 'fas fa-eye-slash' : 'fas fa-eye'"></i>
+                </span>
+            </div>
+        
+            <!-- Remember Me & Forgot Password -->
+            <div class="d-flex justify-content-between align-items-center mb-2" style="font-size: 1rem;">
+                <!-- <div class="form-check">
+                    <input class="form-check-input" type="checkbox" id="rememberMe">
+                    <label class="form-check-label" for="rememberMe">Remember me</label>
+                </div> -->
+                <a (click)="openModal()" style="cursor: pointer;" class="forgot-password text-decoration-none"><em>Forgot Password?</em></a>
+            </div>
+        
+            <!-- Login Button -->
+            <button type="submit" class="btn btn-primary w-100 py-2" style="border-radius: 10px; background-color: rgb(251, 101, 101); padding-top: 100px; font-size: 1.1rem; font-weight: bold; margin-top: 20px;">
+                Login
+            </button>
+        </form>
+        <!-- Separator -->
+        <!-- <div class="text-center my-3">
+            <span class="text-muted">or</span>
+        </div> -->
+        <!-- Social Login -->
+        <!-- <div class="d-flex justify-content-center gap-3 mb-3">
+            <button class="btn btn-outline-primary rounded-circle" style="width: 40px; height: 40px;">
+                <i class="fab fa-facebook-f"></i>
+            </button>
+            <button class="btn btn-outline-danger rounded-circle" style="width: 40px; height: 40px;">
+                <i class="fab fa-google"></i>
+            </button>
+            <button class="btn btn-outline-dark rounded-circle" style="width: 40px; height: 40px;">
+                <i class="fab fa-github"></i>
+            </button>
+        </div> -->
+        <!-- Register Link -->
+        <div class="text-center pt-3">
+            <p class="text-muted"><i style="padding-right: 20px; margin-right: 10px;" style="font-size: 1rem;">Don't have an account?</i> 
+            <a routerLink="/register" class="register-link text-decoration-none" style="font-size: 1rem; padding-left: 15px;">Register</a></p>
+        </div>
+    </div>
+</div>
+<!-- Login end -->
+
+<!-- Modal ChangePassword -->
+<div class="modal-overlay d-flex align-items-center justify-content-center" *ngIf="showModal" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.6); z-index: 999;">
+    <div class="col-md-10 bg-white p-4 rounded shadow position-relative" style="max-width: 1000px;">
+      <div class="d-flex align-items-center justify-content-between mb-4" style="border-bottom: 1px solid black;">
+        <h4 class="mb-0" style="font-size: 1.3rem;">Forgot password</h4>
+        <button class="close-btn position-absolute" (click)="closeModal()" style="top: 5px; right: 5px; background: none; border: none; cursor: pointer;">
+          <i class="fas fa-times" style="color: #f85757; font-size: 1.2rem;"></i>
+        </button>
+      </div>
+  
+      <div class="row">
+        <!-- Cột bên trái: Form nhập mật khẩu -->
+        <div class="col-8">
+          <div class="form-group mb-3">
+            <label class="lbl-partner">Email</label>
+            <input class="form-control" type="text" [(ngModel)]="user.email" placeholder="Enter email"
+              style="font-size: 0.9rem; border: 1px solid #222; border-radius: 10px;">
+          </div>
+
+          <div class="form-group mb-3">
+            <label class="lbl-partner">Mobile no</label>
+            <input class="form-control" type="text" [(ngModel)]="user.tel" placeholder="Enter mobile no"
+              style="font-size: 0.9rem; border: 1px solid #222; border-radius: 10px;">
+          </div>        
+        </div>
+
+        <!-- Cột bên phải: Ảnh -->
+        <div class="col-4 d-flex align-items-center justify-content-center">
+          <img src="/assets/img/cpw.jpg" alt="Change Password" style="max-width: 70%; border-radius: 10px;">
+        </div>
+      </div>
+    
+      <div class="d-flex justify-content-start mt-3">
+        <button class="btn btn-primary" (click)="saveChanges()" style="border-radius: 10px;">Submit</button>
+      </div>
+    </div>
+  </div>

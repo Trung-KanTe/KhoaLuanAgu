@@ -1,0 +1,166 @@
+<div class="container-fluid" style="padding-top: 50px; padding-left: 50px;">
+    <div class="d-flex flex-column align-items-left justify-content-center" style="min-height: 50px; margin-top: -48px;">
+        <div class="d-inline-flex" style="font-size: 1rem; font-weight: 500; color: black; margin-left: 50px;">
+            <p class="m-0"><a routerLink="/" routerLinkActive="active" class="nav-link" style="cursor: pointer; padding-right: 5px; padding-left: 5px;" title="Return Home">Home</a></p>
+            <p class="m-0 px-2 pt-2 " style="padding-left: -10px;">/</p>
+            <p class="m-0 pt-2 text-primary">Shop</p>
+        </div>
+    </div>
+</div>
+<!-- Page Header End -->
+
+<!-- Shop Start -->
+<div class="container-fluid">
+    <div class="row px-xl-5 justify-content-center " style="padding-top: 10px;">
+        <!-- Shop Sidebar Start -->
+        <div class="col-lg-2 mr-3" style="max-height: 560px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5); border-radius: 10px;">
+            <!-- Sort Start -->               
+            <div class="border-bottom border-dark mb-3" style="max-height: 500px; border-bottom: #f26e6e;">
+                <h5 class="font-weight-semi-bold mb-1" style="padding-top: 10px; padding-bottom: 10px; font-size: 1rem;">Sort by</h5>
+                <form>
+                    <div class="custom-checkbox-group">
+                        <div class="custom-control custom-checkbox">
+                            <input type="checkbox" class="custom-control-input" checked id="price-all">
+                            <label class="custom-control-label" for="price-all">ASC</label>
+                        </div>
+                        <div class="custom-control custom-checkbox">
+                            <input type="checkbox" class="custom-control-input" id="price-1">
+                            <label class="custom-control-label" for="price-1">DESC</label>
+                        </div>                         
+                    </div>
+                </form>
+            </div>
+            <!-- Sort End --> 
+            <!-- Price Start -->
+            <div class="border-bottom border-dark mb-3" style="border-bottom: #f26e6e;">
+                <h5 class="font-weight-semi-bold mb-1" style="padding-top: 10px; padding-bottom: 10px; font-size: 1rem;">Filter by price</h5>
+                <form style="font-size: 1rem;">
+                    <div class="custom-checkbox-group" style="font-size: 1rem;">
+                        <div class="custom-control custom-checkbox" style="font-size: 1rem;">
+                            <input type="checkbox" class="custom-control-input" checked id="price-all">
+                            <label class="custom-control-label" for="pricee-all" style="font-size: 0.9rem;">All Price</label>
+                        </div>      
+                        <div class="custom-control custom-checkbox pt-1">
+                            <input type="checkbox" class="custom-control-input" id="price-2">
+                            <label class="custom-control-label" for="price-2" style="font-size: 0.9rem;"> &lt;100.000<u style="font-size: 0.8rem;">đ</u></label>
+                        </div>              
+                        <div class="custom-control custom-checkbox pt-1">
+                            <input type="checkbox" class="custom-control-input" id="price-2">
+                            <label class="custom-control-label" for="price-4" style="font-size: 0.9rem;">100.000<u style="font-size: 0.8rem;">đ</u> - 300.000<u style="font-size: 0.8rem;">đ</u></label>
+                        </div>
+                        <div class="custom-control custom-checkbox pt-1">
+                            <input type="checkbox" class="custom-control-input" id="price-3">
+                            <label class="custom-control-label" for="price-3" style="font-size: 0.9rem;">300.000<u style="font-size: 0.8rem;">đ</u> - 500.000<u style="font-size: 0.8rem;">đ</u></label>
+                        </div>
+                        <div class="custom-control custom-checkbox pt-1">
+                            <input type="checkbox" class="custom-control-input" id="price-4">
+                            <label class="custom-control-label" for="price-6" style="font-size: 0.9rem;">500.000<u style="font-size: 0.8rem;">đ</u> - 700.000<u style="font-size: 0.8rem;">đ</u></label>
+                        </div>
+                        <div class="custom-control custom-checkbox pt-1">
+                            <input type="checkbox" class="custom-control-input" id="price-5">
+                            <label class="custom-control-label" for="price-5" style="font-size: 0.9rem;">700.000<u style="font-size: 0.8rem;">đ</u> - 900.000<u style="font-size: 0.8rem;">đ</u></label>
+                        </div>    
+                        <div class="custom-control custom-checkbox pt-1">
+                            <input type="checkbox" class="custom-control-input" id="price-2">
+                            <label class="custom-control-label" for="price-7" style="font-size: 0.9rem;"> &gt;900.000<u style="font-size: 0.8rem;">đ</u></label>
+                        </div>                  
+                    </div>
+                </form>
+            </div>
+             <div class="btn btn-primary align-items-center justify-content-between pt-1 mt-2" style="width: 200px; height: 40px; border-radius: 10px;">
+                <p>Fill</p>
+             </div>
+        </div>
+        <!-- Shop Sidebar End -->
+
+
+        <!-- Shop Product Start -->
+        <div class="col-lg-9 col-md-12" >
+            <div class="row pb-3">                    
+                <div *ngFor="let product of products" class="col-lg-4 col-md-6 col-sm-12 pb-1">
+                    <a [routerLink]="['/product', product.id]" class="text-decoration-none">
+                    <div class="card product-item mb-4" style="box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5); border-radius: 5px; font-size: 0.9rem;">
+                        <div class="card-header product-img position-relative overflow-hidden bg-transparent border p-0" style="font-size: 0.9rem;">
+                            <img class="img-fluid w-100" [src]="'/assets/img/' + product.image" alt="{{product.name}}">
+                            <div class="discount-label">
+                                <span style="font-size: 0.9rem;">-10%</span>
+                            </div>
+                            <img class="extra-sale-img" src="/assets/img/ve_1.png" alt="Extra Sale">
+                        </div>
+                        <div class="card-body p-0 pt-2" style="margin-left: 10px; position: relative;">
+                            <div class="d-flex align-items-center mb-2 position-relative">
+                                <span class="text-white px-1 rounded position-absolute" 
+                                      style="font-size: 0.7rem; background-color: red; left: 5; font-weight: 500;">
+                                      <i class="fas fa-bolt" style="padding-right: 3px;"></i>FLASH SALE
+                                </span>
+                                <h6 class="text-truncate text-dark m-0 text-left flex-grow-1" 
+                                style="font-size: 1rem; padding-left: 100px;">
+                                {{ product.name }}
+                            </h6>
+                            </div>
+                        
+                            <div class="d-flex justify-content-left align-items-center" style="color: #fb6969;">
+                                <h6 style="font-size: 1.1rem; color: red; margin-bottom: 0; padding-left: 5px;">
+                                    {{ product.price | number:'1.0-0'}}<u style="font-size: 1rem;">đ</u>
+                                </h6>
+                                <h6 class=" ml-2 text-muted" style="font-size: 0.85rem; margin-bottom: 0;">
+                                    <del>730.000<u style="font-size: 0.8rem;">đ</u></del>
+                                </h6>
+                            </div>
+                        </div>
+                        
+                        <div class="card-footer d-flex justify-content-between align-items-center p-1" 
+                            style="font-size: 0.8rem; background: none; border: none; margin-bottom: 2px;">
+                            <div class="d-flex align-items-center" style="padding-left: 10px;">
+                                <i class="fas fa-star" style="color: #FFD700; font-size: 0.7rem;"></i>
+                                <i class="fas fa-star" style="color: #FFD700; font-size: 0.7rem;"></i>
+                                <i class="fas fa-star" style="color: #FFD700; font-size: 0.7rem;"></i>
+                                <i class="fas fa-star" style="color: #FFD700; font-size: 0.7rem;"></i>
+                                <i class="fas fa-star" style="color: #FFD700; font-size: 0.7rem;"></i>
+                                <span class="ml-1 text-muted">(150)</span>
+                            </div>
+                            <div class="text-muted" style="font-size: 0.85rem; padding-right: 10px;">
+                                Sold <span>11k</span>
+                            </div>
+                        </div>
+        
+                        <!-- <div class="card-footer d-flex justify-content-between p-0" 
+                            style="font-size: 0.8rem; background: none; border: none; padding-bottom: 10px;">
+                            <a [routerLink]="['/product', product.id]" class="btn btn-sm text-dark" 
+                                style="font-size: 0.9rem; margin-right: 15px; padding-left: 10px;">
+                                <i class="fas fa-eye mr-1" style="font-size: 0.9rem; color: #f85757; padding-left: 6px;"></i>View Detail
+                            </a>
+                            <a [routerLink]="['/cart']" class="btn btn-sm text-dark" style="font-size: 0.9rem; padding-right: 10px;">
+                                <i class="fas fa-shopping-cart mr-1" style="font-size: 0.9rem; color: #f85757"></i>Add To Cart
+                            </a>
+                        </div>      -->
+                    </div>
+                    </a>
+                </div>
+                
+                <div class="col-12 pb-1">
+                    <nav aria-label="Page navigation" style="font-size: 0.9rem;">
+                      <ul class="pagination justify-content-center mb-3">
+                        <li class="page-item" [class.disabled]="pageNumber === 1">
+                          <a class="page-link" (click)="changePage(pageNumber - 1)" aria-label="Previous" style="cursor: pointer;">
+                            <span aria-hidden="true">&laquo;</span>
+                          </a>
+                        </li>
+                        <li *ngFor="let page of getDisplayedPages()" class="page-item" [class.active]="pageNumber === page">
+                          <a class="page-link" (click)="changePage(page)" style="cursor: pointer;">{{ page }}</a>
+                        </li>
+                        <li class="page-item" [class.disabled]="pageNumber === totalPages">
+                          <a class="page-link" (click)="changePage(pageNumber + 1)" aria-label="Next" style="cursor: pointer;">
+                            <span aria-hidden="true">&raquo;</span>
+                          </a>
+                        </li>
+                      </ul>
+                    </nav>
+                  </div>
+            </div>
+        </div>
+        <!-- Shop Product End -->
+    </div>
+</div>
+<!-- Shop End -->
+

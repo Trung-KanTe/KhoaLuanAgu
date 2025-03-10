@@ -1,0 +1,136 @@
+<!-- Register start -->
+<div class="container d-flex justify-content-center align-items-center" 
+     style="padding-top: 150px; margin-bottom: 200px;">
+    <div class="card p-4 register-card" 
+         style="width: 900px; border-radius: 15px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);">
+        <div class="text-center mb-3">
+            <h3 class="fw-bold">Register</h3>
+            <p class="text-muted" style="font-size: 1.1rem;">Create a new account</p>
+        </div>
+
+        <form (ngSubmit)="onSubmit()" #registerForm="ngForm">
+            <div class="row">
+                <!-- Full Name -->
+                <div class="form-group mb-3 col-md-6">
+                    <label for="fullName" class="form-label text-dark">Full Name</label>
+                    <input [(ngModel)]="name" name="fullName" type="text" id="fullName" 
+                           class="form-control frm" placeholder="Enter your full name" required 
+                           style="font-size: 1rem; border-radius: 5px; border: 1px solid rgb(98, 90, 207);">
+                </div>
+
+                <!-- Phone Number -->
+                <div class="form-group mb-3 col-md-6">
+                    <label for="phone" class="form-label text-dark">Phone Number</label>
+                    <input [(ngModel)]="tel" name="phone" type="text" id="phone" 
+                           class="form-control frm" placeholder="Enter your phone number" required 
+                           style="font-size: 1rem; border-radius: 5px; border: 1px solid rgb(98, 90, 207);">
+                </div>
+            </div>
+
+            <div class="row">
+                <!-- Email Input -->
+                <div class="form-group mb-3 col-md-6">
+                    <label for="email" class="form-label text-dark">Email</label>
+                    <input [(ngModel)]="email" name="email" type="email" id="email" 
+                           class="form-control frm" placeholder="Enter your email" required 
+                           style="font-size: 1rem; border-radius: 5px; border: 1px solid rgb(98, 90, 207);">
+                </div>      
+                <div class="form-group mb-3 col-md-6">
+                    <label class="lbl-partner">Province</label>
+                    <select class="form-control frm" [(ngModel)]="selectedUser.province" name="province" (change)="onProvinceChange()">
+                      <option *ngFor="let province of provinces" [value]="province.id">{{ province.fullName }}</option>
+                    </select>
+                </div>               
+            </div>
+
+            <div class="row">
+                <!-- Email Input -->
+                <div class="form-group mb-3 col-md-6">
+                    <label class="lbl-partner">District</label>
+                    <select class="form-control frm" [(ngModel)]="selectedUser.district" name="district" (change)="onDistrictChange()">
+                      <option *ngFor="let district of districts" [value]="district.id">{{ district.fullName }}</option>
+                    </select>
+                  </div>
+                  
+                  <div class="form-group mb-3 col-md-6">
+                    <label class="lbl-partner">Ward</label>
+                    <select class="form-control frm" [(ngModel)]="selectedUser.ward" name="ward">
+                      <option *ngFor="let ward of wards" [value]="ward.id">{{ ward.fullName }}</option>
+                    </select>
+                  </div>  
+            </div>
+
+            <div class="row">
+                <!-- Email Input -->
+                <div class="form-group mb-3 col-md-6">
+                    <label for="password" class="form-label text-dark">Password</label>
+                    <input [(ngModel)]="passwordHash" name="passwordHash" 
+                        [type]="isPasswordVisibles ? 'text' : 'password'" id="password" 
+                        class="form-control frm" placeholder="Enter your password" required 
+                        style="font-size: 1rem; border: 1px solid rgb(98, 90, 207); border-radius: 5px;">
+                    <span class="position-absolute" style="top: 43px; right: 25px; cursor: pointer;" 
+                        (click)="togglePasswordVisibiliti()">
+                        <i [ngClass]="isPasswordVisibles ? 'fas fa-eye-slash' : 'fas fa-eye'"></i>
+                    </span>
+                </div>
+
+                <!-- Wards -->
+                <div class="form-group mb-3 col-md-6">
+                    <label for="confirmPassword" class="form-label text-dark">Confirm Password</label>
+                    <input [(ngModel)]="confirmPassword" name="confirmPassword" 
+                        [type]="isPasswordVisible ? 'text' : 'password'" id="confirmPassword" 
+                        class="form-control frm" placeholder="Confirm your password" required 
+                        style="font-size: 1rem; border: 1px solid rgb(98, 90, 207); border-radius: 5px;">
+                        <span class="position-absolute" style="top: 43px; right: 25px; cursor: pointer;" 
+                        (click)="togglePasswordVisibility()">
+                        <i [ngClass]="isPasswordVisible ? 'fas fa-eye-slash' : 'fas fa-eye'"></i>
+                    </span>
+                </div>
+            </div>
+
+            <div class="row">
+                <!-- Email Input -->
+                <div class="form-group mb-3 col-md-12">
+                    <label for="email" class="form-label text-dark">Address</label>
+                    <input [(ngModel)]="address" name="address" type="text" id="address" 
+                           class="form-control frm" placeholder="Enter your address" required 
+                           style="font-size: 1rem; border-radius: 5px; border: 1px solid rgb(98, 90, 207);">
+                </div>              
+            </div>
+         
+
+            <!-- Register Button -->
+            <button type="submit" class="btn btn-primary w-100 py-2" 
+                    style="border-radius: 10px; background-color: rgb(251, 101, 101); font-size: 1.2rem; font-weight: bold; margin-top: 20px;">
+                Register
+            </button>
+        </form>
+
+        <!-- Separator -->
+        <!-- <div class="text-center my-3">
+            <span class="text-muted">or</span>
+        </div> -->
+
+        <!-- Social Login -->
+        <!-- <div class="d-flex justify-content-center gap-3 mb-3 social-buttons">
+            <button class="btn btn-outline-primary rounded-circle">
+                <i class="fab fa-facebook-f"></i>
+            </button>
+            <button class="btn btn-outline-danger rounded-circle">
+                <i class="fab fa-google"></i>
+            </button>
+            <button class="btn btn-outline-dark rounded-circle">
+                <i class="fab fa-github"></i>
+            </button>
+        </div> -->
+
+        <!-- Login Link -->
+        <div class="text-center pt-4">
+            <p class="text-muted">
+                <i style="padding-right: 10px; font-size: 1rem;">Already have an account?</i> 
+                <a routerLink="/login" class="register-link text-decoration-none" style="font-size: 1rem;">Login</a>
+            </p>
+        </div>
+    </div>
+</div>
+<!-- Register end -->

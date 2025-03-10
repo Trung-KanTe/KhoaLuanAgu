@@ -1,0 +1,215 @@
+
+     <!-- Topbar Start -->
+     <div *ngIf="!(isAdmin || isStaff)">
+    <header>
+     <div class="container-fluid gradient" style="background-color: rgb(200, 220, 248);">
+      <div class="row align-items-center py-3 px-xl-5">
+          <div class="col-lg-3 d-none d-lg-block">
+              <a routerLink="/" class="text-decoration-none">
+                  <h1 class="m-0 display-5 font-weight-bold" style="font-size: 3rem;"><span class="font-weight-bold px-1 mr-1" style="font-weight: 200px; color: #f85757">365</span>Emart</h1>
+              </a>
+          </div>
+          <div class="col-lg-6 col-6 text-left">
+              <form action="">
+                  <div class="input-group" style="border: 1px solid; border-radius: 30px;">
+                      <input type="text" class="form-control" style="font-size: 1rem; border-radius: 30px 0 0 30px;" placeholder="Search for products">
+                      <div class="input-group-append">
+                          <span class="input-group-text font-weight-bold " style="border-radius: 0 30px 30px 0; cursor: pointer; color: #f85757; background-color: #fff; " >
+                              <i class="fa fa-search" style="font-weight: bold;"></i>
+                          </span>
+                      </div>
+                  </div>
+              </form>
+          </div>
+          <div class="col-lg-2 col-5 d-flex align-items-center justify-content-between">
+            <!-- Chứa Login và Register nhưng không làm mất layout -->
+            <div class="d-flex align-items-center" [ngStyle]="{ 'visibility': isLoggedIn ? 'hidden' : 'visible' }">
+              <a routerLink="/login" routerLinkActive="active" class="nav-link" style="cursor: pointer; padding: 7px; margin-right: 7px;" title="Go to login">
+                <strong>Login</strong>
+              </a>
+              <div style="border-left: 1px solid rgb(189, 185, 185); height: 20px;"></div>
+              <a routerLink="/register" routerLinkActive="active" class="nav-link" style="cursor: pointer; padding-right: 0px;" title="Go to register">
+                <strong>Register</strong>
+              </a>
+            </div>
+          
+            <!-- Icon người dùng -->
+            <div class="dropdown">
+              <a class="btn position-relative text-right" title="Hồ sơ người dùng" style="padding-left: 20px;">
+                <i class="fas fa-user" style="font-size: 1.15rem; color: #f85757; text-align: right; margin-left: 20px;"></i>
+              </a>
+              <div class="dropdown-menu">
+                <a [routerLink]="['/profile', userId]" class="dropdown-item">
+                  <i class="fas fa-user me-2 pr-2" style="color: rgb(45, 202, 54);"></i> Profile
+                </a>
+                <a [routerLink]="['/purchase', userId]" class="dropdown-item">
+                  <i class="fas fa-gift me-2 pr-2" style="color: rgb(196, 28, 139);"></i> Orders
+                </a>
+                <a (click)="logout()" class="dropdown-item" href="#">
+                  <i class="fas fa-sign-out-alt pr-2" style="color: rgb(243, 62, 62);"></i> Logout
+                </a>
+              </div>
+            </div>
+          
+            <!-- Icon giỏ hàng -->
+            <a [routerLink]="['/cart', userId]" class="btn position-relative text-center" title="Shopping cart">
+              <i class="fas fa-shopping-cart" style="color: #f85757; font-size: 1.15rem; padding-left: 20px;"></i>
+              <span class="badge position-absolute top-0 start-100 translate-middle bg-dark text-white rounded-circle" style="font-size: 0.7rem; transform: translate(-30%, -5%);">
+                {{ cart?.totalQuantity || 0 }}
+              </span>
+            </a>
+          </div>
+      </div>
+  </div>
+  <!-- Topbar End -->
+
+  <!-- Menu start -->
+
+  <!-- <div class="container-fluid gradient" style="background-color: rgb(200, 220, 248);">
+      <div class="row justify-content-center py-0 px-xl-5 border-bottom border-left">
+          <nav>
+              <ul class="d-flex list-unstyled mb-0 justify-content-center align-items-center text-center">
+                <li class="mx-3">
+                    <a routerLink="/" routerLinkActive="active" class="nav-link" style="cursor: pointer; font-weight: 500;" title="Return Home">Home</a>
+                  </li>
+                  <li style="color: #ffffff;">|</li>
+                  <li class="mx-3">
+                    <a routerLink="/shop" routerLinkActive="active" class="nav-link" style="cursor: pointer; font-weight: 500;" title="Go to Shop">Shop</a>
+                  </li>
+                  <li style="color: #ffffff;">|</li>
+                  <li class="mx-3"><a routerLink="/paymentSuccess" routerLinkActive="active" class="nav-link" style="cursor: pointer; font-weight: 500;" title="Go to Cart">Shopping Cart</a></li>
+                  <li style="color: #ffffff;">|</li>
+                  <li class="mx-3"><a routerLink="/detail" routerLinkActive="active" class="nav-link" style="cursor: pointer; font-weight: 500;" title="Go to Shop Detail">Shop Detail</a></li>
+                  <li style="color: #ffffff;">|</li>
+                  <li class="mx-3"><a routerLink="/checkout" routerLinkActive="active" class="nav-link" style="cursor: pointer; font-weight: 500;" title="Go to Checkout">CheckOut</a></li>
+                  <li style="color: #ffffff;">|</li>
+                  <li class="mx-3"><a routerLink="/orderReceipt" routerLinkActive="active" class="nav-link" style="cursor: pointer; font-weight: 500;" title="Go to Contact">Contact</a></li>
+              </ul>
+          </nav>
+      </div>
+  </div> -->
+
+  <div class="container-fluid" style="background-color: rgb(200, 220, 248); border-top: 2px solid white;">
+      <div class="row justify-content-center border-bottom border-light py-1 gradient">      
+          <div class="text-center ml-4" style="font-size: 0.9rem;">
+            <a [routerLink]="['/voucher']" class="text-decoration-none">
+              <i class="fas fa-check-circle" style="color: #28a745; padding-right: 8px; padding-left: 8px;"></i>
+              <span style="color: #6F6F6F;">100% genuine product</span>
+            </a> 
+          </div>
+          <div class="text-center ml-4" style="font-size: 0.9rem;">
+            <a [routerLink]="['/voucher']" class="text-decoration-none">
+              <i class="fas fa-truck" style="color: #17a2b8; padding-right: 8px; padding-left: 8px;"></i>
+              <span style="color: #6F6F6F;">Freeship to all order</span>
+            </a>
+          </div>            
+          <div class="text-center ml-4" style="font-size: 0.9rem;">
+            <a [routerLink]="['/voucher']" class="text-decoration-none">
+              <i class="fas fa-gift" style="color: #ff5733; padding-right: 8px; padding-left: 8px;"></i>
+              <span style="color: #6F6F6F;">Many gifts</span>
+            </a>
+          </div>
+          <div class="text-center ml-4" style="font-size: 0.9rem;">
+            <a [routerLink]="['/voucher']" class="text-decoration-none">
+              <i class="fas fa-sync-alt" style="color: #ffac07; padding-right: 8px; padding-left: 8px;"></i>
+              <span style="color: #6F6F6F;">30 days return</span>
+            </a>
+          </div>
+          <div class="text-center ml-4" style="font-size: 0.9rem;">
+            <a [routerLink]="['/voucher']" class="text-decoration-none">
+              <i class="fas fa-clock" style="color: #28a745; padding-right: 8px; padding-left: 8px;"></i>
+              <span style="color: #6F6F6F;">Fast delivery 2 hours</span>
+            </a>
+          </div>
+          <div class="text-center ml-4" style="font-size: 0.9rem;">
+            <a [routerLink]="['/voucher']" class="text-decoration-none">
+              <i class="fas fa-ticket-alt" style="color: #a72898; padding-right: 8px; padding-left: 8px;"></i>
+              <span style="color: #6F6F6F;">Value vouchers</span>
+            </a>
+          </div>
+          <div class="text-center ml-4" style="font-size: 0.9rem;">
+            <a [routerLink]="['/voucher']" class="text-decoration-none">
+              <i class="fas fa-tag" style="color: #ff6f61; padding-right: 8px;"></i>
+              <span style="color: #6F6F6F;">Super cheap price</span>
+            </a>
+          </div>   
+          <div class="text-center ml-4" style="font-size: 0.9rem;">
+            <a [routerLink]="['/voucher']" class="text-decoration-none">
+            <i class="fas fa-gift" style="color: #ff5733; padding-right: 8px; padding-left: 8px;"></i>
+            <span style="color: #6F6F6F;">Refund 200</span>
+        </a>
+        </div>  
+            
+      </div>
+  </div>
+</header>
+</div>
+  <!-- Menu end -->
+  <router-outlet></router-outlet>
+
+
+  <!-- Footer Start -->
+  <div *ngIf="!(isAdmin || isStaff)">
+   <footer class="">
+  <div class="container-fluid text-dark mt-5 pt-4 gradient" style="background-color: rgb(200, 220, 248);">
+      <div class="row px-xl-5 pt-0 d-flex align-items-center justify-content-between">
+          <div class="col-lg-6 col-md-12 mb-4 text-center text-lg-left" style="font-size: 1rem;">
+              <a routerLink="/" class="text-decoration-none mb-3 d-inline-block">
+                  <h1 class="m-0 display-5 font-weight-bold">
+                      <span class="font-weight-bold px-1 mr-1" style="color: #f85757">365</span>Emart
+                  </h1>
+              </a>
+              <p>This is the place that provides everything you need with many good quality products and many attractive offers. 365Emart always puts reputation first.</p>
+              <p class="mb-2"><i class="fa fa-map-marker-alt mr-3" style="color: #f85757"></i>Vinh An, Chau Thanh, An Giang</p>
+              <p class="mb-2"><i class="fa fa-envelope mr-3" style="color: #f85757"></i>hongtrung2301&#64;gmail.com</p>
+              <p class="mb-0"><i class="fa fa-phone-alt mr-3" style="color: #f85757"></i>0386880977</p>
+          </div>       
+          <div class="col-lg-5 col-md-12 text-left mt-4 mt-lg-0 ms-3">
+            <div class="row">
+                <div class="col-lg-6 col-md-6 pt-3">
+                    <h6 class="font-weight-bold mb-3" style="margin-top: -40px; font-size: 1rem;">ABOUT  US</h6>
+                    <div class="d-flex flex-column justify-content-start" style="font-size: 1rem;">
+                        <p class="mb-2">Payment security policy</p>
+                        <p class="text-dark mb-2">Complaint resolution policy</p>
+                        <p class="text-dark mb-2">Terms of use</p>
+                        <p class="text-dark mb-2">Personal information security</p>
+                        <p class="text-dark mb-2">Enterprise sales</p>
+                    </div>
+                </div>
+                <div class="col-lg-6 col-md-6 pt-3">
+                    <h6 class="font-weight-bold mb-3" style="margin-top: -40px; font-size: 1rem;">CUSTOMER SUPPORT</h6>
+                    <div class="d-flex flex-column justify-content-start" style="font-size: 1rem;">
+                        <p class="mb-2">Hotline: 1900 0000</p>
+                        <p class="text-dark mb-2">Order instructions</p>
+                        <p class="text-dark mb-2">Shipping method</p>
+                        <p class="text-dark mb-2">Goods inspection policy</p>
+                        <p class="text-dark mb-2">Contact for cooperation</p>
+                    </div>
+                </div>               
+            </div>
+        </div>
+      </div>
+      <div class="row border-top border-light mx-xl-5 py-4">
+          <div class="col-md-6 px-xl-0">
+              <p class="mb-md-0 text-center text-md-left text-dark" style="font-size: 1rem;">
+                  &copy; <a class="text-dark font-weight-semi-bold" href="#">365Emart</a>. All Rights Reserved. Designed
+                  by
+                  <a class="text-dark font-weight-semi-bold" href="https://htmlcodex.com">Nguyễn Hồng Trung</a>
+              </p>
+          </div>
+          <div class="col-md-6 px-xl-0 text-center text-md-right">
+              <img class="img-fluid" src="/assets/img/payments.png" alt="">
+          </div>
+      </div>
+  </div>
+  <!-- Footer End -->
+
+
+  <!-- Back to Top -->
+  <a href="#" class="btn back-to-top custom-btn p-2" 
+ style="border-radius: 25px; padding-left: 0px; position: fixed; right: -35px; border: 1px solid #f85757;">
+ <i class="fa fa-angle-double-up"></i>
+</a>
+
+</footer>
+</div>

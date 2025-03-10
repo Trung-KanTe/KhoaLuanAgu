@@ -1,0 +1,26 @@
+span i {
+    font-size: 0.9rem; /* Giảm kích thước icon */
+}
+
+.lbl-partner{
+    font-size: 1rem !important;
+    color: #1d1a1a !important;
+  }
+
+  .lbl-inline{
+    display: inline; 
+    margin-right: 5px;
+  }
+
+  .p-inline{
+    display: inline; margin: 0;
+    font-size: 0.9rem;
+  }
+  
+  .frm{
+    border-radius: 5px !important;
+    border: 1px solid rgb(98, 90, 207) !important;
+    padding-top: 3px !important;
+    padding-bottom: 3px !important;
+    font-size: 0.9rem !important;
+  }

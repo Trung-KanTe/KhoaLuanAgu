@@ -1,0 +1,409 @@
+<div class="d-flex align-items-center justify-content-between mt-2 mb-4 flex-wrap">
+    <h3 class="mb-0 mr-auto">Product List</h3>
+    <div class="input-group" style="border: 1px solid; border-radius: 30px; max-width: 400px;">
+      <input type="text" class="form-control" style="font-size: 1rem; border-radius: 30px 0 0 30px;" placeholder="Search product information...">
+      <div class="input-group-append">
+        <span class="input-group-text font-weight-bold" style="border-radius: 0 30px 30px 0; cursor: pointer; color: #f85757; background-color: #fff;">
+          <i class="fa fa-search" style="font-weight: bold;"></i>
+        </span>
+      </div>
+    </div>
+    <button (click)="openModal()" class="btn-them ml-5" style="background: none; border: 1px solid #1a1919; border-radius: 5px; padding: 5px 15px; cursor: pointer;">
+      <i class="fas fa-plus" style="color: #f85757; font-size: 1rem; margin-right: 10px;"></i>
+      <span style="color: #f85757; font-size: 1rem; font-weight: bold;">Add</span>
+    </button>
+  </div>
+
+<table class="table text-center mb-0 custom-table" style="box-shadow: 0 4px 6px rgba(0, 0, 0, 0.5); border-bottom: 0.5px solid rgb(234, 232, 230);">
+    <thead class="text-dark" style="background-color: rgb(200, 220, 248);">
+        <tr style="font-size: 1rem;">
+            <th style="font-size: 1rem;">Stt</th>
+            <th style="font-size: 1rem;">Name</th>
+            <th style="font-size: 1rem;">Price</th>
+            <th style="font-size: 1rem;">Image</th>
+            <th style="font-size: 1rem;">Category</th>
+            <th style="font-size: 1rem;">Brand</th>
+            <th style="font-size: 1rem;">Shop</th>
+            <th style="font-size: 1rem;">Status</th>
+            <th style="font-size: 1rem;"></th>
+        </tr>
+    </thead>
+    <tbody class="align-middle">
+        <tr *ngFor="let item of products.items, let i = index">
+            <td class="align-middle" style="font-size: 0.9rem;">{{i + 1}}</td>
+            <td class="align-middle" style="font-size: 0.9rem;">{{item.name}}</td>
+            <td class="align-middle"style="font-size: 0.9rem;">{{item.price | number:'1.0-0'}}đ</td>
+            <td class="align-middle" style="font-size: 0.9rem;"><img [src]="'/assets/img/' + item.image" alt="" style="width: 55px; border-radius: 15px;"></td>
+            <td class="align-middle"style="font-size: 0.9rem;">{{item.category.name}}</td>           
+            <td class="align-middle"style="font-size: 0.9rem;">{{item.brand.name}}</td>              
+            <td class="align-middle"style="font-size: 0.9rem;">{{item.shop.name}}</td>
+            <td class="align-middle"style="font-size: 0.9rem;">{{item.isDeleted}}</td>
+            <td class="align-middle" style="font-size: 0.9rem;">
+                 <!-- Icon View Detail -->
+                 <button class="btn-user" title="View Detail" style="background: none; border: none; cursor: pointer; transition: background 0.3s;" (click)="openDetailModal(item.id)">
+                    <i class="fas fa-eye" style="color: #131414; font-size: 0.9rem;"></i>
+                </button>
+                <!-- Icon Edit -->
+                <button class="btn-user" style="background: none; border: none; cursor: pointer; transition: background 0.3s;" (click)="openUpdateModal(item.id)">
+                    <i class="fas fa-edit" style="color: #131414; font-size: 0.9rem;"></i>
+                </button>
+                
+                <!-- Icon Delete -->
+                <button class="btn-user" style="background: none; border: none; cursor: pointer; transition: background 0.3s;" (click)="deleteProduct(item.id)">
+                    <i class="fas fa-trash" style="color: #0d0d0d; font-size: 0.9rem;"></i>
+                </button>
+            </td>
+       </tr>                                                      
+    </tbody>
+   
+</table>
+
+<div class="col-12 pb-1 mt-4">
+  <nav aria-label="Page navigation" style="font-size: 0.9rem;">
+    <ul class="pagination justify-content-center mb-3">
+      <!-- Nút Previous -->
+      <li class="page-item" [class.disabled]="currentPage === 1">
+        <a class="page-link" href="#" aria-label="Previous" (click)="loadPage(currentPage - 1)">
+          <span aria-hidden="true">&laquo;</span>
+        </a>
+      </li>
+
+      <!-- Hiển thị số trang động -->
+      <li *ngFor="let page of totalPagesArray" class="page-item" [class.active]="currentPage === page">
+        <a class="page-link" href="#" (click)="loadPage(page)">{{ page }}</a>
+      </li>
+
+      <!-- Nút Next -->
+      <li class="page-item" [class.disabled]="currentPage === totalPages">
+        <a class="page-link" href="#" aria-label="Next" (click)="loadPage(currentPage + 1)">
+          <span aria-hidden="true">&raquo;</span>
+        </a>
+      </li>
+    </ul>
+  </nav>
+</div>
+
+  <!-- Modal Add -->
+  <div class="modal-overlay d-flex align-items-center justify-content-center" *ngIf="showModal" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.6); z-index: 999;">
+    <div class="modal-container col-md-10 bg-white p-4 rounded shadow position-relative" style="max-width: 1000px;">
+      <div class="d-flex align-items-center justify-content-between mb-4" style="border-bottom: 1px solid black;">
+        <h4 class="mb-0" style="font-size: 1.3rem;">Add New Product</h4>
+        <button class="close-btn position-absolute" (click)="closeModal()" style="top: 5px; right: 5px; background: none; border: none; cursor: pointer;">
+          <i class="fas fa-times" style="color: #f85757; font-size: 1.2rem;"></i>
+        </button>
+      </div>
+
+      <div class="form-group mb-3 row">
+        <div class="col-6">
+            <label class="lbl-product">Name</label>
+            <input class="form-control" type="text" [(ngModel)]="product.name" placeholder="Nike" style="font-size: 0.9rem; border: 1px solid rgb(34, 34, 35); border-radius: 10px;">
+        </div>
+        <div class="col-6">
+            <label class="lbl-product">Description</label>
+            <input class="form-control" type="text" [(ngModel)]="product.description" placeholder="Sport" style="font-size: 0.9rem; border: 1px solid rgb(38, 39, 40); border-radius: 10px;">
+          </div>
+    </div>
+    <div class="form-group mb-3 row">
+        <div class="col-6">
+            <label class="lbl-product">Image</label>
+            <input 
+            type="file" 
+            accept="image/*" 
+            (change)="onFileSelected($event)" 
+            class="form-control file-input"
+            style="font-size: 1rem; border: 1px solid rgb(24, 25, 26); border-radius: 10px; padding-top: 4px;"> 
+        </div>
+        <div class="col-6">
+            <label class="lbl-product">Price</label>
+            <input class="form-control" type="text" [(ngModel)]="product.price" placeholder="100.000đ" style="font-size: 0.9rem; border: 1px solid rgb(38, 39, 40); border-radius: 10px;">
+          </div>
+    </div>
+    <div class="form-group mb-3 row">
+        <div class="col-6">
+          <label class="lbl-product">Category</label>
+          <select class="form-control" [(ngModel)]="product.category.id" style="font-size: 0.9rem; border: 1px solid rgb(34, 34, 35); border-radius: 10px;">
+            <option value="" disabled selected>--Category name--</option>
+            <option *ngFor="let category of categorys" [ngValue]="category.id">{{ category.name }}</option>
+          </select>
+        </div>
+        <div class="col-6">
+          <label class="lbl-product">Brand</label>
+          <select class="form-control" [(ngModel)]="product.brand.id" style="font-size: 0.9rem; border: 1px solid rgb(34, 34, 35); border-radius: 10px;">
+            <option value="" disabled selected>--Brand name--</option>
+            <option *ngFor="let brand of brands" [ngValue]="brand.id">{{ brand.name }}</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-group mb-3 row">
+        <div class="col-6">
+          <label class="lbl-product">Shop</label>
+          <select class="form-control" [(ngModel)]="product.shop.id" style="font-size: 0.9rem; border: 1px solid rgb(34, 34, 35); border-radius: 10px;">
+            <option value="" disabled selected>--Shop name--</option>
+            <option *ngFor="let shop of shops" [ngValue]="shop.id">{{ shop.name }}</option>
+          </select>
+        </div>
+      </div>
+       <!-- Select Size and Color -->
+    <div class="form-group mb-3 row">
+      <div class="col-6">
+        <label class="lbl-product">Select Attribute</label>
+        <select class="form-control" [(ngModel)]="selectedSize" 
+          style="font-size: 0.9rem; border: 1px solid rgb(34, 34, 35); border-radius: 10px;">
+          <option value="" disabled selected>-- Select Size --</option>
+          <option *ngFor="let size of sizes" [value]="size">{{ size }}</option>
+        </select>
+      </div>
+      <div class="col-6">
+        <label class="lbl-product" style="visibility: hidden;">Select Color</label> 
+        <select class="form-control" [(ngModel)]="selectedColor" 
+          style="font-size: 0.9rem; border: 1px solid rgb(34, 34, 35); border-radius: 10px;">
+          <option value="" disabled selected>-- Select Color --</option>
+          <option *ngFor="let color of colors" [value]="color">{{ color }}</option>
+        </select>
+      </div>
+      <div class="d-flex justify-content-end mt-3" style="margin-left: 10px; padding-left: 10px;">
+        <button class="btn btn-primary" (click)="addSizeColorPair()" 
+          style="border-radius: 10px;">Add select</button>
+      </div>
+    </div>
+
+    <!-- Display Selected Pairs -->
+    <div class="mt-3 d-flex justify-content-center">
+      <div class="col-8">
+        <!-- <label class="lbl-product text-center">Size-Color List Selected</label> -->
+        <table class="table text-center table-bordered table-sm custom-table">
+          <thead>
+            <tr>
+              <th class="th-custom" style="font-size: 1rem; width: 20%;">Size</th>
+              <th class="th-custom" style="font-size: 1rem; width: 30%;">Color</th>
+              <th class="th-custom" style="font-size: 1rem; width: 10%;"></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let pair of selectedPairs; let i = index">
+              <td class="td-custom" class="align-middle" style="font-size: 0.9rem;">{{ pair.size }}</td>
+              <td class="td-custom" class="align-middle" style="font-size: 0.9rem;">{{ pair.color }}</td>
+              <td class="td-custom">
+                <button class="btn-user" style="background: none; border: none; cursor: pointer;" (click)="removePair(i)">
+                  <i class="fas fa-trash" style="color: #d9534f; font-size: 0.9rem;"></i>
+                </button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+   
+      <div class="d-flex justify-content-end mt-3">     
+        <button class="btn btn-primary" (click)="saveChanges()" style="border-radius: 10px;">Save Changes</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal Update -->
+<div class="modal-overlay d-flex align-items-center justify-content-center" *ngIf="showUpdateModal" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.6); z-index: 999;">
+  <div class="modal-container col-md-10 bg-white p-4 rounded shadow position-relative" style="max-width: 1000px;">
+    <div class="d-flex align-items-center justify-content-between mb-4" style="border-bottom: 1px solid black;">
+      <h4 class="mb-0" style="font-size: 1.3rem;">Update Product</h4>
+      <button class="close-btn position-absolute" (click)="closeUpdateModal()" style="top: 5px; right: 5px; background: none; border: none; cursor: pointer;">
+        <i class="fas fa-times" style="color: #f85757; font-size: 1.2rem;"></i>
+      </button>
+    </div>
+
+    <!-- Name and Description Row -->
+    <div class="form-group mb-3 row">
+      <div class="col-6">
+        <label class="lbl-product">Name</label>
+        <input class="form-control" type="text" [(ngModel)]="selectedProduct.name" placeholder="Nike" style="font-size: 0.9rem; border: 1px solid rgb(34, 34, 35); border-radius: 10px;">
+      </div>
+      <div class="col-6">
+        <label class="lbl-product">Description</label>
+        <input class="form-control" type="text" [(ngModel)]="selectedProduct.description" placeholder="Sport" style="font-size: 0.9rem; border: 1px solid rgb(38, 39, 40); border-radius: 10px;">
+      </div>
+    </div>
+
+    <!-- Image, Price and Status Row -->
+    <div class="form-group mb-3 row">
+      <div class="col-6">
+        <label class="lbl-product">Image</label>
+        <input type="file" accept="image/*" (change)="onFileSelected($event)" class="form-control file-input" style="font-size: 1rem; border: 1px solid rgb(24, 25, 26); border-radius: 10px; padding-top: 4px;">
+      </div>
+      <div class="col-6">
+        <label class="lbl-product">Price</label>
+        <input class="form-control" type="text" [(ngModel)]="selectedProduct.price" (input)="formatPrice($event)" placeholder="100.000đ" style="font-size: 0.9rem; border: 1px solid rgb(38, 39, 40); border-radius: 10px;">
+      </div>
+    </div>
+
+    <!-- Status and Views Row -->
+    <div class="form-group mb-3 row">
+      <div class="col-6">
+        <label class="lbl-product">Status</label>
+        <select class="form-control" [(ngModel)]="selectedProduct.isDeleted" style="font-size: 0.9rem; border: 1px solid rgb(34, 34, 35); border-radius: 10px;">
+          <option [ngValue]="true">True</option>
+          <option [ngValue]="false">False</option>
+        </select>
+      </div>
+      <div class="col-6">
+        <label class="lbl-product">Views</label>
+        <input class="form-control" type="text" [(ngModel)]="selectedProduct.views" placeholder="Sport" style="font-size: 0.9rem; border: 1px solid rgb(38, 39, 40); border-radius: 10px;">
+      </div>
+    </div>
+
+    <!-- Category, Brand and Shop Row -->
+    <div class="form-group mb-3 row">
+      <div class="col-6">
+        <label class="lbl-product">Category</label>
+        <select class="form-control" [(ngModel)]="selectedProduct.category.id" style="font-size: 0.9rem; border: 1px solid rgb(34, 34, 35); border-radius: 10px;">
+          <option *ngFor="let category of categorys" [ngValue]="category.id">{{ category.name }}</option>
+        </select>
+      </div>
+      <div class="col-6">
+        <label class="lbl-product">Brand</label>
+        <select class="form-control" [(ngModel)]="selectedProduct.brand.id" style="font-size: 0.9rem; border: 1px solid rgb(34, 34, 35); border-radius: 10px;">
+          <option *ngFor="let brand of brands" [ngValue]="brand.id">{{ brand.name }}</option>
+        </select>
+      </div>
+    </div>
+
+    <!-- Shop Row -->
+    <div class="form-group mb-3 row">
+      <div class="col-6">
+        <label class="lbl-product">Shop</label>
+        <select class="form-control" [(ngModel)]="selectedProduct.shop.id" style="font-size: 0.9rem; border: 1px solid rgb(34, 34, 35); border-radius: 10px;">
+          <option *ngFor="let shop of shops" [ngValue]="shop.id">{{ shop.name }}</option>
+        </select>
+      </div>
+    </div>
+      <!-- Select Size and Color -->
+      <div class="form-group mb-3 row">
+        <div class="col-6">
+          <label class="lbl-product">Select Size-Color</label>
+          <select class="form-control" [(ngModel)]="selectedSize" 
+            style="font-size: 0.9rem; border: 1px solid rgb(34, 34, 35); border-radius: 10px;">
+            <option value="" disabled selected>-- Select Size --</option>
+            <option *ngFor="let size of sizes" [value]="size">{{ size }}</option>
+          </select>
+        </div>
+        <div class="col-6">
+          <label class="lbl-product" style="visibility: hidden;">Select Color</label> 
+          <select class="form-control" [(ngModel)]="selectedColor" 
+            style="font-size: 0.9rem; border: 1px solid rgb(34, 34, 35); border-radius: 10px;">
+            <option value="" disabled selected>-- Select Color --</option>
+            <option *ngFor="let color of colors" [value]="color">{{ color }}</option>
+          </select>
+        </div>
+        <div class="d-flex justify-content-end mt-3" style="margin-left: 10px; padding-left: 10px;">
+          <button class="btn btn-primary" (click)="addSizeColorPair()" 
+            style="border-radius: 10px;">Add select</button>
+        </div>
+      </div>
+  
+      <!-- Display Selected Pairs -->
+      <div class="mt-3 d-flex justify-content-center">
+        <div class="col-8">
+          <!-- <label class="lbl-product text-center">Size-Color List Selected</label> -->
+          <table class="table text-center table-bordered table-sm custom-table">
+            <thead>
+              <tr>
+                <th class="th-custom" style="font-size: 1rem; width: 20%;">Size</th>
+                <th class="th-custom" style="font-size: 1rem; width: 30%;">Color</th>
+                <th class="th-custom" style="font-size: 1rem; width: 10%;"></th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let pair of selectedPairs; let i = index">
+                <td class="td-custom" class="align-middle" style="font-size: 0.9rem;">{{ pair.size }}</td>
+                <td class="td-custom" class="align-middle" style="font-size: 0.9rem;">{{ pair.color }}</td>
+                <td class="td-custom">
+                  <button class="btn-user" style="background: none; border: none; cursor: pointer;" (click)="removePair(i)">
+                    <i class="fas fa-trash" style="color: #d9534f; font-size: 0.9rem;"></i>
+                  </button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+    <!-- Save Button -->
+    <div class="d-flex justify-content-end mt-3">
+      <button class="btn btn-primary" (click)="saveUpdateChanges()" style="border-radius: 10px;">Save Changes</button>
+    </div>
+  </div>
+</div>
+
+  <!-- Modal View Detail -->
+  <div class="modal-overlay d-flex align-items-center justify-content-center" *ngIf="showDetailModal" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.6); z-index: 999;">
+    <div class="col-md-8 bg-white p-4 rounded shadow position-relative" style="max-width: 800px;">
+      <div class="d-flex align-items-center justify-content-between mb-4" style="border-bottom: 1px solid black;">
+        <h4 class="mb-0" style="font-size: 1.3rem;">View Detail Product</h4>
+        <button class="close-btn position-absolute" (click)="closeDetailModal()" style="top: 5px; right: 5px; background: none; border: none; cursor: pointer;">
+          <i class="fas fa-times" style="color: #f85757; font-size: 1.2rem;"></i>
+        </button>
+      </div>
+  
+      <div class="form-group mb-3">
+          <label class="lbl-product lbl-inline">ID:</label>
+          <p class="p-inline">{{ selectedProduct.id }}</p>    
+      </div>
+  
+      <div class="form-group mb-3 row">
+        <div class="col-6">
+          <label class="lbl-product lbl-inline">Name:</label>
+          <p class="p-inline">{{ selectedProduct.name }}</p>
+        </div>
+        <div class="col-6">
+          <label class="lbl-product lbl-inline">Description:</label>
+          <p class="p-inline">{{ selectedProduct.description }}</p>
+        </div>
+      </div>
+  
+      <div class="form-group mb-3 row">
+        <div class="col-6">
+          <label class="lbl-product lbl-inline">Price:</label>
+          <p class="p-inline">{{ selectedProduct.price | number:'1.0-0' }}đ</p>
+        </div>
+        <div class="col-6">
+          <label class="lbl-product lbl-inline">Create Date:</label>
+          <p class="p-inline">{{ selectedProduct.insertedAt | date: 'dd MMM yyyy, hh:mm a'}}</p>
+        </div>
+      </div>
+  
+      <div class="form-group mb-3 row">       
+        <div class="col-6">
+            <label class="lbl-product lbl-inline">Views:</label>
+            <p class="p-inline">{{ selectedProduct.views }}</p>
+          </div>
+        <div class="col-6">
+          <label class="lbl-product lbl-inline">Status:</label>
+          <p class="p-inline">{{ selectedProduct.isDeleted }}</p>
+        </div>
+      </div>
+      <div class="form-group mb-3">
+        <label class="lbl-product lbl-inline">Image:</label>
+        <p class="p-inline">{{ selectedProduct.image }}</p>       
+      </div>
+  
+      <div class="form-group mb-3">
+          <label class="lbl-product lbl-inline">Category:</label>
+          <p class="p-inline">CategoryId: {{ selectedProduct?.category?.id }} &nbsp;|&nbsp; Name: {{ selectedProduct?.category?.name }}</p>
+      </div>
+      
+      <div class="form-group mb-3">
+        <label class="lbl-product lbl-inline">Brand:</label>
+          <p class="p-inline">BrandId: {{ selectedProduct?.brand?.id }} &nbsp;|&nbsp; Name: {{ selectedProduct?.brand?.name }}</p>
+      </div>
+      <div class="form-group mb-3">
+        <label class="lbl-product lbl-inline">Shop:</label>
+        <p class="p-inline">ShopId: {{ selectedProduct?.shop?.id }} &nbsp;|&nbsp; Name: {{ selectedProduct?.shop?.name }}</p>
+      </div>
+      <div class="form-group mb-3">
+        <label class="lbl-product">Product Detail:</label>
+        <div *ngFor="let detail of selectedProduct?.productDetails">
+            <p class="p-inline bullet-point">
+              DetailId: {{ detail.id }} &nbsp;|&nbsp; Color: {{ detail.color }} &nbsp;|&nbsp; Size: {{ detail.size }}
+            </p>
+      </div>
+  
+    </div>
+  </div>

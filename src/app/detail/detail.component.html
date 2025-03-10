@@ -1,0 +1,249 @@
+ <!-- Page Header Start -->
+ <div class="container-fluid" style="padding-top: 50px;">
+    <div class="d-flex flex-column align-items-left justify-content-center" style="min-height: 50px; margin-top: -48px;">
+        <div class="d-inline-flex" style="font-size: 1rem; font-weight: 500; color: black; margin-left: 50px;">
+            <p class="m-0"><a routerLink="/" routerLinkActive="active" class="nav-link" style="cursor: pointer; padding-right: 5px; padding-left: 5px;" title="Return Home">Home</a></p>
+            <p class="m-0 px-2 pt-2 " style="padding-left: -10px;">/</p>
+            <p class="m-0 pt-2 text-primary">Shop Detail</p>
+        </div>
+    </div>
+</div>
+<!-- Page Header End -->
+
+
+<!-- Shop Detail Start -->
+<div class="container-fluid py-2">
+    <div class="row px-xl-5">
+        <div class="col-lg-5 pb-5">
+            <div id="product-carousel" class="carousel slide" data-ride="carousel" style="border-radius: 5px;">
+                <div class="carousel-inner custom-carousel" style="border-radius: 5px;">
+                    <div class="carousel-item active" style="border-radius: 5px;">
+                        <img class="w-100 h-100 main-image" [src]="'/assets/img/' + product.image" alt="{{product.name}}">
+                        <img class="overlay-image" src="/assets/img/prd_2.png" alt="Overlay">
+                        <img class="overlay-image1" src="/assets/img/prd_1.png" alt="Overlay">
+                        <img class="overlay-image2" src="/assets/img/prd_3.png" alt="Overlay">
+                        <img class="overlay-image3" src="/assets/img/ve_1.png" alt="Overlay">
+                        <img class="overlay-image4" src="/assets/img/prd_4.png" alt="Overlay">
+                    </div>                   
+                </div>              
+            </div>
+        </div>
+
+        <div class="col-lg-7 pb-5">
+            <h3 class="font-weight-semi-bold" style="font-size: 1.3rem; display: flex; align-items: center; gap: 8px;">
+                <span style="background-color: rgb(238, 43, 43); color: white; padding: 3px 8px; border-radius: 5px; font-size: 0.9rem; font-weight: 500;">
+                    Favourite&nbsp;+
+                </span>
+                {{ product.name }}
+              </h3>
+            <div class="d-flex mb-3">
+                <div class="mr-4" style="color: rgb(248, 220, 7); display: flex; align-items: center; font-size: 1rem;">
+                    <span style="text-decoration: underline; font-weight: 400; color: black; margin-right: 8px;">4.8</span>
+                    <small class="fas fa-star" style="margin-right: 3px;"></small>
+                    <small class="fas fa-star" style="margin-right: 3px;"></small>
+                    <small class="fas fa-star" style="margin-right: 3px;"></small>
+                    <small class="fas fa-star" style="margin-right: 3px;"></small>
+                    <small class="fas fa-star" style="margin-right: 3px;"></small>
+                </div>
+                <small class="pt-1 mr-4" style="padding-left: 30px; border-left: 2px solid rgb(219, 213, 213); font-size: 0.9rem;">
+                    <i class="fa fa-comment-dots" style="margin-right: 2px; color: #f85757"></i>
+                    Reviews <span style="text-decoration: underline; color: black; font-weight: 500; font-size: 0.9rem;">{{ reviews.length }}</span>
+                </small>
+                <small class="pt-1 mr-4" style="padding-left: 30px; border-left: 2px solid rgb(219, 213, 213); font-size: 0.9rem;">
+                    <i class="fa fa-check-circle" style="margin-right: 2px; color: #f85757"></i>
+                    Sold <span style="text-decoration: underline; color: black; font-weight: 500; font-size: 0.9rem;">11k</span>
+                </small>
+                <small class="pt-1 mr-4" style="padding-left: 30px; border-left: 2px solid rgb(219, 213, 213); font-size: 0.9rem;">
+                    <i class="fa fa-eye" style="margin-right: 2px; color: #f85757"></i>
+                    Views <span style="text-decoration: underline; color: black; font-weight: 500; font-size: 0.9rem;">{{ product.views }}</span>
+                </small>
+            </div>
+            <h5 class="mb-2" style="font-size: 1.2rem; color: rgb(240, 60, 60); margin-right: 10px;">{{ product.price | number:'1.0-0' }}<u style="font-size: 1rem; margin-right: 10px;">đ</u><del class="old-price">730.000 đ</del></h5>
+            <p class="mb-2" style="font-size: 1rem;">Eos no lorem eirmod diam diam, eos elitr et gubergren diam sea. Consetetur vero aliquyam invidunt duo dolores et duo sit. Vero diam ea vero et dolore rebum, dolor rebum eirmod consetetur invidunt sed sed et, lorem duo et eos elitr, sadipscing kasd ipsum rebum diam. Dolore diam stet rebum sed tempor kasd eirmod. Takimata kasd ipsum accusam sadipscing, eos dolores sit no ut diam consetetur duo justo est, sit sanctus diam tempor aliquyam eirmod nonumy rebum dolor accusam, ipsum kasd eos consetetur at sit rebum, diam kasd invidunt tempor lorem, ipsum lorem elitr sanctus eirmod takimata dolor ea invidunt.</p>
+            <p class="mb-4" style="font-size: 1rem; color: rgb(90, 88, 88);"> 
+                <img class="" [src]="'/assets/img/khien.png'" alt="{{product.name}}" style="width: 22px; height: 22px; margin-bottom: 5px;"> 
+                Shop safely with 365Emart -                 
+                <img class="" [src]="'/assets/img/khien1.png'" alt="{{product.name}}" style="width: 27px; height: 27px; margin-bottom: 5px;">
+                Order processing by 365Emart
+            </p>
+            <div class="d-flex mb-4">
+                <p class="text-dark font-weight-medium mb-0 mr-3" style="font-size: 1rem;">
+                    {{ product.category?.name === 'Skincare' ? 'Capacity:' : 
+                       product.category?.name === 'Beverages' ? 'Weight:' : 'Sizes:' }}
+                </p>
+                <form class="d-flex flex-wrap">
+                    <button *ngFor="let size of sizes" type="button" style="border: 1px solid rgb(192, 184, 184); border-radius: 5px; font-size: 1rem; background-color: white;"
+                        class="mx-2 px-4 btnclick"
+                        [class.active]="selectedSize === size"
+                        (click)="selectSize(size)">
+                        {{ size }}
+                    </button>
+                </form>
+            </div>
+            <div class="d-flex mb-4" *ngIf="colors.length > 0">
+                <p class="text-dark font-weight-medium mb-0 mr-3" style="font-size: 1rem;">Colors:</p>
+                <form class="d-flex flex-wrap">
+                    <button *ngFor="let color of colors" type="button" style="border: 1px solid rgb(192, 184, 184); border-radius: 5px; font-size: 1rem; background-color: white;"
+                        class="mx-2 px-4 btnclick"
+                        [class.active]="selectedColor === color"
+                        (click)="selectColor(color)">
+                        {{ color }}
+                    </button>
+                </form>
+            </div>
+            <div class="d-flex align-items-center mb-4 pt-2" style="font-size: 1rem; border: none;">
+                <div class="input-group quantity mr-3" style="width: 150px; border: none; border-radius: 5px; overflow: hidden; background-color: white;">
+                    <div class="input-group" style="display: flex; align-items: center; background-color: white;">
+                        <button class="btn btn-minus quantity" 
+                                style="border-radius: 25px; border: 1px solid rgb(84, 163, 237); font-size: 0.8rem;" 
+                                (click)="decreaseQuantity()">
+                            <i class="fa fa-minus" style="color: #f85757"></i>
+                        </button>
+                        
+                        <input type="text" [value]="quantity" 
+                               style="font-size: 1rem; border: none; height: 30px; width: 40px; text-align: center;" readonly>
+                        
+                        <button class="btn btn-plus quantity" 
+                                style="border-radius: 25px; border: 1px solid rgb(84, 163, 237); font-size: 0.8rem;" 
+                                (click)="increaseQuantity()">
+                            <i class="fa fa-plus" style="color: #f85757"></i>
+                        </button>
+                    </div>
+                </div>
+                <button class="btn btn-primary px-3" style="font-size: 1.1rem; border-radius: 5px; background-color: #fe6767;" (click)="addToCart()"><i class="fa fa-shopping-cart mr-1" style="font-size: 0.9rem;"></i> Add To Cart</button>
+                <button class="btn btn-primary px-3" style="font-size: 1.1rem; border-radius: 5px; background-color: #fe6767; margin-left: 20px;"><i class="fa fa-shopping-bag mr-1" style="font-size: 0.9rem;"></i> Buy now</button>
+            </div>
+    
+        </div>
+    </div>
+    <div class="row px-xl-5">
+        <div class="col">
+            <div class="nav nav-tabs justify-content-center mb-4" style="color: #f85757; border-bottom: 1px solid rgb(169, 165, 165);" >
+                <a class="nav-item nav-link active" style="font-weight: bold; font-size: 1rem;" data-toggle="tab" href="#tab-pane-1">Description</a>
+                <!-- <a class="nav-item nav-link" style="font-weight: bold; font-size: 1rem;" data-toggle="tab" href="#tab-pane-2">Information</a> -->
+                <a class="nav-item nav-link" style="font-weight: bold; font-size: 1rem;" data-toggle="tab" href="#tab-pane-3">Reviews({{ reviews.length }})</a>
+            </div>
+            <div class="tab-content">
+                <div class="tab-pane fade show active" id="tab-pane-1">
+                    <h4 class="mb-3" style="font-size: 1.3rem;">Product Description</h4>
+                    <p style="font-size: 1rem;">Eos no lorem eirmod diam diam, eos elitr et gubergren diam sea. Consetetur vero aliquyam invidunt duo dolores et duo sit. Vero diam ea vero et dolore rebum, dolor rebum eirmod consetetur invidunt sed sed et, lorem duo et eos elitr, sadipscing kasd ipsum rebum diam. Dolore diam stet rebum sed tempor kasd eirmod. Takimata kasd ipsum accusam sadipscing, eos dolores sit no ut diam consetetur duo justo est, sit sanctus diam tempor aliquyam eirmod nonumy rebum dolor accusam, ipsum kasd eos consetetur at sit rebum, diam kasd invidunt tempor lorem, ipsum lorem elitr sanctus eirmod takimata dolor ea invidunt.</p>
+                    <p style="font-size: 1rem;">Dolore magna est eirmod sanctus dolor, amet diam et eirmod et ipsum. Amet dolore tempor consetetur sed lorem dolor sit lorem tempor. Gubergren amet amet labore sadipscing clita clita diam clita. Sea amet et sed ipsum lorem elitr et, amet et labore voluptua sit rebum. Ea erat sed et diam takimata sed justo. Magna takimata justo et amet magna et.</p>
+                </div>                
+                <div class="tab-pane fade" id="tab-pane-3">
+                    <div class="row">                       
+                        <div class="col-md-12" *ngFor="let review of reviews">
+                            <div class="media mb-4" style="border-bottom: 1px solid rgb(223, 220, 220);">
+                                <img src="/assets/img/use.jpg" alt="Image" class="img-fluid mr-3 mt-1" style="width: 45px; border-bottom: 1px solid rgb(148, 145, 145);">
+                                <div class="media-body" >
+                                    <h6>{{ review.user?.name || 'Unknown User' }}<small> - <i>{{ review.insertedAt | date: 'dd MMM yyyy, hh:mm a' }}</i></small></h6>
+                                    <div class="mb-1" style="color: #f85757; font-size: 0.9rem;">
+                                        <ng-container *ngFor="let star of [1,2,3,4,5]; let i = index">
+                                          <i class="{{ i < review.rating ? 'fas' : 'far' }} fa-star" style="margin-right: 3px;"></i>
+                                        </ng-container>
+                                      </div>
+                                      <p style="font-size: 1rem; margin-bottom: 8px;">{{ review.comment }}</p>
+                                      <div class="mb-3">
+                                        <img [src]="'/assets/img/' + review.image" alt="Review Image" class="img-fluid" 
+                                             style="width: 100px; height: 100px; object-fit: cover;">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>                       
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Shop Detail End -->
+
+
+<!-- Products Start -->
+<div class="container-fluid pt-5">
+    <div class="text-center mb-5">
+        <h2 class="section-title px-5"><span class="px-2">You May Also Like</span></h2>
+    </div>
+    
+    <div class="row px-xl-5 pb-3">
+        <div *ngFor="let product of products" class="col-lg-3 col-md-6 col-sm-12 pb-1">
+          <a [routerLink]="['/product', product.id]" class="text-decoration-none">
+              <div class="card product-item mb-4" style="box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5); border-radius: 5px; font-size: 0.9rem;">
+                  <div class="card-header product-img position-relative overflow-hidden bg-transparent border p-0" style="font-size: 0.9rem;">
+                      <img class="img-fluid w-100" [src]="'/assets/img/' + product.image" alt="{{product.name}}">
+                      <div class="discount-label">
+                          <span style="font-size: 0.9rem;">-10%</span>
+                      </div>
+                      <img class="extra-sale-img" src="/assets/img/ve_1.png" alt="Extra Sale">
+                  </div>
+                  <div class="card-body p-0 pt-2" style="margin-left: 10px; position: relative;">
+                      <div class="d-flex align-items-center mb-2 position-relative">
+                          <span class="text-white px-1 rounded position-absolute" 
+                              style="font-size: 0.7rem; background-color: red; left: 5; font-weight: 500;">
+                              <i class="fas fa-bolt" style="padding-right: 3px;"></i>FLASH SALE
+                          </span>
+                          <h6 class="text-truncate text-dark m-0 text-left flex-grow-1" 
+                              style="font-size: 1rem; padding-left: 100px;">
+                              {{ product.name }}
+                          </h6>
+                      </div>
+                  
+                      <div class="d-flex justify-content-left align-items-center" style="color: #fb6969;">
+                          <h6 style="font-size: 1.1rem; color: red; margin-bottom: 0; padding-left: 5px;">
+                              {{ product.price | number:'1.0-0'}}<u style="font-size: 1rem;">đ</u>
+                          </h6>
+                          <h6 class="ml-2 text-muted" style="font-size: 0.85rem; margin-bottom: 0;">
+                              <del>730.000<u style="font-size: 0.8rem;">đ</u></del>
+                          </h6>
+                      </div>
+                  </div>
+                  
+                  <div class="card-footer d-flex justify-content-between align-items-center p-1" 
+                      style="font-size: 0.8rem; background: none; border: none; margin-bottom: 2px;">
+                      <div class="d-flex align-items-center" style="padding-left: 10px;">
+                          <i class="fas fa-star" style="color: #FFD700; font-size: 0.7rem;"></i>
+                          <i class="fas fa-star" style="color: #FFD700; font-size: 0.7rem;"></i>
+                          <i class="fas fa-star" style="color: #FFD700; font-size: 0.7rem;"></i>
+                          <i class="fas fa-star" style="color: #FFD700; font-size: 0.7rem;"></i>
+                          <i class="fas fa-star" style="color: #FFD700; font-size: 0.7rem;"></i>
+                          <span class="ml-1 text-muted">(150)</span>
+                      </div>
+                      <div class="text-muted" style="font-size: 0.85rem; padding-right: 10px;">
+                          Sold <span>11k</span>
+                      </div>
+                  </div>
+
+                  <!-- <div class="card-footer d-flex justify-content-between p-0" 
+                      style="font-size: 0.8rem; background: none; border: none; padding-bottom: 10px;">
+                      <a [routerLink]="['/product', product.id]" class="btn btn-sm text-dark" 
+                          style="font-size: 0.9rem; margin-right: 15px; padding-left: 10px;">
+                          <i class="fas fa-eye mr-1" style="font-size: 0.9rem; color: #f85757; padding-left: 6px;"></i>View Detail
+                      </a>
+                      <a [routerLink]="['/cart']" class="btn btn-sm text-dark" style="font-size: 0.9rem; padding-right: 10px;">
+                          <i class="fas fa-shopping-cart mr-1" style="font-size: 0.9rem; color: #f85757"></i>Add To Cart
+                      </a>
+                  </div>         -->
+              </div>
+          </a>
+        </div>         
+    </div>  
+    <div class="col-12 pb-1">
+        <nav aria-label="Page navigation" style="font-size: 0.9rem;">
+          <ul class="pagination justify-content-center mb-3">
+            <li class="page-item" [class.disabled]="pageNumber === 1">
+              <a class="page-link" (click)="changePage(pageNumber - 1)" aria-label="Previous" style="cursor: pointer;">
+                <span aria-hidden="true">&laquo;</span>
+              </a>
+            </li>
+            <li *ngFor="let page of getDisplayedPages()" class="page-item" [class.active]="pageNumber === page">
+              <a class="page-link" (click)="changePage(page)" style="cursor: pointer;">{{ page }}</a>
+            </li>
+            <li class="page-item" [class.disabled]="pageNumber === totalPages">
+              <a class="page-link" (click)="changePage(pageNumber + 1)" aria-label="Next" style="cursor: pointer;">
+                <span aria-hidden="true">&raquo;</span>
+              </a>
+            </li>
+          </ul>
+        </nav>
+      </div>
+</div>
+<!-- Products End -->

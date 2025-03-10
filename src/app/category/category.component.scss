@@ -1,0 +1,121 @@
+.btn-user:hover i {
+    color: #f85757 !important;;
+}
+
+.btn-them {
+    transition: all 0.3s ease;  /* Thêm hiệu ứng chuyển đổi mượt mà */
+}
+
+.btn-them:hover {
+    background-color: #f85757 !important;  /* Thay đổi màu nền khi hover */
+    color: #1d1a1a !important;  /* Thay đổi màu chữ khi hover */
+}
+
+.btn-them:hover i {
+    color: #1d1a1a !important;  /* Thay đổi màu icon khi hover */
+}
+
+.btn-them:hover span {
+    color: #1d1a1a !important;  /* Thay đổi màu chữ span khi hover */
+}
+
+.close-btn:hover i{
+    color: #1d1a1a !important;
+}
+  
+  .lbl-brand{
+    font-size: 1rem !important;
+    color: #1d1a1a !important;
+  }
+
+  .lbl-product{
+    font-size: 1rem !important;
+    color: #1d1a1a !important;
+  }
+
+  .lbl-inline{
+    display: inline; 
+    margin-right: 5px;
+  }
+
+  .p-inline{
+    display: inline; margin: 0;
+    font-size: 0.9rem;
+  }
+
+  .bullet-point {
+    position: relative;
+    padding-left: 20px; /* Khoảng cách từ dấu chấm tròn tới nội dung */
+}
+
+.bullet-point::before {
+    content: '•';  /* Dấu chấm tròn */
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);  /* Căn giữa theo chiều dọc */
+    font-size: 20px; /* Kích thước của dấu chấm */
+    color: black; /* Màu sắc của dấu chấm */
+}
+
+  .classification-container {
+    border: 1px solid rgb(24, 25, 26);
+    border-radius: 10px;
+    padding: 8px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    background-color: #fff;
+  }
+  
+  .classification-list {
+    display: flex;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+    justify-content: center;
+    width: 100%;
+  }
+  
+  .classification-item {
+    display: flex;
+    align-items: center;
+    gap: 0.3rem;
+  }
+  
+  .modal-overlay {
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    overflow: auto; /* Cho phép cuộn nếu nội dung quá lớn */
+  }
+  
+  /* Modal Container */
+  .modal-container {
+    background: #ffffff;
+    padding: 20px;
+    border-radius: 8px;
+    max-width: 90%; /* Điều chỉnh kích thước modal */
+    max-height: 100vh; /* Giới hạn chiều cao tối đa */
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto; /* Cuộn toàn bộ modal */
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3);
+  }
+  
+  /* Modal Content */
+  .modal-content {
+    flex: 1;
+    overflow-y: auto; /* Cho phép cuộn dọc trong nội dung */
+    padding: 10px;
+    background-color: white;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+  }

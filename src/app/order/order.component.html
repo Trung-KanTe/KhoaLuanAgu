@@ -1,0 +1,145 @@
+<div class="container-fluid">
+    <div class="row justify-content-center">
+        <div class="col-12" style="background-color: white; border-radius: 10px; box-shadow: 0 6px 8px rgba(0, 0, 0, 0.7);">         
+            <div class="row mt-2">
+                <div class="col-12">
+                    <div class="row" *ngIf="orders.length > 0; else emptyOrder">
+                        <div class="col-md-12 mb-4" *ngFor="let order of orders">
+                            <div class="d-flex align-items-center justify-content-between w-100">  
+                                <div class="d-flex align-items-center ml-1 mb-2">         
+                                    <i class="fas fa-store" style="font-size: 1rem; color: rgb(251, 79, 79); padding-right: 8px; margin-bottom: 5px; margin-left: 25px;"></i>
+                                    <p class="mb-0" style="font-size: 0.85rem; font-weight: 600; margin-bottom: 13px;">{{ order.shopName }}
+                                        - <i style="color: black; font-weight: normal; font-family: Arial, sans-serif;">{{ order.insertedAt | date: 'dd MMM yyyy, hh:mm a' }}</i>
+                                    </p>
+                                </div>
+                                <div class="text-right" style="font-size: 0.9rem;">
+                                    <i class="fas fa-truck" style="color: #17a2b8; padding-right: 8px;"></i>
+                                    <span style="color: #17a2b8; margin-right: 10px;">{{ order.status }}</span>
+                                </div>
+                            </div>
+                    
+                            <div class="p-1" style="border-bottom: 2px solid #aea8a8;">
+                                <div *ngFor="let item of order.orderItems" class="d-flex align-items-start position-relative" style="border-bottom: 1px solid #ece2e2; padding-bottom: 10px;">
+                                    <img [src]="'/assets/img/' + item.productImage" alt="Sản phẩm" 
+                                         style="width: 70px;" class="card-img-top me-4">
+                                    
+                                    <div class="d-flex flex-column w-100">
+                                        <div class="position-relative">
+                                            <h5 class="card-title mb-1" style="font-size: 1rem; padding-left: 5px; padding-top: 10px;">
+                                                {{ item.productName }} <span style="margin-left: 6px;">- {{ item.productDescription }}</span>
+                                            </h5>
+                                            <div class="d-flex align-items-center position-absolute" style="color: #fb6969; right: 0; top: 1;">
+                                                <h6 style="font-size: 1rem; color: rgb(251, 79, 79); margin-bottom: 0;">
+                                                    {{ item.price | number:'1.0-0' }}<u style="font-size: 1rem;">đ</u>
+                                                </h6>
+                                                <h6 class="text-muted ml-1" style="font-size: 0.8rem; margin-bottom: 0; margin-left: 8px;">
+                                                    <del>730.000<u style="font-size: 0.8rem; margin-right: 10px;">đ</u></del>
+                                                </h6>
+                                            </div>
+                                        </div>
+                                        <p class="mb-0" style="font-size: 0.9rem; color: gray; padding-left: 5px;">
+                                            {{ item.productDetails.size }} - {{ item.productDetails.color }} <span style="margin-left: 6px;">x{{ item.quantity }}</span>
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="d-flex justify-content-between align-items-center" style="padding: 10px;">
+                                    <p class="card-text mb-0" style="color: black; font-size: 1rem; margin-left: 550px;">
+                                        Total: <span style="margin-left: 6px; color: rgb(251, 79, 79); font-size: 1.2rem; font-weight: 500;">
+                                            {{ order.totalAmount | number }}đ
+                                        </span>
+                                    </p>
+                                    <button (click)="updateOrderStatus(order.id, 'confirmed')" class="btn-buy" style="right: 0;" *ngIf="order.status === 'pending'; else otherStatus">
+                                        Confirm
+                                    </button>
+
+                                    <ng-template #otherStatus>
+                                        <button class="btn-buy" style="right: 0;" *ngIf="order.status === 'confirmed'; else viewDetail">
+                                            Received
+                                        </button>
+                                    </ng-template>
+
+                                    <ng-template #viewDetail>
+                                        <button (click)="openDetailModal(order.id)" class="btn-buy" style="right: 0;" *ngIf="order.status === 'completed' || order.status === 'canceled'">
+                                            View Detail
+                                        </button>
+                                    </ng-template>                                                               
+                                </div>
+                            </div>                          
+                        </div>                                          
+                    </div>
+                    
+                    <!-- Khi không có orderItems, hiển thị nội dung thay thế -->
+                    <ng-template #emptyOrder>
+                        <div class="text-center mt-4">
+                            <i class="fa-solid fa-book fa-3x text-gray-400 position-relative"></i>
+                            <i class="fa-solid fa-pen fa-lg text-gray-500 position-absolute" style="padding-top: 20px;"></i>
+                            <p style="margin-top: 15px;">No orders found.</p>
+                        </div>
+                    </ng-template>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal View Detail -->
+<div class="modal-overlay d-flex align-items-center justify-content-center" 
+     *ngIf="showDetailModal" 
+     style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.6); z-index: 999;">
+  
+    <div class="col-md-8 bg-white p-4 rounded shadow position-relative" style="max-width: 800px;">
+      
+      <div class="d-flex align-items-center justify-content-between mb-4" style="border-bottom: 1px solid black;">
+        <h4 class="mb-0" style="font-size: 1.3rem;">View Detail Orders</h4>
+        <button class="close-btn position-absolute" (click)="closeDetailModal()" 
+                style="top: 5px; right: 5px; background: none; border: none; cursor: pointer;">
+          <i class="fas fa-times" style="color: #f85757; font-size: 1.2rem;"></i>
+        </button>
+      </div>
+
+      <div *ngIf="selectedOrder">
+        <div class="form-group mb-3">
+          <label class="lbl-product lbl-inline">ID:</label>
+          <p class="p-inline">{{ selectedOrder.id }}</p>    
+        </div>
+
+        <div class="form-group mb-3 row">
+          <div class="col-6">
+            <label class="lbl-product lbl-inline">UserId:</label>
+            <p class="p-inline">{{ selectedOrder.userId }}</p>
+          </div>
+          <div class="col-6">
+            <label class="lbl-product lbl-inline">Total Amount:</label>
+            <p class="p-inline">{{ selectedOrder.totalAmount | number:'1.0-0' }}đ</p>
+          </div>
+        </div>
+
+        <div class="form-group mb-3 row">
+          <div class="col-6">
+            <label class="lbl-product lbl-inline">Payment Method:</label>
+            <p class="p-inline">{{ selectedOrder.paymentMethod }}</p>
+          </div>
+          <div class="col-6">
+            <label class="lbl-product lbl-inline">Status:</label>
+            <p class="p-inline">{{ selectedOrder.status }}</p>
+          </div>
+        </div>
+        <div class="form-group mb-3">
+            <label class="lbl-product lbl-inline">PromotionId:</label>
+            <p class="p-inline">{{ selectedOrder.promotionId }}</p> 
+          </div>
+
+        <div class="form-group mb-3">
+          <label class="lbl-product">Order Items:</label>
+          <div *ngFor="let detail of selectedOrder.orderItems">
+              <p class="p-inline bullet-point">
+                DetailId: {{ detail.id }} | Price: {{ detail.price | number:'1.0-0' }}đ 
+                | ProductName: {{ detail.productName }} | Size: {{ detail.productDetails.size  }}  
+                | Color: {{ detail.productDetails.color }}
+              </p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+</div>

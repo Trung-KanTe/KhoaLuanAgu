@@ -1,0 +1,177 @@
+.icon-circle {
+    border: 1px solid #5297ec;
+    border-radius: 50%;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    width: 32px;
+    height: 32px;
+    font-size: 0.9rem;
+    text-align: center;
+}
+
+.product-img img {
+    object-fit: cover;
+    height: 350px; 
+}
+  
+.view-all {
+    text-decoration: underline;
+    font-weight: 500;
+    color: #f66269;
+    font-size: 1rem;
+    padding-right: 50px;
+}
+
+.view-alll {
+    text-decoration: underline;
+    font-weight: 500;
+    color: #f66269;
+    font-size: 1rem;
+    padding-bottom: 10px;
+}
+
+.view-all:hover {
+    font-weight: 600;
+    color: #f31621;
+    font-size: 1rem;
+}
+
+.view-alll:hover {
+    font-weight: 600;
+    color: #f31621;
+    font-size: 1rem;
+}
+
+.btn-click {
+    font-size: 1.1rem;
+    color: rgb(170, 165, 165);
+}
+
+.btn-click:hover {
+    font-size: 1.7rem;
+    color: rgb(50, 48, 48);
+}
+
+.product-container {
+    width: 100%;
+    overflow: hidden; /* Ẩn phần ngoài phạm vi */
+    position: relative;
+}
+
+.product-slider {
+    display: flex;
+    transition: transform 0.5s ease-in-out; /* Hiệu ứng trượt mượt */
+    gap: 10px; /* Khoảng cách giữa các sản phẩm */
+    will-change: transform;
+}
+
+.product-item-wrapper {
+    flex: 0 0 auto;
+    width: 200px; /* Chiều rộng của từng sản phẩm */
+}
+
+.sale-img {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* Hiệu ứng khi hover vào ảnh */
+.sale-img:hover {
+    transform: scale(1.1);
+    box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.4);
+}
+
+.sale-image {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* Hiệu ứng khi hover vào ảnh */
+.sale-image:hover {
+    transform: scale(1.1);
+    box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.4);
+}
+
+/* Hiệu ứng ảnh rung nhẹ (floating) */
+@keyframes floating {
+    0% { transform: translateY(0px); }
+    50% { transform: translateY(-5px); }
+    100% { transform: translateY(0px); }
+}
+
+.sale-img {
+    animation: floating 3s infinite ease-in-out;
+}
+
+@keyframes shake {
+    0% { transform: translateX(0); }
+    10% { transform: translateX(-3px) rotate(-1deg); }
+    20% { transform: translateX(3px) rotate(1deg); }
+    30% { transform: translateX(-3px) rotate(-1deg); }
+    40% { transform: translateX(0); }
+    100% { transform: translateX(0); } /* Giữ nguyên trạng thái 3s */
+}
+
+/* Rung 0.3s, nghỉ 3s, rồi mới lặp lại */
+.sale-image {
+    animation: shake 3.2s steps(1, end) infinite;
+}
+
+.sale-imagee {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.sale-imagee {
+    animation: shake 3.2s steps(1, end) infinite;
+}
+
+@media (min-width: 992px) { /* Chỉ áp dụng cho màn hình lớn */
+    .col-lg-1-5 {
+        flex: 0 0 12.5%; /* 12.5% = 1/8 của 100% */
+        max-width: 12.5%;
+    }
+}
+
+.imghover:hover{
+    color: rgb(32, 31, 31) !important;
+}
+
+.imgbrd:hover {
+    border: 1px solid black !important;
+}
+
+.product-img {
+    position: relative; /* Để các phần tử con có thể dùng absolute */
+}
+
+.extra-sale-img {
+    position: absolute;
+    bottom: 0px;  /* Đặt sát mép dưới */
+    left: 0px;    /* Đặt sát mép trái */
+    width: 115px !important;  /* Đảm bảo không bị co giãn */
+    height: 35px !important;
+    object-fit: contain; /* Giữ nguyên tỷ lệ ảnh */
+    z-index: 10;  /* Hiển thị trên ảnh chính */
+}
+
+.extra-sale-imgg {
+    position: absolute;
+    bottom: 91px;  /* Đặt sát mép dưới */
+    left: 9px;    /* Đặt sát mép trái */
+    width: 80px !important;  /* Đảm bảo không bị co giãn */
+    height: 24px !important;
+    object-fit: contain; /* Giữ nguyên tỷ lệ ảnh */
+    z-index: 10;  /* Hiển thị trên ảnh chính */
+}
+
+.imghver {
+    transition: transform 0.3s ease-in-out; /* Hiệu ứng mượt */
+}
+
+.imghver:hover {
+    transform: scale(1.1); /* Phóng to 1.2 lần */
+}
+
+.imghoover {
+    overflow: hidden; /* Ngăn ảnh tràn ra ngoài */
+    display: inline-block; /* Giữ kích thước theo ảnh */
+}

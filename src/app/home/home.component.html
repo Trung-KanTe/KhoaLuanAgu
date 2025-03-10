@@ -1,0 +1,621 @@
+
+<!-- Navbar Start -->
+<div class="d-flex">
+    <div class="container-fluid mb-5 pt-3">
+      <div class="row px-xl-5 justify-content-left">
+          
+          <div class="col-lg-12" style="border-radius: 10px; flex: 1;">              
+              <div id="header-carousel" class="carousel slide" data-ride="carousel" data-interval="4000" style=" box-shadow: 0 6px 8px rgba(0, 0, 0, 0.7)">
+                  <div class="carousel-inner">
+                    <div class="carousel-item" style="height: 560px;">
+                        <img class="img-fluid" src="assets/img/banner_365_4.png" alt="Image">                       
+                    </div>
+                    <div class="carousel-item" style="height: 560px;">
+                        <img class="img-fluid" src="assets/img/banner_365_5.jpg" alt="Image">                        
+                    </div>
+                      <div class="carousel-item active" style="height: 560px; border-radius: 10px;">
+                          <img class="img-fluid" src="assets/img/banner_365_2.jpg" alt="Image">                        
+                      </div>
+                      <div class="carousel-item" style="height: 560px;">
+                          <img class="img-fluid" src="assets/img/banner_365.jpg" alt="Image">                         
+                      </div>                   
+                  </div>
+                  <a class="carousel-control-prev" href="#header-carousel" data-slide="prev">
+                      <div class="btn btn-dark" style="width: 45px; height: 45px;">
+                          <span class="carousel-control-prev-icon mb-n2"></span>
+                      </div>
+                  </a>
+                  <a class="carousel-control-next" href="#header-carousel" data-slide="next">
+                      <div class="btn btn-dark" style="width: 45px; height: 45px;">
+                          <span class="carousel-control-next-icon mb-n2"></span>
+                      </div>
+                  </a>
+              </div>
+          </div>
+      </div>
+  </div>
+  </div>
+  
+  <!-- Navbar End -->
+
+  <!-- Category Start -->
+  <div class="container-fluid pt-4" style="max-width: 1390px; border-radius: 5px; background-color: #f5f5f5; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5); border-top: solid 1px rgb(202, 199, 199);">
+    <div class="row px-xl-4">
+        <div class="col-12 d-flex justify-content-between align-items-center" 
+            style="border-bottom: 1px solid rgb(227, 223, 223);">
+            <h5 class="text-dark mb-2"><i style="color: rgb(86, 210, 4); margin-right: 10px; font-size: 1.3rem;">📂</i>Category</h5>
+            <a routerLink="/shop" class="view-alll">View all &gt;</a>
+        </div>
+
+        <div class="col-12 mt-3 position-relative">           
+            <button class="btn btn-click position-absolute" style="border-radius: 25px; left: -22px; top: 40%; transform: translateY(-50%);" (click)="prev()" [disabled]="startIndex === 0">
+                <i class="fas fa-chevron-left"></i>
+            </button>
+
+            <div class="row justify-content-center">
+                <div *ngFor="let category of categories.slice(startIndex, startIndex + 8)" class="col-lg-1-5 col-md-3 col-6 text-center">
+                    <a [routerLink]="['/shop']" class="text-decoration-none">
+                    <div class="category-item imghover imghoover">
+                        <img [src]="'/assets/img/' + category.image" class="img-fluid rounded-circle imghver" alt="{{category.name}}" style="width: 100px; height: 100px; object-fit: cover;">
+                        <p class="mt-2 imghover" style="font-size: 0.9rem; color: #060606;">{{ category.name }}</p>
+                    </div>
+                    </a>
+                </div>
+            </div>
+
+            <button class="btn btn-click position-absolute" style="border-radius: 25px; right: -22px; top: 40%; transform: translateY(-50%);" (click)="next()" [disabled]="startIndex + 6 >= categories.length">
+                <i class="fas fa-chevron-right"></i>
+            </button>
+        </div>
+    </div>
+</div>
+<!-- Category End -->
+
+
+<!-- Product Flash sales Start -->
+<div class="container-fluid pt-4" style="max-width: 1390px; border-radius: 5px; background-color: #f5f5f5; box-shadow: 0 3px 6px rgba(0, 0, 0, 0.9); border-top: solid 1px rgb(202, 199, 199); margin-top: 50px;">
+    <div class="row px-xl-4">
+        <div class="col-12 d-flex justify-content-between align-items-center" 
+            style="border-bottom: 1px solid rgb(227, 223, 223);">
+            <h5 class=" text-dark mb-2">F<i class="fas fa-bolt" style="font-size: 1.3rem; color: #fd2929;"></i>ash Sales</h5>
+            <a routerLink="/shop" class="view-alll">View all &gt;</a>
+        </div>
+
+        <div class="col-12 p-3 position-relative">
+
+            <button class="btn btn-click position-absolute" style="border-radius: 25px; left: -25px; top: 50%; transform: translateY(-50%);" (click)="prevProduct()" [disabled]="startIndexProduct === 0">
+                <i class="fas fa-chevron-left"></i>
+            </button>
+            <div class="row justify-content-center">
+                <div *ngFor="let product of products.slice(startIndexProduct, startIndexProduct + 6)" class="col-lg-2" style="padding-left: 8px; padding-right: 8px;">
+                    <a [routerLink]="['/product', product.id]" class="text-decoration-none">
+                        <div class="product-item p-2 position-relative" style="background-color: white">
+                            <!-- Label giảm giá -->
+                            <span class="position-absolute" 
+                                  style="top: 5px; right: 5px; background-color: rgb(254, 238, 234); 
+                                         color: rgb(254, 28, 43); font-size: 0.8rem; font-weight: 500; 
+                                         padding: 1px 4px; border-radius: 3px;">
+                                -20%
+                            </span>
+                            <img class="extra-sale-imgg" src="/assets/img/ve_1.png" alt="Extra Sale">
+                
+                            <!-- Hình ảnh sản phẩm -->
+                            <img [src]="'/assets/img/' + product.image" 
+                                 class="img-fluid rounded" 
+                                 alt="{{product.name}}" 
+                                 style="width: 200px; height: 200px; object-fit: cover;">
+                
+                            <!-- Tên sản phẩm -->
+                            <p class="mt-2 text-truncate text-dark mb-1" style="font-size: 0.85rem;">
+                                <span class="badge" 
+                                      style="font-size: 0.6rem; border-radius: 3px; background-color: rgb(248, 45, 45); 
+                                             color: white; font-weight: 500; letter-spacing: 0.1px; padding: 2px 3px; position: relative; top: -2px;">
+                                    FLASH SALE
+                                </span> 
+                                {{ product.name }}
+                            </p>
+                
+                            <!-- Giá sản phẩm -->
+                            <p class="mb-1" style="font-size: 0.9rem; color: red; font-weight: 500;">
+                                {{ product.price | number:'1.0-0'}}<u style="font-size: 0.8rem;">đ</u>
+                                <span class="text-muted ml-2" style="font-size: 0.75rem; color: #aca6a6;">
+                                    <del>730.000<u style="font-size: 0.7rem;">đ</u></del>
+                                </span>
+                            </p>  
+                            
+                            <!-- Dòng đánh giá và số lượng đã bán -->
+                            <div class="d-flex justify-content-between align-items-center">
+                                <!-- Đánh giá sao -->
+                                <div class="rating" style="font-size: 0.65rem;">
+                                    <i class="fas fa-star text-warning"></i>
+                                    <i class="fas fa-star text-warning"></i>
+                                    <i class="fas fa-star text-warning"></i>
+                                    <i class="fas fa-star text-warning"></i>
+                                    <i class="fas fa-star text-warning"></i>
+                                    <span class="ml-1 text-muted">(150)</span>
+                                </div>
+
+                                <!-- Số lượng đã bán -->
+                                <span class="text-muted" style="font-size: 0.75rem;">Sold 11k</span>
+                            </div>
+                        </div>
+                    </a>
+                </div>              
+            </div>
+            <button class="btn btn-click position-absolute" style="border-radius: 25px; right: -25px; top: 50%; transform: translateY(-50%);" (click)="nextProduct()" [disabled]="startIndexProduct + 6 >= products.length">
+                <i class="fas fa-chevron-right"></i>
+            </button>
+        </div>
+    </div>
+</div>
+<!-- product End -->
+
+<!-- Featured Start -->
+<div class="container-fluid pt-3" style="margin-top: 30px;">
+    <div class="row px-xl-5 justify-content-center" style="font-size: 1rem;">
+        <div class="col-lg-3 col-md-6 col-sm-12">
+            <a [routerLink]="['/voucher']" class="text-decoration-none">
+            <div class="d-flex align-items-center mb-4 justify-content-center" style="border-radius: 5px;">
+                <img class="sale-image" src="assets/img/sale_7.png" alt="Sale" style="width: 310px; height: 120px; margin-right: 10px; border-radius: 10px;">
+            </div>
+            </a>
+        </div>
+        <div class="col-lg-3 col-md-6 col-sm-12">
+            <a [routerLink]="['/voucher']" class="text-decoration-none">
+            <div class="d-flex align-items-center mb-4 justify-content-center" style="border-radius: 5px;">
+                <img class="sale-img" src="assets/img/sale_3.png" alt="Sale" style="width: 310px; height: 120px; border-radius: 10px;">
+            </div>
+            </a>
+        </div>
+        <div class="col-lg-3 col-md-6 col-sm-12">
+            <a [routerLink]="['/voucher']" class="text-decoration-none">
+            <div class="d-flex align-items-center mb-4 justify-content-center" style="border-radius: 5px;">
+                <img class="sale-image" src="assets/img/sale_6.png" alt="Sale" style="width: 310px; height: 120px; margin-right: 10px; border-radius: 10px;">
+            </div>
+        </a>
+        </div>
+        <div class="col-lg-3 col-md-6 col-sm-12">
+            <a [routerLink]="['/voucher']" class="text-decoration-none">
+            <div class="d-flex align-items-center mb-4 justify-content-center" style="border-radius: 5px;">
+                <img class="sale-img" src="assets/img/sale_4.png" alt="Sale" style="width: 310px; height: 120px; margin-right: 10px; border-radius: 10px;">
+            </div>
+        </a>
+        </div>
+    </div>
+</div>
+<!-- Featured End -->
+
+<!-- Product Top Deals Start -->
+<div class="container-fluid pt-4" style="max-width: 1390px; border-radius: 5px; background-color: #f5f5f5; box-shadow: 0 3px 6px rgba(0, 0, 0, 0.9); border-top: solid 1px rgb(202, 199, 199); margin-top: 20px;">
+    <div class="row px-xl-4">
+        <div class="col-12 d-flex justify-content-between align-items-center" 
+            style="border-bottom: 1px solid rgb(227, 223, 223);">
+            <h5 class=" text-dark mb-2"><i class="fas fa-fire" style="color: red; margin-right: 10px; font-size: 1.6rem;"></i>Top Deals</h5>
+            <a routerLink="/shop" class="view-alll">View all &gt;</a>
+        </div>
+
+        <div class="col-12 p-3 position-relative">
+
+            <button class="btn btn-click position-absolute" style="border-radius: 25px; left: -25px; top: 50%; transform: translateY(-50%);" (click)="prevProductTop()" [disabled]="startIndexProductTop === 0">
+                <i class="fas fa-chevron-left"></i>
+            </button>
+            <div class="row justify-content-center">
+                <div *ngFor="let product of products.slice(startIndexProductTop, startIndexProductTop + 6)" class="col-lg-2" style="padding-left: 8px; padding-right: 8px;">
+                    <a [routerLink]="['/product', product.id]" class="text-decoration-none">
+                        <div class="product-item p-2 position-relative" style="background-color: white">
+                            <!-- Label giảm giá -->
+                            <span class="position-absolute" 
+                                  style="top: 5px; right: 5px; background-color: rgb(254, 238, 234); 
+                                         color: rgb(254, 28, 43); font-size: 0.8rem; font-weight: 500; 
+                                         padding: 1px 4px; border-radius: 3px;">
+                                -30%
+                            </span>
+                            <img class="extra-sale-imgg" src="/assets/img/ve_1.png" alt="Extra Sale">
+                
+                            <!-- Hình ảnh sản phẩm -->
+                            <img [src]="'/assets/img/' + product.image" 
+                                 class="img-fluid rounded" 
+                                 alt="{{product.name}}" 
+                                 style="width: 200px; height: 200px; object-fit: cover;">
+                
+                            <!-- Tên sản phẩm -->
+                            <p class="mt-2 text-truncate text-dark mb-1" style="font-size: 0.85rem;">
+                                <span class="badge" 
+                                      style="font-size: 0.6rem; border-radius: 3px; background-color: rgb(248, 45, 45); 
+                                             color: white; font-weight: 500; letter-spacing: 0.1px; padding: 2px 3px; position: relative; top: -2px;">
+                                    TOP DEALS
+                                </span> 
+                                {{ product.name }}
+                            </p>
+                
+                            <!-- Giá sản phẩm -->
+                            <p class="mb-1" style="font-size: 0.9rem; color: red; font-weight: 500;">
+                                {{ product.price | number:'1.0-0'}}<u style="font-size: 0.8rem;">đ</u>
+                                <span class="text-muted ml-2" style="font-size: 0.75rem; color: #aca6a6;">
+                                    <del>730.000<u style="font-size: 0.7rem;">đ</u></del>
+                                </span>
+                            </p>  
+                            
+                            <!-- Dòng đánh giá và số lượng đã bán -->
+                            <div class="d-flex justify-content-between align-items-center">
+                                <!-- Đánh giá sao -->
+                                <div class="rating" style="font-size: 0.65rem;">
+                                    <i class="fas fa-star text-warning"></i>
+                                    <i class="fas fa-star text-warning"></i>
+                                    <i class="fas fa-star text-warning"></i>
+                                    <i class="fas fa-star text-warning"></i>
+                                    <i class="fas fa-star text-warning"></i>
+                                    <span class="ml-1 text-muted">(150)</span>
+                                </div>
+
+                                <!-- Số lượng đã bán -->
+                                <span class="text-muted" style="font-size: 0.75rem;">Sold 11k</span>
+                            </div>
+                        </div>
+                    </a>
+                </div>              
+            </div>
+            <button class="btn btn-click position-absolute" style="border-radius: 25px; right: -25px; top: 50%; transform: translateY(-50%);" (click)="nextProductTop()" [disabled]="startIndexProductTop + 6 >= products.length">
+                <i class="fas fa-chevron-right"></i>
+            </button>
+        </div>
+    </div>
+</div>
+<!-- product End -->
+
+<!-- Store Start -->
+<div class="container-fluid mt-5 pt-4" style="max-width: 1390px; border-radius: 5px; background-color: #f5f5f5; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5); border-top: solid 1px rgb(202, 199, 199);">
+    <div class="row px-xl-4">
+        <div class="col-12 d-flex justify-content-between align-items-center" 
+            style="border-bottom: 1px solid rgb(227, 223, 223);">
+            <div class="d-flex align-items-center">
+                <h5 class="text-dark mb-2 me-2">Top Favorite Stores</h5>
+                <img [src]="'/assets/img/like.png'" alt="Brand Icon" style="width: 99px; height: 32px; margin-left: 10px; margin-bottom: 7px;">
+            </div>
+            <a routerLink="/shop" class="view-alll">View all &gt;</a>
+        </div>
+
+        <div class="col-12 mt-3 position-relative">
+            <button class="btn btn-click position-absolute" style="border-radius: 25px; left: -22px; top: 47%; transform: translateY(-50%);" (click)="prevBrd()" [disabled]="startIndexBrd === 0">
+                <i class="fas fa-chevron-left"></i>
+            </button>
+
+            <div class="row justify-content-center">
+                <div *ngFor="let store of stores.slice(startIndexSt, startIndexSt + 5)" 
+                     class="col d-flex justify-content-center p-0" style="margin-left: 7px; margin-right: 7px; margin-bottom: 17px;">
+                    <a [routerLink]="['/shopDetail']" class="text-decoration-none w-100">
+                        <div class="category-item imgbrd d-flex flex-column align-items-center" 
+                            style="background-color: white; padding: 10px 1px; border-radius: 10px; border: 1px solid rgb(220, 214, 214); 
+                                    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); width: 100%;">
+                            <img [src]="'/assets/img/' + store.image" class="img-fluid rounded" 
+                                alt="{{store.name}}" style="width: 120px; height: 120px; object-fit: cover; border-bottom: 1px solid rgb(220, 214, 214);">
+                            
+                            <div class="d-flex align-items-center mt-1" 
+                                style="width: 100%; justify-content: flex-start; padding: 0 7px;">
+                                <i class="fas fa-store" style="font-size: 0.8rem; color: #8f8989; margin-right: 8px; margin-top: 6px;"></i>
+                                <p class="imghover m-0 mt-2" 
+                                style="font-size: 0.8rem; color: #212020; margin-top: 15px; font-weight: 500;">
+                                    {{store.name}} Official Store
+                                </p>
+                            </div>
+
+                            <!-- Đánh giá và lượt xem -->
+                            <div class="d-flex justify-content-between align-items-center mt-1 w-100 px-1" style="margin-top: 6px;">
+                                <div class="d-flex align-items-center text-muted">
+                                    <i class="fas fa-star" style="font-size: 0.75rem; color: #e5166b; margin-left: 2px; margin-right: 4px; margin-bottom: 2px;"></i>
+                                    <span style="font-size: 0.8rem; color: #e5166b; font-weight: 600;">4.9 <em style="font-size: 0.7rem; color: #8e8989; margin-left: -2px; font-weight: 500;">(50 evaluate)</em></span>
+                                </div>
+                                <div class="d-flex align-items-center text-muted">
+                                    <span style="font-size: 0.8rem;">{{store.views}} <u>views</u></span>
+                                </div>
+                            </div>
+
+                            <div class="d-flex justify-content-between align-items-center mt-1 w-100 px-1" style="margin-top: 6px;">
+                                <div class="d-flex align-items-center text-muted">
+                                    <i class="fas fa-phone fa-flip-horizontal" style="font-size: 0.75rem; margin-left: 4px; color: #e5166b; margin-right: 4px; margin-bottom: 2px;"></i>
+                                    <span style="font-size: 0.8rem;">{{store.tel}}</span>
+                                </div>
+                                <div class="d-flex align-items-center text-muted">
+                                    <i class="fas fa-map-marker-alt" style="font-size: 0.75rem; color: #e5166b; margin-right: 4px; margin-bottom: 2px;"></i>
+                                    <span style="font-size: 0.8rem;">Hồ Chí Minh</span>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            </div> 
+
+            <button class="btn btn-click position-absolute" style="border-radius: 25px; right: -22px; top: 47%; transform: translateY(-50%);" (click)="nextBrd()" [disabled]="startIndexBrd + 6 >= brands.length">
+                <i class="fas fa-chevron-right"></i>
+            </button>
+        </div>
+    </div>
+</div>
+<!-- Store End -->
+
+
+
+<!-- Featured Start -->
+<div class="container-fluid pt-3" style="margin-top: 30px;">
+    <div class="row px-xl-5 justify-content-center" style="font-size: 1rem;">
+        <div class="col-lg-12 col-md-6 col-sm-12">
+            <a [routerLink]="['/voucher']" class="text-decoration-none">
+            <div class="d-flex align-items-center mb-4 justify-content-center" style="border-radius: 5px;">
+                <img class="sale-imagee" src="assets/img/peomotion_1.png" alt="Sale" style="width: 1000px; height: 130px; margin-right: 10px; border-radius: 10px;">
+            </div>
+            </a>
+        </div>       
+    </div>
+</div>
+<!-- Featured End -->
+
+
+<!-- Brand Start -->
+<div class="container-fluid mt-3 pt-4" style="max-width: 1390px; border-radius: 5px; background-color: #f5f5f5; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5); border-top: solid 1px rgb(202, 199, 199);">
+    <div class="row px-xl-4">
+        <div class="col-12 d-flex justify-content-between align-items-center" 
+            style="border-bottom: 1px solid rgb(227, 223, 223);">
+            <div class="d-flex align-items-center">
+                <h5 class="text-dark mb-2 me-2">Top Brands</h5>
+                <img [src]="'/assets/img/brand_top.png'" alt="Brand Icon" style="width: 87px; height: 30px; margin-left: 10px; margin-bottom: 7px;">
+            </div>
+            <a routerLink="/shop" class="view-alll">View all &gt;</a>
+        </div>
+
+        <div class="col-12 mt-3 position-relative">
+            <button class="btn btn-click position-absolute" style="border-radius: 25px; left: -22px; top: 47%; transform: translateY(-50%);" (click)="prevBrd()" [disabled]="startIndexBrd === 0">
+                <i class="fas fa-chevron-left"></i>
+            </button>
+
+            <div class="row justify-content-center">
+                <div *ngFor="let brand of brands.slice(startIndexBrd, startIndexBrd + 12)" class="col-lg-2 col-md-3 col-6 text-center p-0 pl-2 pr-2 pb-3">
+                    <a [routerLink]="['/shop']" class="text-decoration-none">
+                    <div class="category-item imgbrd" style="background-color: white; padding: 15px 10px; border-radius: 10px; border: 1px solid rgb(220, 214, 214); box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);">
+                        <img [src]="'/assets/img/' + brand.icon" class="img-fluid rounded" alt="{{brand.name}}" style="width: 100px; height: 100px; object-fit: cover;">
+                        <p class="mt-1 imghover m-0" style="font-size: 0.9rem; color: #212020;">{{ brand.name }}</p>
+                    </div>
+                    </a>
+                </div>               
+            </div>            
+
+            <button class="btn btn-click position-absolute" style="border-radius: 25px; right: -22px; top: 47%; transform: translateY(-50%);" (click)="nextBrd()" [disabled]="startIndexBrd + 6 >= brands.length">
+                <i class="fas fa-chevron-right"></i>
+            </button>
+        </div>
+    </div>
+</div>
+<!-- Brand End -->
+
+
+
+  <!-- Categories Start -->
+  <!-- <div class="container-fluid pt-5 GrayBg" >
+      <div class="text-center mb-4 GrayBg">
+          <h2 class="section-title px-5 GrayBg"><span class="px-2 GrayBg">Category Products</span></h2>
+      </div>
+      <div class="row px-xl-5 pb-3" style="font-size: 1rem;">
+          <div class="col-lg-4 col-md-6 pb-1">
+              <div class="cat-item d-flex flex-column" style="padding: 30px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4); border-radius: 5px;">
+                  <div class="d-flex justify-content-between align-items-center" style="margin-bottom: 15px; font-size: 1rem;">
+                      <p class="mb-0" style="font-size: 0.9rem; display: flex; align-items: center;">
+                          <i class="fa fa-eye" style="margin-right: 7px; color: #f85757"></i> 120 Views
+                      </p>
+                      <p class="mb-0" style="font-size: 0.9rem; display: flex; align-items: center;">
+                          <i class="fa fa-box" style="margin-right: 7px; color: #f85757"></i> 15 Products
+                      </p>
+                  </div>
+          
+                  <a href="" class="cat-img position-relative overflow-hidden mb-3" style="background-color: #ddecf9;">
+                      <img class="img-fluid" src="assets/img/cat-1.jpg" alt="">
+                  </a>
+          
+                  <h5 class="font-weight-semi-bold text-center m-0" style="font-size: 1.2rem; margin-top: 15px;">Men's dresses</h5>
+              </div>
+          </div>
+          <div class="col-lg-4 col-md-6 pb-1">
+              <div class="cat-item d-flex flex-column" style="padding: 30px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4); border-radius: 5px;">
+                  <div class="d-flex justify-content-between align-items-center" style="margin-bottom: 15px;">
+                    <p class="mb-0" style="font-size: 0.9rem; display: flex; align-items: center;">
+                      <i class="fa fa-eye" style="margin-right: 7px; color: #f85757"></i> 120 Views
+                  </p>
+                  <p class="mb-0" style="font-size: 0.9rem; display: flex; align-items: center;">
+                      <i class="fa fa-box" style="margin-right: 7px; color: #f85757"></i> 15 Products
+                  </p>
+                  </div>
+          
+                  <a href="" class="cat-img position-relative overflow-hidden mb-3">
+                      <img class="img-fluid" src="assets/img/cat-2.jpg" alt="">
+                  </a>
+          
+                  <h5 class="font-weight-semi-bold text-center m-0" style="font-size: 1.2rem; margin-top: 15px;">Women's dresses</h5>
+              </div>
+          </div>
+          <div class="col-lg-4 col-md-6 pb-1">
+              <div class="cat-item d-flex flex-column mb-4" style="padding: 30px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4); border-radius: 5px;">
+                  <div class="d-flex justify-content-between align-items-center" style="margin-bottom: 15px;">
+                    <p class="mb-0" style="font-size: 0.9rem; display: flex; align-items: center;">
+                      <i class="fa fa-eye" style="margin-right: 7px; color: #f85757"></i> 120 Views
+                  </p>
+                  <p class="mb-0" style="font-size: 0.9rem; display: flex; align-items: center;">
+                      <i class="fa fa-box" style="margin-right: 7px; color: #f85757"></i> 15 Products
+                  </p>
+                  </div>
+                  <a href="" class="cat-img position-relative overflow-hidden mb-3">
+                      <img class="img-fluid" src="assets/img/cat-3.jpg" alt="">
+                  </a>
+                  <h5 class="font-weight-semi-bold text-center m-0" style="font-size: 1.2rem;">Baby's dresses</h5>
+              </div>
+          </div>
+          
+          <div class="col-lg-4 col-md-6 pb-1">
+              <div class="cat-item d-flex flex-column mb-4" style="padding: 30px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4); border-radius: 5px;">
+                  <div class="d-flex justify-content-between align-items-center" style="margin-bottom: 15px;">
+                    <p class="mb-0" style="font-size: 0.9rem; display: flex; align-items: center;">
+                      <i class="fa fa-eye" style="margin-right: 7px; color: #f85757"></i> 120 Views
+                  </p>
+                  <p class="mb-0" style="font-size: 0.9rem; display: flex; align-items: center;">
+                      <i class="fa fa-box" style="margin-right: 7px; color: #f85757"></i> 15 Products
+                  </p>
+                  </div>
+                  <a href="" class="cat-img position-relative overflow-hidden mb-3">
+                      <img class="img-fluid" src="assets/img/cat-4.jpg" alt="">
+                  </a>
+                  <h5 class="font-weight-semi-bold text-center m-0" style="font-size: 1.2rem;">Accessories</h5>
+              </div>
+          </div>
+          
+          <div class="col-lg-4 col-md-6 pb-1">
+              <div class="cat-item d-flex flex-column mb-4" style="padding: 30px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4); border-radius: 5px;">
+                  <div class="d-flex justify-content-between align-items-center" style="margin-bottom: 15px;">
+                    <p class="mb-0" style="font-size: 0.9rem; display: flex; align-items: center;">
+                      <i class="fa fa-eye" style="margin-right: 7px; color: #f85757"></i> 120 Views
+                  </p>
+                  <p class="mb-0" style="font-size: 0.9rem; display: flex; align-items: center;">
+                      <i class="fa fa-box" style="margin-right: 7px; color: #f85757"></i> 15 Products
+                  </p>
+                  </div>
+                  <a href="" class="cat-img position-relative overflow-hidden mb-3">
+                      <img class="img-fluid" src="assets/img/cat-5.jpg" alt="">
+                  </a>
+                  <h5 class="font-weight-semi-bold text-center m-0" style="font-size: 1.2rem;">Bags</h5>
+              </div>
+          </div>
+          
+          <div class="col-lg-4 col-md-6 pb-1">
+              <div class="cat-item d-flex flex-column mb-4" style="padding: 30px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4); border-radius: 5px;">
+                  <div class="d-flex justify-content-between align-items-center" style="margin-bottom: 15px;">
+                    <p class="mb-0" style="font-size: 0.9rem; display: flex; align-items: center;">
+                          <i class="fa fa-eye" style="margin-right: 7px; color: #f85757"></i> 120 Views
+                      </p>
+                      <p class="mb-0" style="font-size: 0.9rem; display: flex; align-items: center;">
+                          <i class="fa fa-box" style="margin-right: 7px; color: #f85757"></i> 15 Products
+                      </p>
+                  </div>
+                  <a href="" class="cat-img position-relative overflow-hidden mb-3">
+                      <img class="img-fluid" src="assets/img/cat-6.jpg" alt="">
+                  </a>
+                  <h5 class="font-weight-semi-bold text-center m-0" style="font-size: 1.2rem;">Shoes</h5>
+              </div>
+          </div>
+      </div>
+  </div> -->
+  <!-- Categories End -->
+
+
+  <!-- Offer Start -->
+  <div class="container-fluid offer pt-5">
+      <div class="row px-xl-5">
+          <div class="col-md-6 pb-4">
+              <div class="position-relative bg-secondary text-center text-md-right text-white mb-2 py-5 px-5" style="box-shadow: 0 4px 8px rgba(0, 0, 0, 0.7); border-radius: 10px;">
+                  <img src="assets/img/offer-1.png" alt="">
+                  <div class="position-relative" style="z-index: 1;">
+                      <h5 class="text-uppercase text-primary mb-3">20% off the all order</h5>
+                      <h1 class="mb-4 font-weight-semi-bold">Spring Collection</h1>
+                      <a routerLink="/shop" class="btn btn-outline-primary py-md-2 px-md-3">Shop Now</a>
+                  </div>
+              </div>
+          </div>
+          <div class="col-md-6 pb-4">
+              <div class="position-relative bg-secondary text-center text-md-left text-white mb-2 py-5 px-5" style="box-shadow: 0 4px 8px rgba(0, 0, 0, 0.7); border-radius: 10px;">
+                  <img src="assets/img/offer-2.png" alt="">
+                  <div class="position-relative" style="z-index: 1;">
+                      <h5 class="text-uppercase text-primary mb-3">20% off the all order</h5>
+                      <h1 class="mb-4 font-weight-semi-bold">Winter Collection</h1>
+                      <a routerLink="/shop" class="btn btn-outline-primary py-md-2 px-md-3 ">Shop Now</a>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </div>
+  <!-- Offer End -->
+
+
+  <!-- Products Start -->
+  <div class="container-fluid pt-4">
+      <div class="text-center mb-4 d-flex justify-content-between align-items-center">
+          <h2 class="section-title px-5 text-center" style="margin-left: 600px;"><span class="px-2 text-center" >Best Seller</span></h2>
+          <a routerLink="/shop" class="view-all">View all &gt;</a>
+      </div>
+      <div class="row px-xl-5 pb-3">
+          <div *ngFor="let product of products" class="col-lg-3 col-md-6 col-sm-12 pb-1">
+            <a [routerLink]="['/product', product.id]" class="text-decoration-none">
+                <div class="card product-item mb-4" style="box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5); border-radius: 5px; font-size: 0.9rem;">
+                    <div class="card-header product-img position-relative overflow-hidden bg-transparent border p-0" style="font-size: 0.9rem;">
+                        <img class="img-fluid w-100" [src]="'/assets/img/' + product.image" alt="{{product.name}}">
+                        <div class="discount-label">
+                            <span style="font-size: 0.9rem;">-15%</span>
+                        </div>
+                        <img class="extra-sale-img" src="/assets/img/ve_1.png" alt="Extra Sale">
+                    </div>
+                    <div class="card-body p-0 pt-2" style="margin-left: 10px; position: relative;">
+                        <div class="d-flex align-items-center mb-2 position-relative">
+                            <span class="text-white px-1 rounded position-absolute" 
+                                style="font-size: 0.7rem; background-color: red; left: 5; font-weight: 500;">
+                                <i class="fas fa-bolt" style="padding-right: 3px;"></i>FLASH SALE
+                            </span>
+                            <h6 class="text-truncate text-dark m-0 text-left flex-grow-1" 
+                                style="font-size: 1rem; padding-left: 100px;">
+                                {{ product.name }}
+                            </h6>
+                        </div>
+                    
+                        <div class="d-flex justify-content-left align-items-center" style="color: #fb6969;">
+                            <h6 style="font-size: 1.1rem; color: red; margin-bottom: 0; padding-left: 5px;">
+                                {{ product.price | number:'1.0-0'}}<u style="font-size: 1rem;">đ</u>
+                            </h6>
+                            <h6 class="ml-2 text-muted" style="font-size: 0.85rem; margin-bottom: 0;">
+                                <del>730.000<u style="font-size: 0.8rem;">đ</u></del>
+                            </h6>
+                        </div>
+                    </div>
+                    
+                    <div class="card-footer d-flex justify-content-between align-items-center p-1" 
+                        style="font-size: 0.8rem; background: none; border: none; margin-bottom: 2px;">
+                        <div class="d-flex align-items-center" style="padding-left: 10px;">
+                            <i class="fas fa-star" style="color: #FFD700; font-size: 0.7rem;"></i>
+                            <i class="fas fa-star" style="color: #FFD700; font-size: 0.7rem;"></i>
+                            <i class="fas fa-star" style="color: #FFD700; font-size: 0.7rem;"></i>
+                            <i class="fas fa-star" style="color: #FFD700; font-size: 0.7rem;"></i>
+                            <i class="fas fa-star" style="color: #FFD700; font-size: 0.7rem;"></i>
+                            <span class="ml-1 text-muted">(150)</span>
+                        </div>
+                        <div class="text-muted" style="font-size: 0.85rem; padding-right: 10px;">
+                            Sold <span>11k</span>
+                        </div>
+                    </div>
+
+                    <!-- <div class="card-footer d-flex justify-content-between p-0" 
+                        style="font-size: 0.8rem; background: none; border: none; padding-bottom: 10px;">
+                        <a [routerLink]="['/product', product.id]" class="btn btn-sm text-dark" 
+                            style="font-size: 0.9rem; margin-right: 15px; padding-left: 10px;">
+                            <i class="fas fa-eye mr-1" style="font-size: 0.9rem; color: #f85757; padding-left: 6px;"></i>View Detail
+                        </a>
+                        <a [routerLink]="['/cart']" class="btn btn-sm text-dark" style="font-size: 0.9rem; padding-right: 10px;">
+                            <i class="fas fa-shopping-cart mr-1" style="font-size: 0.9rem; color: #f85757"></i>Add To Cart
+                        </a>
+                    </div>         -->
+                </div>
+            </a>
+          </div>         
+      </div>  
+      <div class="col-12 pb-1">
+        <nav aria-label="Page navigation" style="font-size: 0.9rem;">
+          <ul class="pagination justify-content-center mb-3">
+            <li class="page-item" [class.disabled]="pageNumber === 1">
+              <a class="page-link" (click)="changePage(pageNumber - 1)" aria-label="Previous" style="cursor: pointer;">
+                <span aria-hidden="true">&laquo;</span>
+              </a>
+            </li>
+            <li *ngFor="let page of getDisplayedPages()" class="page-item" [class.active]="pageNumber === page">
+              <a class="page-link" (click)="changePage(page)" style="cursor: pointer;">{{ page }}</a>
+            </li>
+            <li class="page-item" [class.disabled]="pageNumber === totalPages">
+              <a class="page-link" (click)="changePage(pageNumber + 1)" aria-label="Next" style="cursor: pointer;">
+                <span aria-hidden="true">&raquo;</span>
+              </a>
+            </li>
+          </ul>
+        </nav>
+      </div>
+  </div>
+  <!-- Products End -->

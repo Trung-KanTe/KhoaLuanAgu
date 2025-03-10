@@ -1,0 +1,88 @@
+.btn.quantity{
+    transition: background-color 0.3s ease;
+    background-color: white; 
+
+    &:hover {
+        background-color: rgb(188, 175, 153); 
+    }
+}
+
+.product-img {
+    position: relative; /* Để các phần tử con có thể dùng absolute */
+}
+
+.extra-sale-img {
+    position: absolute;
+    bottom: 0px;  /* Đặt sát mép dưới */
+    left: 0px;    /* Đặt sát mép trái */
+    width: 115px !important;  /* Đảm bảo không bị co giãn */
+    height: 35px !important;
+    object-fit: contain; /* Giữ nguyên tỷ lệ ảnh */
+    z-index: 10;  /* Hiển thị trên ảnh chính */
+}
+
+.btnclick:hover {
+    border: 1px solid red !important;
+    color: red;
+}
+
+.custom-carousel {
+    position: relative;
+    border-top: 1px solid #eddfdf;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
+}
+
+.main-image {
+    display: block;
+    width: 100%;
+    height: 100%;
+}
+
+.overlay-image {
+    position: absolute;
+    top: 5px; /* Điều chỉnh vị trí theo nhu cầu */
+    left: 5px; /* Điều chỉnh vị trí theo nhu cầu */
+    width: 80px; /* Kích thước tùy chỉnh */
+    height: auto;
+    z-index: 10;
+    border-radius: 50px;
+}
+
+.overlay-image1 {
+    position: absolute;
+    top: 90px; /* Điều chỉnh vị trí theo nhu cầu */
+    left: 5px; /* Điều chỉnh vị trí theo nhu cầu */
+    width: 78px; /* Kích thước tùy chỉnh */
+    height: auto;
+    z-index: 10;
+    border-radius: 50px;
+}
+
+.overlay-image2 {
+    position: absolute;
+    top: 170px; /* Điều chỉnh vị trí theo nhu cầu */
+    left: 5px; /* Điều chỉnh vị trí theo nhu cầu */
+    width: 80px; /* Kích thước tùy chỉnh */
+    height: auto;
+    z-index: 10;
+    border-radius: 50px;
+}
+
+.overlay-image3 {
+    position: absolute;
+    bottom: 0px; /* Điều chỉnh vị trí theo nhu cầu */
+    left: 0px; /* Điều chỉnh vị trí theo nhu cầu */
+    width: 162px; /* Kích thước tùy chỉnh */
+    height: 43px;
+    z-index: 10;
+}
+
+.overlay-image4 {
+    position: absolute;
+    top: 5px; /* Điều chỉnh vị trí theo nhu cầu */
+    right: 5px; /* Điều chỉnh vị trí theo nhu cầu */
+    width: 100px; /* Kích thước tùy chỉnh */
+    height: auto;
+    z-index: 10;
+    border-radius: 5px;
+}

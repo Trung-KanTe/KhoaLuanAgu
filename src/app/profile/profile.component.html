@@ -1,0 +1,249 @@
+<div class="container-fluid" style="padding-top: 50px; padding-left: 50px;">
+    <div class="d-flex flex-column align-items-left justify-content-center" style="min-height: 50px; margin-top: -48px;">
+        <div class="d-inline-flex" style="font-size: 1rem; font-weight: 500; color: black; margin-left: 50px;">
+            <p class="m-0"><a routerLink="/" routerLinkActive="active" class="nav-link" style="cursor: pointer; padding-right: 5px; padding-left: 5px;" title="Return Home">Home</a></p>
+            <p class="m-0 px-2 pt-2 " style="padding-left: -10px;">/</p>
+            <p class="m-0 pt-2 text-primary">Profile</p>
+        </div>
+    </div>
+</div>
+<!-- Page Header End -->
+
+<!-- Shop Start -->
+<div class="container-fluid">
+    <div class="row px-xl-5 justify-content-center " style="padding-top: 10px;">
+        <div class="col-lg-3 mr-3 p-3" style="box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5); border-radius: 5px; background: white;">
+            <div class="d-flex align-items-center">
+                <!-- Ảnh đại diện -->
+                <img src="/assets/img/avt.png" alt="Avatar" class="rounded-circle" width="60" height="60">
+                <!-- Chữ Member -->
+                <span style="margin-left: 150px; margin-bottom: 30px; font-size: 0.8rem; color: #C41C8B; 
+                border-radius: 25px; padding: 5px 15px; background-color: #C41C8B14;">
+                <i class="fas fa-gem" style="color: rgb(242, 25, 195); padding-right: 6px;"></i> Member
+            </span>
+            </div>
+            <!-- Thông tin phía dưới -->
+            <div class="text-left mt-2 pb-2" style="border-bottom: 1px solid rgb(208, 198, 198);">
+                <strong style="font-size: 0.9rem; color: rgb(60, 56, 56); font-weight: 600;">{{ user.name }}</strong>
+                <div style="font-size: 0.8rem; color: #22A90D;">{{ user.tel }}</div>
+            </div>
+
+            <div class="text-left mt-4 pb-2 ">
+                <div style="font-size: 0.9rem; color: #585a58;">
+                    <i class="fas fa-home mr-2 ml-2" style="color: rgb(245, 66, 66);"></i> Personal dashboard
+                </div>
+            </div>
+            <div class="text-left mt-2 pb-2 ">
+                <div style="font-size: 0.9rem; color: #585a58; margin-left: 2px;">
+                    <i class="fas fa-user mr-2 ml-2" style="color: rgb(23, 162, 184); margin-right: 4px;"></i> My profile
+                </div>
+            </div>
+            <div class="text-left mt-2 pb-2" (click)="toggleSecurityOptions()" style="cursor: pointer;">
+                <div style="font-size: 0.9rem; color: #585a58; margin-left: 2px; display: flex; align-items: center; justify-content: space-between;">
+                    <div>
+                        <i class="fas fa-cog mr-2 ml-2" style="color: rgb(196, 28, 139); margin-right: 4px;"></i> Installation and security
+                    </div>
+                    <i [class.fas]="true" [class.fa-chevron-down]="!showSecurityOptions" [class.fa-chevron-up]="showSecurityOptions" 
+                       style="margin-right: 10px; color: #818381; font-size: 0.7rem;"></i>
+                </div>
+            </div>
+            
+            <div *ngIf="showSecurityOptions" style="padding-left: 20px; border-radius: 10px;">
+                <button (click)="openPasswordModal()" class="btn btn-light" style="border-radius: 5px; font-size: 0.9rem; color: #585a58; margin-left: 2px; padding-right: 110px;">
+                    <i class="fas fa-lock mr-2 ml-3" style="color: rgb(82, 82, 82);"></i> Change password
+                </button>
+            </div>
+            <div class="text-left mt-2 pb-2 ">
+                <div style="font-size: 0.9rem; color: #585a58; margin-left: 2px;">
+                    <i class="fas fa-question-circle mr-2 ml-2" style="color: rgb(45, 202, 54); margin-right: 4px;"></i> Help
+                </div>
+            </div>
+            <div class="text-left mt-2 pb-2 logout">
+                <div (click)="logout()" style="font-size: 0.9rem; color: #585a58; margin-left: 2px; cursor: pointer;">
+                    <i class="fas fa-sign-out-alt mr-2 ml-2" style="color: rgb(245, 66, 66); margin-right: 4px;"></i> Logout
+                </div>
+            </div>
+        </div>
+
+
+        <div class="col-lg-8 mr-3 p-3" style="box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5); border-radius: 5px; background: white;">
+            <div class="d-flex justify-content-between align-items-center">
+                <!-- Chữ Profile bên trái -->
+                <h3 class="m-0" style="color: rgb(25, 24, 24);">Profile</h3>
+                <!-- Chữ Edit Profile bên phải -->
+                <a (click)="openUpdateModal()" style="color: #22A90D; font-size: 0.85rem; cursor: pointer;">
+                    <i class="fas fa-pen-to-square" style="font-size: 0.8rem; padding-right: 5px;" ></i> Edit Profile
+                </a>
+            </div>
+
+            <div class="d-flex align-items-center pt-4 pb-4">
+                <!-- Ảnh đại diện -->
+                <img src="/assets/img/avt.png" alt="Avatar" class="rounded-circle" width="90" height="90">
+                <!-- Chữ Member -->
+                <div class="text-left mt-2 pb-2 ml-4" >
+                    <strong style="font-size: 1.1rem; color: rgb(70, 66, 66); font-weight: 600;">{{ user.name }}</strong>
+                    <div style="font-size: 1rem; color: #22A90D;">{{ user.tel }}</div>
+                </div>
+            </div>
+
+            <!-- Chia thành 2 cột -->
+            <div class="row mb-3">
+                <!-- Cột bên trái (Name) -->
+                <div class="col-md-6 pb-2" >
+                    <label style="font-weight: 300; color: rgb(70, 66, 66); font-size: 0.9rem;">Full name</label>
+                    <div style="font-size: 1rem; color: rgb(90, 90, 90); border-bottom: 1px solid rgb(208, 198, 198); padding-bottom: 10px; font-weight: 500;">{{ user.name }}</div>
+                </div>
+                <!-- Cột bên phải (Email) -->
+                <div class="col-md-6 pb-2">
+                    <label style="font-weight: 300; color: rgb(70, 66, 66); font-size: 0.9rem;">Email</label>
+                    <div style="font-size: 1rem; color: rgb(90, 90, 90); border-bottom: 1px solid rgb(208, 198, 198); padding-bottom: 10px; font-weight: 500;">{{ user.email }}</div>
+                </div>
+            </div>
+
+             <!-- Chia thành 2 cột -->
+             <div class="row mb-3">
+                <!-- Cột bên trái (Name) -->
+                <div class="col-md-6 pb-2" >
+                    <label style="font-weight: 300; color: rgb(70, 66, 66); font-size: 0.9rem;">Mobile no</label>
+                    <div style="font-size: 1rem; color: rgb(90, 90, 90); border-bottom: 1px solid rgb(208, 198, 198); padding-bottom: 10px; font-weight: 500;">{{ user.tel }}</div>
+                </div>           
+            </div>
+
+            <div class="row mb-3">
+                <!-- Cột bên trái (Name) -->
+                <div class="col-md-4 pb-2" >
+                    <label style="font-weight: 300; color: rgb(70, 66, 66); font-size: 0.9rem;">Province</label>
+                    <div style="font-size: 1rem; color: rgb(90, 90, 90); border-bottom: 1px solid rgb(208, 198, 198); padding-bottom: 10px; font-weight: 500;">{{ user.province.fullName }}</div>
+                </div>
+                <!-- Cột bên phải (Email) -->
+                <div class="col-md-4 pb-2">
+                    <label style="font-weight: 300; color: rgb(70, 66, 66); font-size: 0.9rem;">District</label>
+                    <div style="font-size: 1rem; color: rgb(90, 90, 90); border-bottom: 1px solid rgb(208, 198, 198); padding-bottom: 10px; font-weight: 500;">{{ user.district.fullName }}</div>
+                </div>
+                <div class="col-md-4 pb-2">
+                    <label style="font-weight: 300; color: rgb(70, 66, 66); font-size: 0.9rem;">Ward</label>
+                    <div style="font-size: 1rem; color: rgb(90, 90, 90); border-bottom: 1px solid rgb(208, 198, 198); padding-bottom: 10px; font-weight: 500;">{{ user.ward.fullName }}</div>
+                </div>
+            </div>
+            <div class="row mb-3">
+                <!-- Cột bên trái (Name) -->
+                <div class="col-md-12 pb-2" >
+                    <label style="font-weight: 300; color: rgb(70, 66, 66); font-size: 0.9rem;">Address</label>
+                    <div style="font-size: 1rem; color: rgb(90, 90, 90); border-bottom: 1px solid rgb(208, 198, 198); padding-bottom: 10px; font-weight: 500;">{{ user.address }}</div>
+                </div>
+               
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Shop End -->
+
+<!-- Modal Update -->
+<div class="modal-overlay d-flex align-items-center justify-content-center" *ngIf="showUpdateModal" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.6); z-index: 999;">
+    <div class="col-md-10 bg-white p-4 rounded shadow position-relative" style="max-width: 1000px;">
+      <div class="d-flex align-items-center justify-content-between mb-4" style="border-bottom: 1px solid black;">
+        <h4 class="mb-0" style="font-size: 1.3rem;">Update Profile</h4>
+        <button class="close-btn position-absolute" (click)="closeUpdateModal()" style="top: 5px; right: 5px; background: none; border: none; cursor: pointer;">
+          <i class="fas fa-times" style="color: #f85757; font-size: 1.2rem;"></i>
+        </button>
+      </div>
+  
+      <div class="form-group mb-3 row">
+        <div class="col-6">
+          <label class="lbl-partner">Full name</label>
+          <input class="form-control" type="text" [(ngModel)]="selectedUser.name" style="font-size: 0.9rem; border: 1px solid #222; border-radius: 10px;">
+        </div>
+        <div class="col-6">
+          <label class="lbl-partner">Email</label>
+          <input class="form-control" type="text" [(ngModel)]="selectedUser.email" style="font-size: 0.9rem; border: 1px solid #262728; border-radius: 10px;">
+        </div>
+      </div>
+  
+      <div class="form-group mb-3 row">
+        <div class="col-6">
+          <label class="lbl-partner">Mobile no</label>
+          <input class="form-control" type="text" [(ngModel)]="selectedUser.tel" style="font-size: 0.9rem; border: 1px solid #222; border-radius: 10px;">
+        </div>
+      </div>
+
+      <!-- Dropdowns -->
+      <div class="form-group mb-3 row">
+        <div class="col-4" style="border-radius: 10px;">
+          <label class="lbl-partner">Province</label>
+          <select class="form-control frm" [(ngModel)]="selectedUser.province" (change)="onProvinceChange()">
+            <option *ngFor="let province of provinces" [ngValue]="province">{{ province.fullName }}</option>
+          </select>
+        </div>
+        <div class="col-4">
+          <label class="lbl-partner">District</label>
+          <select class="form-control frm" [(ngModel)]="selectedUser.district" (change)="onDistrictChange()">
+            <option *ngFor="let district of districts" [ngValue]="district">{{ district.fullName }}</option>
+          </select>
+        </div>
+        <div class="col-4">
+          <label class="lbl-partner">Ward</label>
+          <select class="form-control frm" [(ngModel)]="selectedUser.ward">
+            <option *ngFor="let ward of wards" [ngValue]="ward">{{ ward.fullName }}</option>
+          </select>
+        </div>
+      </div>
+  
+      <!-- Address Section -->
+      <div class="form-group mb-3 row">
+        <div class="col-12">
+          <label class="lbl-partner">Address</label>
+          <input class="form-control" type="text" [(ngModel)]="selectedUser.address" style="font-size: 0.9rem; border: 1px solid #262728; border-radius: 10px;">
+        </div>
+      </div>
+  
+      
+  
+      <div class="d-flex justify-content-end mt-3">
+        <button class="btn btn-primary" (click)="saveUpdateChanges()" style="border-radius: 10px;">Save Changes</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal ChangePassword -->
+<div class="modal-overlay d-flex align-items-center justify-content-center" *ngIf="showPasswordModal" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.6); z-index: 999;">
+    <div class="col-md-10 bg-white p-4 rounded shadow position-relative" style="max-width: 1000px;">
+      <div class="d-flex align-items-center justify-content-between mb-4" style="border-bottom: 1px solid black;">
+        <h4 class="mb-0" style="font-size: 1.3rem;">Change password</h4>
+        <button class="close-btn position-absolute" (click)="closePasswordModal()" style="top: 5px; right: 5px; background: none; border: none; cursor: pointer;">
+          <i class="fas fa-times" style="color: #f85757; font-size: 1.2rem;"></i>
+        </button>
+      </div>
+  
+      <div class="row">
+        <!-- Cột bên trái: Form nhập mật khẩu -->
+        <div class="col-8">
+          <div class="form-group mb-3">
+            <label class="lbl-partner">Current Password</label>
+            <input class="form-control" type="password" [(ngModel)]="password.current" placeholder="Enter current password"
+              style="font-size: 0.9rem; border: 1px solid #222; border-radius: 10px;">
+          </div>
+
+          <div class="form-group mb-3">
+            <label class="lbl-partner">New Password</label>
+            <input class="form-control" type="password" [(ngModel)]="password.new" placeholder="Enter new password"
+              style="font-size: 0.9rem; border: 1px solid #222; border-radius: 10px;">
+          </div>
+
+          <div class="form-group mb-3">
+            <label class="lbl-partner">Confirm New Password</label>
+            <input class="form-control" type="password" [(ngModel)]="password.confirm" placeholder="Re-enter new password"
+              style="font-size: 0.9rem; border: 1px solid #222; border-radius: 10px;">
+          </div>
+        </div>
+
+        <!-- Cột bên phải: Ảnh -->
+        <div class="col-4 d-flex align-items-center justify-content-center">
+          <img src="/assets/img/cpw.jpg" alt="Change Password" style="max-width: 100%; border-radius: 10px;">
+        </div>
+      </div>
+    
+      <div class="d-flex justify-content-start mt-3">
+        <button class="btn btn-primary" (click)="saveUpdateChangesPassword()" style="border-radius: 10px;">Save Changes</button>
+      </div>
+    </div>
+  </div>

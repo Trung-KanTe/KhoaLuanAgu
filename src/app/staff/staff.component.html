@@ -1,0 +1,153 @@
+<div class="container-fluid gradient" style="background-color: rgb(200, 220, 248);">
+    <div class="row align-items-center py-3 px-xl-5">
+        <div class="col-lg-3 d-none d-lg-block">
+            <a href="" class="text-decoration-none">
+                <h1 class="m-0 display-5 font-weight-bold" style="font-size: 3rem;"><span class="font-weight-bold px-1 mr-1" style="font-weight: 200px; color: #f85757">365</span>Emart</h1>
+            </a>
+        </div>
+        <div class="col-lg-6 col-6 text-left">
+            <form action="">
+                <div class="input-group" style="border: 1px solid; border-radius: 30px;">
+                    <input type="text" class="form-control" style="font-size: 1rem; border-radius: 30px 0 0 30px;" placeholder="Search here...">
+                    <div class="input-group-append">
+                        <span class="input-group-text font-weight-bold " style="border-radius: 0 30px 30px 0; cursor: pointer; color: #f85757; background-color: #fff; " >
+                            <i class="fa fa-search" style="font-weight: bold;"></i>
+                        </span>
+                    </div>
+                </div>
+            </form>
+        </div>
+        
+        <div class="col-lg-2 col-5 d-flex align-items-center" style="margin-left: 30px;">
+            <div class="d-flex align-items-center">
+                <!-- Bell Notification Icon -->
+                <a href="#" class="btn" title="Thông báo" style="margin-right: 20px;">
+                    <i class="fas fa-bell" style="font-size: 1.1rem; color: #f85757;"></i>
+                </a>
+        
+                <!-- Mail Icon -->
+                <a href="#" class="btn" title="Hộp thư" style="margin-right: 20px;">
+                    <i class="fas fa-envelope" style="font-size: 1.1rem; color: #f85757;"></i>
+                </a>
+        
+                <!-- User profile image with Admin label -->
+                <div class="dropdown">
+                    <!-- User profile image -->
+                    <a class="btn position-relative text-right d-flex align-items-center" title="Hồ sơ người dùng" style="padding-left: 20px;">
+                        <img src="/assets/img/500_32.png" alt="User Profile" style="width: 40px; height: 40px; border-radius: 50%; object-fit: cover;">
+                        <span style="margin-left: 10px; font-size: 1rem; color: #131417;">Staff</span>
+                        <i class="fas fa-caret-down" style="font-size: 1rem; color: #f85757; margin-left: 10px;"></i>
+                    </a>
+            
+                    <!-- Dropdown menu -->
+                    <div class="dropdown-menu">
+                        <a class="dropdown-item" href="#">
+                            <i class="fas fa-user-circle" style="margin-right: 10px;"></i> Profile
+                        </a>
+                        <a (click)="logout()" class="dropdown-item" href="#">
+                            <i class="fas fa-sign-out-alt" style="margin-right: 10px;"></i> Logout
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+    </div>
+</div>
+<!-- Topbar End -->
+
+<!-- Menu Start -->
+<div class="container-fluid container-menu">
+    <div class="row" style="border-top: 1px solid white;">
+        <div class="col-lg-2-5 col-md-3 col-sm-4 sidebar-menu" style="background-color: rgb(200, 220, 248); border-right: 1px solid white;">
+            <nav>           
+                <div class="list-group" style="padding-left: 10px; padding-top: 30px; padding-bottom: 30px;">
+                    <a [routerLink]="['/staff']" (click)="reloadPage()" routerLinkActive="active" class="nav-link list-group-item list-group-item-action border-0 py-2 text-dark item-hoverr" 
+                    style="font-size: 1.1rem; background-color: rgb(200, 220, 248); margin-bottom: 15px;">
+                        <i class="fas fa-tachometer-alt" style="font-size: 1.3rem; color: #2f2d2d; margin-right: 30px; margin-left: 30px;"></i>
+                        <span>Dashboard</span>
+                    </a>                          
+                    <div class="nav-item dropdown list-group-item list-group-item-action border-0 py-2 text-dark item-hoverr d-flex justify-content-between align-items-center" 
+                        style="font-size: 1.1rem; background-color: rgb(200, 220, 248); margin-bottom: 15px;">
+                        <div class="d-flex align-items-center" style="margin-left: 30px;">
+                            <i class="fas fa-gift" style="font-size: 1.3rem; color: #2f2d2d; margin-right: 30px;"></i>
+                            <span>Orders</span>
+                        </div>
+                        <a class="nav-link dropdown-toggle p-0" href="#" id="dropdownClassiCate" 
+                        role="button" data-bs-toggle="dropdown" aria-expanded="false" 
+                        style="color: #2f2d2d; text-decoration: none;">
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-end ml-5 pl-4 mr-5" aria-labelledby="dropdownClassiCate">
+                            <li>
+                                <a [routerLink]="['/staff/order', 'all']" class="dropdown-item">
+                                    <i class="fa fa-list-alt mr-2"></i> All
+                                </a>
+                            </li>
+                            <li>
+                                <a [routerLink]="['/staff/order', 'pending']" class="dropdown-item">
+                                    <i class="fa fa-clock mr-2"></i> Pending
+                                </a>
+                            </li>
+                            <li>
+                                <a [routerLink]="['/staff/order', 'confirmed']" class="dropdown-item">
+                                    <i class="fa fa-check-circle mr-2"></i> Confirmed
+                                </a>
+                            </li>
+                            <li>
+                                <a [routerLink]="['/staff/order', 'completed']" class="dropdown-item">
+                                    <i class="fa fa-box mr-2"></i> Completed
+                                </a>
+                            </li>
+                            <li>
+                                <a [routerLink]="['/staff/order', 'canceled']" class="dropdown-item">
+                                    <i class="fa fa-ban mr-2"></i> Canceled
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                    <!-- <a routerLink="/admin/brand" routerLinkActive="active" class="nav-link list-group-item list-group-item-action border-0 py-2 text-dark item-hoverr" 
+                        style="font-size: 1.1rem; background-color: rgb(200, 220, 248); margin-bottom: 15px;">
+                        <i class="fas fa-tags" style="font-size: 1.3rem; color: #2f2d2d; margin-right: 30px; margin-left: 30px;"></i>
+                        <span>Brand</span>
+                    </a>                                           -->
+                </div>     
+            </nav>
+        </div>
+
+
+        <div class="col-lg-9 col-md-9 col-sm-8 sidebar-sale" style="padding: 30px; background-color: rgb(242, 243, 245);">          
+            <router-outlet></router-outlet>
+            <div *ngIf="!isUserView"> 
+                <h2>Today Sales</h2>
+                <div class="row">
+                    <!-- Biểu đồ Cột Đơn -->
+                    <div class="col-lg-6 col-md-6 col-sm-12 mb-4">
+                        <div class="card" style="border-radius: 15px;">
+                            <canvas id="salesChart" style="max-height: 400px;"></canvas>
+                        </div>
+                    </div>
+                    <!-- Biểu đồ Line -->
+                    <div class="col-lg-6 col-md-6 col-sm-12 mb-4">
+                        <div class="card" style="border-radius: 15px;">
+                            <canvas id="lineChart" style="max-height: 400px;"></canvas>
+                        </div>
+                    </div>
+                </div>
+                <!-- Biểu đồ Thanh toán Online và Offline -->
+                <div class="row mt-1">
+                    <div class="col-lg-12 col-md-12 col-sm-12 mb-4">
+                        <div class="card" style="border-radius: 15px;">
+                            <canvas id="paymentChart" style="max-height: 400px;"></canvas>
+                        </div>
+                    </div>
+                </div>             
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Menu End -->
+<a href="#" class="btn back-to-top custom-btn p-2" 
+style="border-radius: 25px; padding-left: 0px; position: fixed; right: -35px; border: 1px solid #f85757;">
+<i class="fa fa-angle-double-up"></i>
+</a>
+

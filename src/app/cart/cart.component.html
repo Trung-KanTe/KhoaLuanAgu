@@ -1,0 +1,100 @@
+<!-- Page Header Start -->
+<div class="container-fluid" style="padding-top: 50px;">
+    <div class="d-flex flex-column align-items-left justify-content-center" style="min-height: 50px; margin-top: -48px;">
+        <div class="d-inline-flex" style="font-size: 1rem; font-weight: 500; color: black; margin-left: 50px;">
+            <p class="m-0"><a routerLink="/" routerLinkActive="active" class="nav-link" style="cursor: pointer; padding-right: 5px; padding-left: 5px;" title="Return Home">Home</a></p>
+            <p class="m-0 px-2 pt-2 " style="padding-left: -10px;">/</p>
+            <p class="m-0 pt-2 text-primary">Cart</p>
+        </div>
+    </div>
+</div>
+<!-- Page Header End -->
+
+
+<!-- Cart Start -->
+<div class="container-fluid pt-2">
+    <div class="row px-xl-5">
+        <div class="col-lg-9 table-responsive mb-5">
+            <table class="table text-center mb-0 custom-table" style="box-shadow: 0 4px 6px rgba(0, 0, 0, 0.5); border-bottom: 0.5px solid rgb(234, 232, 230);">
+                <thead class="text-dark" style="background-color: rgb(182, 209, 248);">
+                    <tr style="font-size: 1rem;">
+                        <th style="font-size: 1rem;">Products</th>
+                        <th style="font-size: 1rem;">Price</th>
+                        <th style="font-size: 1rem;">Size</th>
+                        <th style="font-size: 1rem;">Color</th>
+                        <th style="font-size: 1rem;">Quantity</th>
+                        <th style="font-size: 1rem;">Total</th>
+                        <th style="font-size: 1rem;">Remove</th>
+                    </tr>
+                </thead>
+                <tbody class="align-middle" *ngIf="cart?.cartItems?.length > 0; else emptyCart">
+                    <tr *ngFor="let item of cart.cartItems">
+                        <td class="align-middle" style="font-size: 1rem;"><img [src]="'/assets/img/' + item.productImage" alt="" style="width: 55px; border-radius: 10px;"></td>
+                        <td class="align-middle" style="font-size: 1rem;">{{item.price | number:'1.0-0'}}<u style="font-size: 0.9rem;">đ</u></td>
+                        <td class="align-middle"style="font-size: 1rem;">{{item.productDetails.size}}</td>
+                        <td class="align-middle"style="font-size: 1rem;">{{item.productDetails.color}}</td>
+                        <td class="align-middle">
+                            <div class="input-group quantity mx-auto" style="width: 100px;">
+                                <div class="input-group-btn">
+                                    <button (click)="decreaseQuantity(item.id)" class="btn btn-sm btn-minus custome-btn" style="font-size: 0.5rem; border-radius: 50%;">
+                                        <i class="fa fa-minus" style="font-size: 0.7rem; color: #141414"></i>
+                                    </button>
+                                </div>
+                                <input type="text" class="form-control form-control-sm text-center border-0" value="{{item.quantity}}" style="background: transparent; padding-bottom: 12px;">
+                                <div class="input-group-btn">
+                                    <button (click)="increaseQuantity(item.id)" class="btn btn-sm btn-plus custome-btn" style="font-size: 0.5rem; border-radius: 50%;">
+                                        <i class="fa fa-plus" style="font-size: 0.7rem; color: #141414"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </td>
+                        <td class="align-middle"style="font-size: 1rem;">{{item.total | number:'1.0-0' }}<u style="font-size: 0.9rem;">đ</u></td>
+                        <td class="align-middle"><button class="btn btn-sm customee-btn" style="border-radius: 50%; padding-left: 8px; padding-bottom: 2px;" (click)="removeItem(item.id)"><i class="fa fa-times" style="font-size: 1rem; color: #141414 "></i></button></td>
+                   </tr>                                                      
+                </tbody>
+                <ng-template #emptyCart>
+                    <tr>
+                        <td colspan="7" class="text-center">Giỏ hàng của bạn đang trống</td>
+                    </tr>
+                </ng-template>
+            </table>
+        </div>
+        <div class="col-lg-3">
+            <form (ngSubmit)="applyPromotionCode()" class="mb-5" action="" style="box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); border-radius: 5px; border-top: 1px solid bisque; font-size: 0.9rem; padding-bottom: -15px; margin-bottom: -15px;">
+                <div class="input-group" style="font-size: 1rem;">
+                    <input [(ngModel)]="promotionCode" name="promotionCode" type="text" class="form-control p-4" placeholder="Promotion Code">
+                    <div class="input-group-append" >
+                        <button class="btn apply-btn" style="font-size: 1rem; ">Apply</button>
+                    </div>
+                </div>
+            </form>
+            <div class="card border-secondary mb-5" style="box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);">
+                <div class="card-header" style="background-color: rgb(182, 209, 248);">
+                    <h4 class="font-weight-semi-bold m-0" style="font-size: 1.1rem;">Cart Summary</h4>
+                </div>
+                <div class="card-body" style="font-size: 0.8rem;">
+                    <div class="d-flex justify-content-between mb-3 pt-1">
+                        <h6 class="font-weight-medium" style="font-size: 1rem;">Subtotal</h6>
+                        <h6 class="font-weight-medium" style="font-size: 1rem;">{{subtotal | number:'1.0-0'}}<u style="font-size: 0.9rem;">đ</u></h6>
+                    </div>
+                    <div class="d-flex justify-content-between">
+                        <h6 class="font-weight-medium" style="font-size: 1rem;">Shipping</h6>
+                        <h6 class="font-weight-medium" style="font-size: 1rem;">25.000<u style="font-size: 0.9rem;">đ</u></h6>
+                    </div>
+                    <div class="d-flex justify-content-between mt-2 pt-2" *ngIf="discountValue > 0">
+                        <h6 class="font-weight-medium" style="font-size: 1rem;">Discount</h6>
+                        <h6 class="font-weight-medium" style="font-size: 1rem;">-{{ discountValue | number:'1.0-0' }}<u style="font-size: 0.9rem;">đ</u></h6>
+                      </div>
+                </div>
+                <div class="card-footer border-secondary bg-transparent">
+                    <div class="d-flex justify-content-between mt-2">
+                        <h5 class="font-weight-bold" style="font-size: 1rem;">Total</h5>
+                        <h5 class="font-weight-bold" style="font-size: 1rem;">{{ total | number:'1.0-0' }}<u style="font-size: 0.9rem;">đ</u></h5>
+                    </div>
+                    <button class="btn btn-block btn-primary my-3 py-3" style="font-weight: bold; font-size: 1rem; border-radius: 20px; padding-left: 20px; padding-right: 20px; background-color: #f57676;" (click)="order()">Order</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Cart End -->

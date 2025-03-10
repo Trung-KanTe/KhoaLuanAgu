@@ -1,0 +1,86 @@
+.btn-buy {
+    background-color: rgb(248, 64, 64);  /* Nền đỏ */
+    color: rgb(245, 232, 232);           /* Chữ trắng */
+    border: none;
+    padding: 5px 10px;
+    font-size: 16px;
+    font-weight: bold;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.btn-buy:hover {
+    background-color: #fb7575; 
+}
+
+.row.mt-4.w-100 {
+    margin-bottom: 100px; /* Đảm bảo footer không bị đè lên */
+}
+
+.lbl-product{
+    font-size: 1rem !important;
+    color: #1d1a1a !important;
+  }
+
+  .productDetail-container {
+    border: 1px solid rgb(24, 25, 26);
+    border-radius: 10px;
+    padding: 8px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    background-color: #fff;
+  }
+  
+  .productDetail-list {
+    display: flex;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+    justify-content: center;
+    width: 100%;
+  }
+  
+  .productDetail-item {
+    display: flex;
+    align-items: center;
+    gap: 0.3rem;
+  }
+  
+  .lbl-inline{
+    display: inline; 
+    margin-right: 5px;
+  }
+
+  .p-inline{
+    display: inline; margin: 0;
+    font-size: 0.9rem;
+  }
+
+  .bullet-point {
+    position: relative;
+    padding-left: 20px; /* Khoảng cách từ dấu chấm tròn tới nội dung */
+}
+
+.bullet-point::before {
+    content: '•';  /* Dấu chấm tròn */
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-100%);  /* Căn giữa theo chiều dọc */
+    font-size: 20px; /* Kích thước của dấu chấm */
+    color: black; /* Màu sắc của dấu chấm */
+}
+.custom-table-wrapper {
+  display: flex;
+  justify-content: center; /* Căn giữa ngang */
+  align-items: center; /* Căn giữa dọc */
+  height: 100%; /* Đảm bảo bao phủ chiều cao */
+}
+
+.td-custom, 
+.th-custom {
+  padding: 5px 10px !important; /* Giảm padding để giảm chiều cao */
+  word-break: break-word;
+  line-height: 1.2; /* Điều chỉnh chiều cao dòng */
+}

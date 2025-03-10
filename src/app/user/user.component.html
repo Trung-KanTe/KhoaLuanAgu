@@ -1,0 +1,301 @@
+<div class="d-flex align-items-center justify-content-between mt-2 mb-4 flex-wrap">
+  <h3 class="mb-0 mr-auto">User List</h3>
+  <div class="input-group" style="border: 1px solid; border-radius: 30px; max-width: 400px;">
+    <input type="text" class="form-control" style="font-size: 1rem; border-radius: 30px 0 0 30px;" placeholder="Search user information...">
+    <div class="input-group-append">
+      <span class="input-group-text font-weight-bold" style="border-radius: 0 30px 30px 0; cursor: pointer; color: #f85757; background-color: #fff;">
+        <i class="fa fa-search" style="font-weight: bold;"></i>
+      </span>
+    </div>
+  </div>
+  <button (click)="openModal()" class="btn-them ml-5" style="background: none; border: 1px solid #1a1919; border-radius: 5px; padding: 5px 15px; cursor: pointer;">
+    <i class="fas fa-plus" style="color: #f85757; font-size: 1rem; margin-right: 10px;"></i>
+    <span style="color: #f85757; font-size: 1rem; font-weight: bold;">Add</span>
+  </button>
+</div>
+
+<table class="table text-center mb-0 custom-table" style="box-shadow: 0 4px 6px rgba(0, 0, 0, 0.5); border-bottom: 0.5px solid rgb(234, 232, 230);">
+  <thead class="text-dark" style="background-color: rgb(200, 220, 248);">
+      <tr style="font-size: 1rem;">
+          <th style="font-size: 1rem;">Stt</th>
+          <th style="font-size: 1rem;">Name</th>
+          <th style="font-size: 1rem;">Email</th>
+          <th style="font-size: 1rem;">Phone</th>
+          <th style="font-size: 1rem;">Create Date</th>
+          <th style="font-size: 1rem;">Roles</th>
+          <th style="font-size: 1rem;">Status</th>
+          <th style="font-size: 1rem;"></th>
+      </tr>
+  </thead>
+  <tbody class="align-middle">
+      <tr *ngFor="let item of users.items, let i = index">
+        <td class="align-middle" style="font-size: 0.9rem;">{{i + 1}}</td>
+          <td class="align-middle" style="font-size: 0.9rem;">{{item.name}}</td>
+          <td class="align-middle"style="font-size: 0.9rem;">{{item.email}}</td>
+          <td class="align-middle"style="font-size: 0.9rem;">{{item.tel}}</td>          
+          <td class="align-middle"style="font-size: 0.9rem;">{{item.insertedAt | date: 'dd MMM yyyy, hh:mm a'}}</td>
+          <td class="align-middle" style="font-size: 0.9rem;">
+              <ng-container *ngFor="let role of item.roles; let last = last">
+                {{ role.name }}<span *ngIf="!last">, </span>
+              </ng-container>
+            </td>
+          <td class="align-middle"style="font-size: 0.9rem;">{{item.isDeleted}}</td>
+          <td class="align-middle" style="font-size: 0.9rem;">
+              <!-- Icon View Detail -->
+              <button class="btn-user" title="View Detail" style="background: none; border: none; cursor: pointer; transition: background 0.3s;" (click)="openDetailModal(item.id)">
+              <i class="fas fa-eye" style="color: #131414; font-size: 0.9rem;"></i>
+            </button>
+
+              <!-- Icon Edit -->
+              <button class="btn-user" style="background: none; border: none; cursor: pointer; transition: background 0.3s;" (click)="openUpdateModal(item.id)">
+                  <i class="fas fa-edit" style="color: #131414; font-size: 0.9rem;"></i>
+              </button>
+              
+              <!-- Icon Delete -->
+              <button class="btn-user" style="background: none; border: none; cursor: pointer; transition: background 0.3s;" (click)="deleteUser(item.id)">
+                  <i class="fas fa-trash" style="color: #0d0d0d; font-size: 0.9rem;"></i>
+              </button>
+          </td>
+     </tr>                                                      
+  </tbody>
+ 
+</table>
+
+<div class="col-12 pb-1 mt-4">
+  <nav aria-label="Page navigation" style="font-size: 0.9rem;">
+    <ul class="pagination justify-content-center mb-3">
+      <!-- Nút Previous -->
+      <li class="page-item" [class.disabled]="currentPage === 1">
+        <a class="page-link" href="#" aria-label="Previous" (click)="loadPage(currentPage - 1)">
+          <span aria-hidden="true">&laquo;</span>
+        </a>
+      </li>
+
+      <!-- Hiển thị số trang động -->
+      <li *ngFor="let page of totalPagesArray" class="page-item" [class.active]="currentPage === page">
+        <a class="page-link" href="#" (click)="loadPage(page)">{{ page }}</a>
+      </li>
+
+      <!-- Nút Next -->
+      <li class="page-item" [class.disabled]="currentPage === totalPages">
+        <a class="page-link" href="#" aria-label="Next" (click)="loadPage(currentPage + 1)">
+          <span aria-hidden="true">&raquo;</span>
+        </a>
+      </li>
+    </ul>
+  </nav>
+</div>
+<!-- Modal Add -->
+<div class="modal-overlay d-flex align-items-center justify-content-center" *ngIf="showModal" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.6); z-index: 999;">
+  <div class="modal-container col-md-10 bg-white p-4 rounded shadow position-relative" style="max-width: 1000px;">
+    <div class="d-flex align-items-center justify-content-between mb-4" style="border-bottom: 1px solid black;">
+      <h4 class="mb-0" style="font-size: 1.3rem;">Add New User</h4>
+      <button class="close-btn position-absolute" (click)="closeModal()" style="top: 5px; right: 5px; background: none; border: none; cursor: pointer;">
+        <i class="fas fa-times" style="color: #f85757; font-size: 1.2rem;"></i>
+      </button>
+    </div>
+
+    <div class="form-group mb-3 row">
+      <div class="col-6">
+        <label class="lbl-brand">Name</label>
+        <input class="form-control" type="text" [(ngModel)]="user.name" placeholder="Trung" style="font-size: 0.9rem; border: 1px solid rgb(34, 34, 35); border-radius: 10px;">
+      </div>
+      <div class="col-6">
+        <label class="lbl-brand">Email</label>
+        <input class="form-control" type="text" [(ngModel)]="user.email" placeholder="example@gmail.com" style="font-size: 0.9rem; border: 1px solid rgb(38, 39, 40); border-radius: 10px;">
+        </div>
+  </div> 
+  <div class="form-group mb-3 row">
+      <div class="col-6">
+        <label class="lbl-brand">Phone</label>
+        <input class="form-control" type="text" [(ngModel)]="user.tel" placeholder="+84 987 567" style="font-size: 0.9rem; border: 1px solid rgb(38, 39, 40); border-radius: 10px;">
+      </div>
+      <div class="col-6">
+        <label class="lbl-brand">Roles</label>  
+          <div class="role-container">
+            <div class="role-list">
+              <div *ngFor="let role of roles" class="role-item">
+                <input type="checkbox" 
+                       [value]="role.id" 
+                       (change)="toggleRoleSelection(role.id, $event)" />
+                <span style="font-size: 0.95rem;">{{ role.name }}</span>
+              </div>
+            </div>      
+          </div>
+      </div>
+    </div>
+    <div class="form-group mb-3 row">
+      <div class="col-4">
+        <label class="lbl-product">Province</label>
+        <select class="form-control" [(ngModel)]="user.province" (change)="onProvinceChange()" style="font-size: 0.9rem; border: 1px solid rgb(34, 34, 35); border-radius: 10px;">
+          <option [ngValue]="null">-- Select Province --</option>
+          <option *ngFor="let province of provinces" [ngValue]="province.id">{{ province.fullName }}</option>
+        </select>
+      </div>
+      <div class="col-4">
+        <label class="lbl-product">District</label>
+        <select class="form-control" [(ngModel)]="user.district" (change)="onDistrictChange()" style="font-size: 0.9rem; border: 1px solid rgb(34, 34, 35); border-radius: 10px;">
+          <option value="" disabled selected>-- Select District --</option>
+          <option *ngFor="let district of districts" [ngValue]="district.id">{{ district.fullName }}</option>
+        </select>
+      </div>
+      <div class="col-4">
+        <label class="lbl-product">Ward</label>
+        <select class="form-control" [(ngModel)]="user.ward" style="font-size: 0.9rem; border: 1px solid rgb(34, 34, 35); border-radius: 10px;">
+          <option value="" disabled selected>-- Select Ward --</option>
+          <option *ngFor="let ward of wards" [ngValue]="ward.id">{{ ward.fullName }}</option>
+        </select>
+      </div>
+    </div>
+    <div class="form-group mb-3 row">
+      <div class="col-12">
+        <label class="lbl-brand">Address</label>
+        <input class="form-control" type="text" [(ngModel)]="user.address" placeholder="An Giang" style="font-size: 0.9rem; border: 1px solid rgb(38, 39, 40); border-radius: 10px;">
+      </div>     
+    </div>
+
+    <div class="d-flex justify-content-end mt-3">     
+      <button class="btn btn-primary" (click)="saveChanges()" style="border-radius: 10px;">Save Changes</button>
+    </div>
+  </div>
+</div>
+
+
+<!-- Modal Update -->
+<div class="modal-overlay d-flex align-items-center justify-content-center" *ngIf="showUpdateModal" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.6); z-index: 999;">
+  <div class="modal-container col-md-10 bg-white p-4 rounded shadow position-relative" style="max-width: 1000px;">
+    <div class="d-flex align-items-center justify-content-between mb-4" style="border-bottom: 1px solid black;">
+      <h4 class="mb-0" style="font-size: 1.3rem;">Update Product</h4>
+      <button class="close-btn position-absolute" (click)="closeUpdateModal()" style="top: 5px; right: 5px; background: none; border: none; cursor: pointer;">
+        <i class="fas fa-times" style="color: #f85757; font-size: 1.2rem;"></i>
+      </button>
+    </div>
+
+    <div class="form-group mb-3 row">
+      <div class="col-6">
+        <label class="lbl-brand">Name</label>
+        <input class="form-control" type="text" [(ngModel)]="selectedUser.name" placeholder="Trung" style="font-size: 0.9rem; border: 1px solid rgb(34, 34, 35); border-radius: 10px;">
+      </div>
+      <div class="col-6">
+        <label class="lbl-brand">Email</label>
+        <input class="form-control" type="text" [(ngModel)]="selectedUser.email" placeholder="example@gmail.com" style="font-size: 0.9rem; border: 1px solid rgb(38, 39, 40); border-radius: 10px;">
+      </div>
+    </div>
+
+    <div class="form-group mb-3 row">
+      <div class="col-6">
+        <label class="lbl-brand">Phone</label>
+        <input class="form-control" type="text" [(ngModel)]="selectedUser.tel" placeholder="+84 987 025" style="font-size: 0.9rem; border: 1px solid rgb(38, 39, 40); border-radius: 10px;">
+      </div>
+      <div class="col-6">
+        <label class="lbl-brand">Status</label>
+        <select class="form-control" [(ngModel)]="selectedUser.isDeleted" style="font-size: 0.9rem; border: 1px solid rgb(34, 34, 35); border-radius: 10px;">
+          <option [ngValue]="true">True</option>
+          <option [ngValue]="false">False</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="form-group mb-3 row">
+      <div class="col-6">
+        <label class="lbl-brand">Roles</label>  
+      <div class="role-container">
+        <div class="role-list">
+          <div *ngFor="let role of roles" class="role-item">
+            <input type="checkbox" 
+                   [value]="role.id" 
+                   (change)="toggleRoleSelection(role.id, $event)" />
+            <span style="font-size: 0.95rem;">{{ role.name }}</span>
+          </div>
+        </div>      
+      </div>
+      </div>      
+    </div>
+   
+    <div class="form-group mb-3 row">
+      <div class="col-4">
+        <label class="lbl-product">Province</label>
+        <select class="form-control" [(ngModel)]="selectedUser.province" (change)="onProvinceChange()" style="font-size: 0.9rem; border: 1px solid rgb(34, 34, 35); border-radius: 10px;">
+          <option *ngFor="let province of provinces" [ngValue]="province.id">{{ province.fullName }}</option>
+        </select>
+      </div>
+      <div class="col-4">
+        <label class="lbl-product">District</label>
+        <select class="form-control" [(ngModel)]="selectedUser.district" (change)="onDistrictChange()" style="font-size: 0.9rem; border: 1px solid rgb(34, 34, 35); border-radius: 10px;">
+          <option *ngFor="let district of districts" [ngValue]="district.id">{{ district.fullName }}</option>
+        </select>
+      </div>
+      <div class="col-4">
+        <label class="lbl-product">Ward</label>
+        <select class="form-control" [(ngModel)]="selectedUser.ward" style="font-size: 0.9rem; border: 1px solid rgb(34, 34, 35); border-radius: 10px;">
+          <option *ngFor="let ward of wards" [ngValue]="ward.id">{{ ward.fullName }}</option>
+        </select>
+      </div>
+    </div>
+    <div class="form-group mb-3 row">
+      <div class="col-12">
+        <label class="lbl-brand">Address</label>
+        <input class="form-control" type="text" [(ngModel)]="selectedUser.address" placeholder="An Giang" style="font-size: 0.9rem; border: 1px solid rgb(38, 39, 40); border-radius: 10px;">
+      </div>     
+    </div>  
+
+    <div class="d-flex justify-content-end mt-3">
+      <button class="btn btn-primary" (click)="saveUpdateChanges()" style="border-radius: 10px;">Save Changes</button>
+    </div>
+  </div>
+</div>
+
+<!-- Modal View Detail -->
+<div class="modal-overlay d-flex align-items-center justify-content-center" *ngIf="showDetailModal" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.6); z-index: 999;">
+  <div class="col-md-8 bg-white p-4 rounded shadow position-relative" style="max-width: 800px;">
+    <div class="d-flex align-items-center justify-content-between mb-4" style="border-bottom: 1px solid black;">
+      <h4 class="mb-0" style="font-size: 1.3rem;">View Detail User</h4>
+      <button class="close-btn position-absolute" (click)="closeDetailModal()" style="top: 5px; right: 5px; background: none; border: none; cursor: pointer;">
+        <i class="fas fa-times" style="color: #f85757; font-size: 1.2rem;"></i>
+      </button>
+    </div>
+
+    <div class="form-group mb-3">
+        <label class="lbl-product lbl-inline">ID:</label>
+        <p class="p-inline">{{ selectedUser.id }}</p>    
+    </div>
+
+    <div class="form-group mb-3 row">
+      <div class="col-6">
+        <label class="lbl-product lbl-inline">Name:</label>
+        <p class="p-inline">{{ selectedUser.name }}</p>
+      </div>
+      <div class="col-6">
+        <label class="lbl-product lbl-inline">Email:</label>
+        <p class="p-inline">{{ selectedUser.email }}</p>
+      </div>
+    </div>    
+
+    <div class="form-group mb-3 row">       
+      <div class="col-6">
+          <label class="lbl-product lbl-inline">Phone:</label>
+          <p class="p-inline">{{ selectedUser.tel }}</p>
+        </div>
+      <div class="col-6">
+        <label class="lbl-product lbl-inline">Status:</label>
+        <p class="p-inline">{{ selectedUser.isDeleted }}</p>
+      </div>
+    </div>
+    <div class="form-group mb-3">
+      <label class="lbl-product lbl-inline">Create Date:</label>
+      <p class="p-inline">{{ selectedUser.insertedAt | date: 'dd MMM yyyy, hh:mm a'}}</p>
+    </div>  
+    <div class="form-group mb-3">
+      <label class="lbl-product lbl-inline">Address:</label>
+      <p class="p-inline">{{ selectedUser.address }}</p>
+    </div> 
+    <div class="form-group mb-3">
+      <label class="lbl-product">Roles:</label>
+      <div *ngFor="let detail of selectedUser?.roles">
+          <p class="p-inline bullet-point">
+            Id: {{ detail.id }} &nbsp;|&nbsp; Name: {{ detail.name }} 
+          </p>
+    </div>
+
+  </div>
+</div>

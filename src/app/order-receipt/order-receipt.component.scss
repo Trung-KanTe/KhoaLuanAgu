@@ -1,0 +1,45 @@
+.order-receipt {
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    padding: 30px;
+    margin-top: 20px;
+  }
+  
+  .order-receipt h2 {
+    font-size: 2rem;
+    font-weight: bold;
+    color: #28a745;
+  }
+  
+  .order-details p {
+    font-size: 1.1rem;
+    margin-bottom: 10px;
+  }
+  
+  .order-items ul {
+    list-style-type: none;
+    padding: 0;
+  }
+  
+  .order-items .product-item {
+    padding: 10px;
+    background-color: #f9f9f9;
+    border-radius: 5px;
+    margin-bottom: 10px;
+  }
+  
+  .order-items hr {
+    border: 0;
+    border-top: 1px solid #ddd;
+  }
+  
+  button a {
+    text-decoration: none;
+    color: white;
+  }
+  
+  button a:hover {
+    color: white;
+  }
+  

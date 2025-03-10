@@ -1,0 +1,14 @@
+.voucher-left {
+    background: linear-gradient(135deg, #26AA99, #7fefce);
+    color: white;
+    border-radius: 10px;
+    text-align: center;
+    width: 100%;
+    position: relative;
+    clip-path: polygon(0 0, 85% 0, 100% 50%, 85% 100%, 0 100%);
+}
+
+.copy-btn:hover {
+    font-size: 1.4rem !important;
+    transition: all 0.3s ease-in-out;
+}
